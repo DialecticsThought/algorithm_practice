@@ -136,6 +136,7 @@ package algorithmbasic2020_master.class31;
  *  if(y>m) sum+=query(rc,x,y);
  *  return sum;
  *  }
+ * https://www.bilibili.com/video/BV1G34y1L7b3/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=8c3ea033fcc647a394b81960385d0ab8
  * TODO
  *  arr = [5,2,0,1,9,7,2,1,2,3]
  *                       [1,10]
@@ -148,7 +149,7 @@ package algorithmbasic2020_master.class31;
  *  ↙    ↘                      ↙    ↘
  *  [1,1][2,2]                 [6,6][7,7]
  *  tree = [32,17,15,7,10,10,15,7,0,1,9,9,1,2,3,5,2,7,2]
- *  如果我要让arr[7] 位置上加5 ，递归操作如下
+ *  让arr[7] 位置上加5 ，递归操作如下
  *                       [1,10]
  *                                  ↘↖
  *          [1,5]                       [6,10]
@@ -159,6 +160,8 @@ package algorithmbasic2020_master.class31;
  *                                   ↘↖
  *  [1,1][2,2]                 [6,6][7,7]
  *  进tree[1] ↔ 进tree[3] ↔ 进tree[6] ↔ 进tree[12] ↔ 进tree[25]
+ *  入1=> 入3 => 入6 => 入12 => 入25
+ *  => 叶25 7 => 回12 14 => 回6 15 => 回3 20 => 回1 37  这些步骤都有修改祖先节点
  *  查询区间4~9
  *                       [1,10]
  *             ↙↗                    ↘↖
@@ -172,7 +175,7 @@ package algorithmbasic2020_master.class31;
  * 入1 => 入2 => 入5  re10 => 回2 re10  => 回1 s=10 => 入3 =>入6 re10 => 回3 s=10
  * 入7 =>  入14 re2 =>  回7 s=2 re2 =>  回3 s=12 re12 => 回1 s=22 re22
  * 区间修改
- * 例如，对区间[4,9]内的每个数加上5。_如果修改区间[x,y]所覆盖的每个叶子节点，时间将是O(n)的。
+ * 例如，对区间[4,9]内的每个数加上5。如果修改区间[x,y]所覆盖的每个叶子节点，时间将是O(n)的。
  * 我们做懒惰修改,当[x,y]完全覆盖节点区间[a,b]时，先修改该区间的sum值，再打上一个“懒标记”，然后立即返回。
  * 等下次需要时，再下传“懒标记”。这样，可以把每次修改和查询的时间都控制到O(logn)
  *                       [1,10]
