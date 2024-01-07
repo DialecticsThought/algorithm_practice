@@ -1,5 +1,9 @@
 package code_for_great_offer.class05;
 
+/**
+ * 编辑距离
+ * 可以再leetcode中查看EditDistance
+ */
 public class Code03_EditCost {
 
 	public static int minCost1(String s1, String s2, int ic, int dc, int rc) {
@@ -28,6 +32,15 @@ public class Code03_EditCost {
 		return dp[N - 1][M - 1];
 	}
 
+	/**
+	 * 空间压缩版本
+	 * @param str1
+	 * @param str2
+	 * @param ic
+	 * @param dc
+	 * @param rc
+	 * @return
+	 */
 	public static int minCost2(String str1, String str2, int ic, int dc, int rc) {
 		if (str1 == null || str2 == null) {
 			return 0;
@@ -80,7 +93,6 @@ public class Code03_EditCost {
 	* 		所以下一个对比的字符就是word1[idx1+1]和word2[idx2]，也就是distance(word1, word2, idx1, idx2)=1+distance(word1, word2, idx1+1, idx2)；
 	*   在word1替换字符word1[idx1]为word2[idx2]使得跟word2[0:idx2]匹配上（从0到idx2这一段已经转换成功），
 	* 	    所以下一个对比的字符就是word1[idx1+1]和word2[idx2+1]，也就是distance(word1, word2, idx1, idx2)=1+distance(word1, word2, idx1+1, idx2+1)；
-
 	* */
 	private int distance1(String word1, String word2, int idx1, int idx2) {
 		if (idx1 == word1.length()) {

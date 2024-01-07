@@ -1,7 +1,10 @@
 package code_for_great_offer.class05;
 
-// 如果一个节点X，它左树结构和右树结构完全一样，那么我们说以X为头的子树是相等子树
-// 给定一棵二叉树的头节点head，返回head整棵树上有多少棵相等子树
+/**
+ * 题目：
+ * 如果一个节点X，它左树结构和右树结构完全一样，那么我们说以X为头的子树是相等子树
+ * 给定一棵二叉树的头节点head，返回head整棵树上有多少棵相等子树
+ */
 public class Code02_LeftRightSameTreeNumber {
 
 	public static class Node {
@@ -24,14 +27,16 @@ public class Code02_LeftRightSameTreeNumber {
 	}
 
 	public static boolean same(Node h1, Node h2) {
-		if (h1 == null ^ h2 == null) {//意思是 一个为空 一个不为空 就是不相等
+		//意思是 一个为空 一个不为空 就是不相等
+		if (h1 == null ^ h2 == null) {
 			return false;
 		}
-		if (h1 == null && h2 == null) {//如果2个都是空 相同
+		//如果2个都是空 相同
+		if (h1 == null && h2 == null) {
 			return true;
 		}
 		// 两个都不为空
-		//TODO  h1 = h2 + h1的左子树=h1的左子树 + h1的右子树 = h2的右子树
+		//TODO  (h1 = h2) + (h1的左子树=h1的左子树) + (h1的右子树 = h2的右子树)
 		return h1.value == h2.value && same(h1.left, h2.left) && same(h1.right, h2.right);
 	}
 
@@ -96,7 +101,5 @@ public class Code02_LeftRightSameTreeNumber {
 			}
 		}
 		System.out.println("测试结束");
-
 	}
-
 }
