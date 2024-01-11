@@ -10,15 +10,19 @@ import java.util.List;
  * 给定两个字符串s1和s2，问s2最少删除多少字符可以成为s1的子串？
  * 比如 s1 = "abcde"，s2 = "axbc"
  * 返回 1
- * 解法一
- * 求出str2所有的子序列，然后按照长度排序，长度大的排在前面。
- * 然后考察哪个子序列字符串和s1的某个子串相等(KMP)，答案就出来了。
- * 分析：
- * 因为题目原本的样本数据中，有特别说明s2的长度很小。所以这么做也没有太大问题，也几乎不会超时。
- * 但是如果某一次考试给定的s2长度远大于s1，这么做就不合适了。
  */
 public class Code04_DeleteMinCost {
-
+    /**
+     * 解法一
+     * 求出str2所有的子序列，然后按照长度排序，长度大的排在前面。
+     * 然后考察哪个子序列字符串和s1的某个子串相等(KMP)，答案就出来了。
+     * 分析：
+     * 因为题目原本的样本数据中，有特别说明s2的长度很小。所以这么做也没有太大问题，也几乎不会超时。
+     * 但是如果某一次考试给定的s2长度远大于s1，这么做就不合适了。
+     * @param s1
+     * @param s2
+     * @return
+     */
     public static int minCost1(String s1, String s2) {
         List<String> s2Subs = new ArrayList<>();
         process(s2.toCharArray(), 0, "", s2Subs);
@@ -30,7 +34,12 @@ public class Code04_DeleteMinCost {
         }
         return s2.length();
     }
-
+    public static class LenComp implements Comparator<String> {
+        @Override
+        public int compare(String o1, String o2) {
+            return o2.length() - o1.length();
+        }
+    }
     public static void process(char[] str2, int index, String path, List<String> list) {
         if (index == str2.length) {
             list.add(path);
@@ -57,16 +66,24 @@ public class Code04_DeleteMinCost {
      * 这就要求str2[i] == s1sub[j]才有可能，然后str2[0...i-1]变成s1sub[0...j-1]即可，也就是dp[i][j]=dp[i - 1][j - 1]。
      * 若str1长度为N,str2长度为M。str1生成子串时间复杂度为：O(N^2)，遍历生成的dp二维表时间复杂度为O(N*M)，综上算法的时间复杂度为：O(N^3*M)。
      * 如果str1的长度比较小，str2的长度比较大这个方法也适用。
+     *
+     * x字符串只通过删除的方式，变到y字符串
+     * 返回至少要删几个字符
+     * 如果变不成，返回Integer.Max
+     *
+     * 横坐标是s1  代表列
+     * 列坐标是s2  代表行
+     *
+     * str1 (对应 x): "abcde"
+     * str2 (对应 y): "axbc"
+     * 我们的目标是找出 str2 需要删除多少个字符才能成为 str1 的子串。
      */
-    // x字符串只通过删除的方式，变到y字符串
-    // 返回至少要删几个字符
-    // 如果变不成，返回Integer.Max
-    public static int onlyDelete(char[] x, char[] y) {
-        if (x.length < y.length) {
+    public static int onlyDelete(char[] str1, char[] str2) {
+        if (str1.length < str2.length) {
             return Integer.MAX_VALUE;
         }
-        int N = x.length;
-        int M = y.length;
+        int N = str1.length;
+        int M = str2.length;
         int[][] dp = new int[N + 1][M + 1];
         //TODO 初始化 整张表默认都为无效解
         for (int i = 0; i <= N; i++) {
@@ -76,15 +93,54 @@ public class Code04_DeleteMinCost {
         }
         dp[0][0] = 0;//TODO 指定固定 答案
         // dp[i][j]表示前缀长度
+        /**
+         * dp[1][0]表示s2删除1个字符变成 s1的子串，这个子串是空字符串
+         * dp[2][0]表示s2删除2个字符变成 s1的子串，这个子串是空字符串
+         * dp[3][0]表示s2删除3个字符变成 s1的子串，这个子串是空字符串
+         * ....
+         */
         for (int i = 1; i <= N; i++) {
             dp[i][0] = i;
         }
+        /**
+         * 问题的性质：我们的目标是确定 str2（y）需要删除多少字符才能成为 str1（x）的子串。
+         * 这涉及到考虑 str1 和 str2 的所有可能的前缀组合。
+         * 动态规划表 (dp 数组) 的布局：动态规划通常涉及填充一个表，其中每个单元格代表一个子问题的解。
+         * 在这种情况下，dp[xlen][ylen] 表示当 str1 的前 xlen 个字符与 str2 的前 ylen 个字符考虑在内时，
+         * str2 至少需要删除多少字符才能成为 str1 的子串。
+         * 外层循环 - xlen（str1 的前缀）：
+         * 这个循环遍历 str1 的所有可能前缀。对于 str1 的每个前缀，我们需要检查 str2 的所有可能前缀，
+         * 看看 str2 的哪个前缀能最少删除字符数成为当前 str1 前缀的子串。
+         * 通过首先固定 str1 的前缀长度，我们可以逐步扩展我们的子问题范围。
+         * 内层循环 - ylen（str2 的前缀）：
+         * 对于每个固定的 str1 前缀长度 xlen，这个循环遍历 str2 的所有可能前缀。
+         * 这样做是为了找出对于特定 str1 前缀，str2 的哪个前缀需要最少的删除操作。
+         * 这种方式确保了我们为 str1 的每个前缀考虑了 str2 的所有有效前缀。
+         */
         for (int xlen = 1; xlen <= N; xlen++) {
-            // Math.min(M, xlen)是因为dp表的整个右上半部分是无效的
+            /**
+             * Math.min(M, xlen)是因为dp表的整个右上半部分是无效的
+             * ylen <= xlen 确保我们只考虑那些长度小于等于 str1 当前考虑前缀长度的 str2 前缀。
+             *      这是因为如果 str2 的一个前缀要成为 str1 的子串
+             * ylen <= M 因为 ylen 是 str2 的前缀长度，所以它自然不应该超过 str2 的总长度 M。
+             *      这意味着在任何时候，我们考虑的 str2 的前缀都不会超过其自身的长度。
+             * 我们得到 ylen <= Math.min(M, xlen)。
+             * 这个条件实际上是在说：在任何时刻，我们考虑的 str2 的前缀长度应该小于等于 str1 当前前缀的长度和 str2 自身总长度中的较小值
+             */
             for (int ylen = 1; ylen <= Math.min(M, xlen); ylen++) {
                 /*
-                 * TODO 如果s2删去一些字符不能变成s1 那就是Integer.MAX_VALUE
+                 *TODO
+                 * 只有dp[xlen - 1][ylen]是有效的解 那么才有dp[xlen][ylen]存在的可能性
+                 * 假设 str2 的前 xlen 个字符和 str1 的前 ylen 个字符不完全匹配，我们需要考虑删除 str2 的某些字符。
+                 * 当我们看 dp[xlen - 1][ylen] 时，
+                 * 我们考虑的是将 str2 的前 xlen - 1 个字符转换为 str1 的前 ylen 个字符所需的最少删除次数。
+                 * 换句话说，我们已经知道如何最有效地将 str2 的一个较短前缀（不包括最后一个字符）转换为 str1 的当前前缀。
+                 * 接着，我们需要额外删除 str2 的第 xlen 个字符（即当前考虑的最后一个字符），因为它不匹配 str1 的前 ylen 个字符。
+                 * 这就是为什么要在 dp[xlen - 1][ylen] 的基础上加 1。
+                 * TODO
+                 *  如果s2删去一些字符不能变成s1 那就是Integer.MAX_VALUE
                  *  eg: s2= abxs s1=ck
+                 *  只有dp[xlen - 1][ylen]是有效的解 那么才有dp[xlen][ylen]存在的可能性
                  * */
                 if (dp[xlen - 1][ylen] != Integer.MAX_VALUE) {
                     /*
@@ -94,27 +150,41 @@ public class Code04_DeleteMinCost {
                      * 就要让s2的0~xlen-2的字符串删除一些字符变成s1的0~ylen-1
                      * eg:
                      * s2 = abcs s1 = ac
-                     * s2的abc 变成 ac 对应dp[xlen - 1][ylen] 然后再删除s 对应+1
+                     * 我们正在计算 dp[4][2]（即将 "abcs" 转换为 "ac"）。
+                     * 我们已经知道 dp[3][2]（即将 "abc" 转换为 "ac"），现在只需额外删除 's'（str2 的第四个字符）。
+                     * 因此，dp[4][2] = dp[3][2] + 1
+                     * 总结：这段代码通过考虑删除 str2 的最后一个字符来更新 dp 表，以找到将 str2 的前缀转换为 str1 的前缀所需的最少删除次数。
                      * */
                     dp[xlen][ylen] = dp[xlen - 1][ylen] + 1;
                 }
                 /*
-                 * TODO s1和s2的最后一个字符相同
-                 *  就让 就要让s2的0~xlen-2的字符串删除一些字符变成s1的0~ylen-2
+                 * TODO
+                 *  s1和s2的最后一个字符相同 且 dp[xlen - 1][ylen - 1]是有效的
+                 *  就要让s2的0~xlen-2的字符串删除一些字符变成s1的0~ylen-2
+                 *  如果相等，且没有必要删除这个字符，则考虑不删除任何字符的情况。
+                 *  这里使用 Math.min 选择保留字符和删除字符中的最小删除次数。
+                 * TODO
+                 *  当 str1 和 str2 的当前字符相匹配时，我们有可能不需要进行任何删除操作（至少对于这对字符而言）。
+                 *  因此，我们可以考虑直接从 str1 和 str2 的较短前缀（去掉当前匹配的字符）继承最小删除次数。
+                 *  dp[xlen - 1][ylen - 1] 表示 str1 和 str2 去掉当前匹配字符后的前缀之间的最小删除次数。
+                 *  如果当前字符相匹配，那么这个值就是一个潜在的最小值。
+                 *  Math.min(dp[xlen][ylen], dp[xlen - 1][ylen - 1]) 确保我们选择了到目前为止可能的最小值。
+                 *  这是因为 dp[xlen][ylen] 可能已经在之前的步骤中被更新（例如通过删除 str2 的其他字符）。
+                 *  例子
+                 *  假设：
+                 *  str1 = "abc"，str2 = "ac"，
+                 *  我们正在计算 dp[3][2]（即将 "abc" 转换为 "ac"）。
+                 *  由于 str1 和 str2 的最后一个字符都是 'c'（匹配），我们检查 dp[2][1]（即将 "ab" 转换为 "a"）。
+                 *  如果 dp[2][1] 是有效的，并且比当前的 dp[3][2] 值小或相等，那么我们将 dp[3][2] 更新为 dp[2][1]。
+                 *  总结：这段代码处理字符匹配的情况，通过比较保留当前字符和删除当前字符的情况，以确定到达当前状态的最小删除次数。
+                 *  这是动态规划算法中处理匹配字符的关键步骤。
                  * */
-                if (x[xlen - 1] == y[ylen - 1] && dp[xlen - 1][ylen - 1] != Integer.MAX_VALUE) {
+                if (str1[xlen - 1] == str2[ylen - 1] && dp[xlen - 1][ylen - 1] != Integer.MAX_VALUE) {
                     dp[xlen][ylen] = Math.min(dp[xlen][ylen], dp[xlen - 1][ylen - 1]);
                 }
             }
         }
         return dp[N][M];
-    }
-
-    public static class LenComp implements Comparator<String> {
-        @Override
-        public int compare(String o1, String o2) {
-            return o2.length() - o1.length();
-        }
     }
 
     /**
@@ -158,10 +228,10 @@ public class Code04_DeleteMinCost {
          * str2[0..i]仅通过删除行为变成s1sub[0..j]的最小代价
          * 可能性一：
          * str2[0..i]变的过程中，不保留最后一个字符(str2[i]),
-         * 那么就是通过str2[0..i-1]变成s1sub[0..j]之后，再最后删掉str2[i]即可 -> dp[i][j] = dp[i-1][j] + 1
+         * 那么就是通过str2[0..i-1]变成s1的子串[0..j]之后，再最后删掉str2[i]即可 -> dp[i][j] = dp[i-1][j] + 1
          * 可能性二：
          * str2[0..i]变的过程中，想保留最后一个字符(str2[i])，然后变成s1sub[0..j],
-         * 这要求str2[i] == s1sub[j]才有这种可能, 然后str2[0..i-1]变成s1sub[0..j-1]即可
+         * 这要求str2[i] == s1sub[j]才有这种可能, 然后str2[0..i-1]变成s1的子串[0..j-1]即可
          * 也就是str2[i] == s1sub[j] 的条件下，dp[i][j] = dp[i-1][j-1]
          */
         dp[0][0] = str2[0] == s1sub[0] ? 0 : Integer.MAX_VALUE;
@@ -186,7 +256,12 @@ public class Code04_DeleteMinCost {
         return dp[row - 1][col - 1];
     }
 
-    // 解法二的优化
+    /**
+     * 解法二的优化
+     * @param s1
+     * @param s2
+     * @return
+     */
     public static int minCost3(String s1, String s2) {
         if (s1.length() == 0 || s2.length() == 0) {
             return s2.length();

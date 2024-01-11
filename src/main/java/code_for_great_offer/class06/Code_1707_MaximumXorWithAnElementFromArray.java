@@ -1,7 +1,7 @@
 package code_for_great_offer.class06;
 
 // 测试链接 : https://leetcode.com/problems/maximum-xor-with-an-element-from-array/
-public class Code03_MaximumXorWithAnElementFromArray {
+public class Code_1707_MaximumXorWithAnElementFromArray {
 
 	public static int[] maximizeXor(int[] nums, int[][] queries) {
 		int N = nums.length;
@@ -45,9 +45,14 @@ public class Code03_MaximumXorWithAnElementFromArray {
 			}
 		}
 
-		// 这个结构中，已经收集了一票数字
-		// 请返回哪个数字与X异或的结果最大，返回最大结果
-		// 但是，只有<=m的数字，可以被考虑
+		/**
+		 * 这个结构中，已经收集了一票数字
+		 * 请返回哪个数字与X异或的结果最大，返回最大结果
+		 * 但是，只有<=m的数字，才可以被考虑
+		 * @param x
+		 * @param m
+		 * @return
+		 */
 		public int maxXorWithXBehindM(int x, int m) {
 			if (head.min > m) {
 				return -1;
@@ -59,11 +64,11 @@ public class Code03_MaximumXorWithAnElementFromArray {
 				int path = (x >> move) & 1;
 				// 期待遇到的东西
 				int best = (path ^ 1);
-				//一个条件是不存在想走的那条路 或者 存在但是想走的哪条路径的最小值 大于 要求的m的话 只能走反向
+				//一个条件是不存在想走的那条路 或者 存在但是想走的哪条路径的最小值 大于 要求的min的话 只能走反向
 				best ^= (cur.nexts[best] == null || cur.nexts[best].min > m) ? 1 : 0;
 				// best变成了实际遇到的
 				ans |= (path ^ best) << move;
-				//设置答案并且往下移动
+				// 设置答案并且往下移动
 				cur = cur.nexts[best];
 			}
 			return ans;
