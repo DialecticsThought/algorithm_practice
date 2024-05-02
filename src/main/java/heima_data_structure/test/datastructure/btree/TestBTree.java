@@ -7,16 +7,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TestBTree {
-
+    /**
+     * <pre>
+     *        5               2|5
+     *      /   \     ==>    / | \
+     *   1|2|3   6          1  3  6
+     * </pre>
+     */
     @Test
     @DisplayName("split(t=2)")
     void split1() {
-        /*
-                5               2|5
-              /   \     ==>    / | \
-           1|2|3   6          1  3  6
-
-         */
         BTree tree = new BTree();
         BTree.Node root = tree.root;
         root.leaf = false;
@@ -36,15 +36,17 @@ class TestBTree {
         assertEquals("[6]", root.children[2].toString());
     }
 
+    /**
+     * <pre>
+     *         6                 3|6
+     *      /     \     ==>    /  |  \
+     *  1|2|3|4|5  7         1|2 4|5  7
+     * </pre>
+     */
     @Test
     @DisplayName("split(t=3)")
     void split2() {
-        /*
-                  6                 3|6
-               /     \     ==>    /  |  \
-           1|2|3|4|5  7         1|2 4|5  7
 
-         */
         BTree tree = new BTree(3);
         BTree.Node root = tree.root;
         root.leaf = false;
@@ -261,6 +263,7 @@ class TestBTree {
         tree.remove(1);
         assertEquals("[2, 4]", tree.root.toString());
     }
+
     /**
      * <pre>
      *     3
