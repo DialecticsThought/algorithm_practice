@@ -129,8 +129,9 @@ public class Code04_MostXorZero {
 		for (int i = 0; i < N; i++) {
 			xor ^= arr[i];
 			if (map.containsKey(xor)) { // 可能性2  之前出现过这个异或和
-				/*
-				*TODO 最近出现的位置为pre  说明 pre+1~i 范围是最后一个arr 实现异或和为0的部分
+				/**
+				* TODO
+				* 最近出现的位置为pre  说明 pre+1~i 范围是最后一个arr 实现异或和为0的部分
 				* 那么 dp[pre]+1
 				* 如果pre是-1 那说明 只有一个arr是异或和为0的部分 那就是 0~i整体
 				* */

@@ -1,7 +1,7 @@
 package code_for_great_offer.class07;
 
 // 测试链接 : https://leetcode.com/problems/maximum-gap/
-public class Code03_MaxGap {
+public class Code_164_MaxGap {
     //三次遍历 O(n)
     public static int maximumGap(int[] nums) {
         if (nums == null || nums.length < 2) {
@@ -19,9 +19,12 @@ public class Code03_MaxGap {
             return 0;
         }
         //TODO 每个通知需要三个数据 有没有数 最小值 最大值
-        boolean[] hasNum = new boolean[len + 1];// hasNum[i]i号桶是否进来过数字
-        int[] maxs = new int[len + 1];// maxs[i] i号桶收集的所有数字的最大值
-        int[] mins = new int[len + 1];// mins[i] i号桶收集的所有数字的最小值
+        // hasNum[i]i号桶是否进来过数字
+        boolean[] hasNum = new boolean[len + 1];
+        // maxs[i] i号桶收集的所有数字的最大值
+        int[] maxs = new int[len + 1];
+        // mins[i] i号桶收集的所有数字的最小值
+        int[] mins = new int[len + 1];
 
         int bid = 0;
         for (int i = 0; i < len; i++) {//该数字 进入几号桶 bid

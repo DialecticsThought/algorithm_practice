@@ -54,7 +54,6 @@ public class BTree {
          *                            [5 10 15 20 25]
          *  [1,2,3,4] [5,7,8,9]  [11,12,13,14]  [16,17,18,19]  [21,22,23,24]  [26,27,28,29,30]
          *   0            1           2               3             4             5
-         *
          * @param key
          * @return 比如我要找16 这个key 那么执行该方法 从头节点开始 5 -> 10 -> 15
          * 到20的时候 16 < 20的时候 退出循环  此时 i = 3
@@ -87,7 +86,6 @@ public class BTree {
             // 当前节点是非叶子情况
             return children[i].get(key);
         }
-
         /**
          * 1.向 keys 指定索引处插入 key
          *
@@ -99,7 +97,6 @@ public class BTree {
             keys[index] = key;
             keyNumber++;
         }
-
         /**
          * 2.向 children 指定索引处插入 child
          *
@@ -118,17 +115,14 @@ public class BTree {
             System.arraycopy(keys, index + 1, keys, index, --keyNumber - index);
             return t;
         }
-
         //TODO 移除最左边的 key
         int removeLeftmostKey() {
             return removeKey(0);
         }
-
         //TODO 移除最右边的 key
         int removeRightmostKey() {
             return removeKey(keyNumber - 1);
         }
-
         //TODO 移除指定 index 处的 child
         Node removeChild(int index) {
             Node t = children[index];
@@ -136,27 +130,22 @@ public class BTree {
             children[keyNumber] = null; // help GC
             return t;
         }
-
         //TODO 移除最左边的 child
         Node removeLeftmostChild() {
             return removeChild(0);
         }
-
         //TODO 移除最右边的 child
         Node removeRightmostChild() {
             return removeChild(keyNumber);
         }
-
         //TODO index 孩子处左边的兄弟 先找到index处的孩子 但是要找这个孩子的左兄弟
         Node childLeftSibling(int index) {
             return index > 0 ? children[index - 1] : null;
         }
-
         //TODO index 孩子处右边的兄弟 先找到index处的孩子 但是要找这个孩子的右兄弟
         Node childRightSibling(int index) {
             return index == keyNumber ? null : children[index + 1];
         }
-
         //TODO 复制当前节点的所有 key 和 child 到 target节点
         void moveToTarget(Node target) {
             int start = target.keyNumber;
@@ -170,10 +159,8 @@ public class BTree {
             }
         }
     }
-
     //TODO btree的根节点
     public Node root;
-
     //TODO 树中节点最小度数  所有节点都是统一的值
     int t;
     //TODO 最小key数目
@@ -185,7 +172,6 @@ public class BTree {
         //TODO 最少需要2个孩子
         this(2);
     }
-
     public BTree(int t) {
         this.t = t;
         root = new Node(t);
@@ -193,7 +179,6 @@ public class BTree {
         MAX_KEY_NUMBER = 2 * t - 1;
         MIN_KEY_NUMBER = t - 1;
     }
-
     /**
      * 1. 是否存在
      *
@@ -203,10 +188,8 @@ public class BTree {
     public boolean contains(int key) {
         return root.get(key) != null;
     }
-
     /**
-     * TODO
-     * 2. 新增
+     * TODO 2. 新增
      * 1.首先查找本节点中的插入位置i，如果没有空位 （key 被找到)，应该走更新的逻辑，目前什么没做
      * 2.接下来分两种情况
      *      如果节点是叶子节点，可以直接插入了
@@ -218,7 +201,6 @@ public class BTree {
     public void put(int key) {
         doPut(root, key, null, 0);
     }
-
     /**
      * TODO 递归插入 执行的是这个方法
      *
@@ -254,7 +236,6 @@ public class BTree {
             split(node, parent, index);
         }
     }
-
     /**
      * TODO 分裂方法
      * 创建right节点 也就是新节点(分裂后大于当前left 节点的)，[把t以后的key和child都拷贝过去]重点☆☆☆☆☆
@@ -395,12 +376,10 @@ public class BTree {
         //TODO 3. right 节点作为父节点的孩子
         parent.insertChild(right, index + 1);
     }
-
     // 3. 删除
     public void remove(int key) {
         doRemove(null, root, 0, key);
     }
-
     /**
      * TODO 删除某个节点的key 不是删除节点
      * case 1:当前节点是叶子节点，没找到被删除的key 就直接返回
