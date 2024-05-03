@@ -54,6 +54,7 @@ public class BTree {
          *                            [5 10 15 20 25]
          *  [1,2,3,4] [5,7,8,9]  [11,12,13,14]  [16,17,18,19]  [21,22,23,24]  [26,27,28,29,30]
          *   0            1           2               3             4             5
+         *
          * @param key
          * @return 比如我要找16 这个key 那么执行该方法 从头节点开始 5 -> 10 -> 15
          * 到20的时候 16 < 20的时候 退出循环  此时 i = 3
@@ -86,6 +87,7 @@ public class BTree {
             // 当前节点是非叶子情况
             return children[i].get(key);
         }
+
         /**
          * 1.向 keys 指定索引处插入 key
          *
@@ -97,6 +99,7 @@ public class BTree {
             keys[index] = key;
             keyNumber++;
         }
+
         /**
          * 2.向 children 指定索引处插入 child
          *
@@ -115,14 +118,17 @@ public class BTree {
             System.arraycopy(keys, index + 1, keys, index, --keyNumber - index);
             return t;
         }
+
         //TODO 移除最左边的 key
         int removeLeftmostKey() {
             return removeKey(0);
         }
+
         //TODO 移除最右边的 key
         int removeRightmostKey() {
             return removeKey(keyNumber - 1);
         }
+
         //TODO 移除指定 index 处的 child
         Node removeChild(int index) {
             Node t = children[index];
@@ -130,22 +136,27 @@ public class BTree {
             children[keyNumber] = null; // help GC
             return t;
         }
+
         //TODO 移除最左边的 child
         Node removeLeftmostChild() {
             return removeChild(0);
         }
+
         //TODO 移除最右边的 child
         Node removeRightmostChild() {
             return removeChild(keyNumber);
         }
+
         //TODO index 孩子处左边的兄弟 先找到index处的孩子 但是要找这个孩子的左兄弟
         Node childLeftSibling(int index) {
             return index > 0 ? children[index - 1] : null;
         }
+
         //TODO index 孩子处右边的兄弟 先找到index处的孩子 但是要找这个孩子的右兄弟
         Node childRightSibling(int index) {
             return index == keyNumber ? null : children[index + 1];
         }
+
         //TODO 复制当前节点的所有 key 和 child 到 target节点
         void moveToTarget(Node target) {
             int start = target.keyNumber;
@@ -159,6 +170,7 @@ public class BTree {
             }
         }
     }
+
     //TODO btree的根节点
     public Node root;
     //TODO 树中节点最小度数  所有节点都是统一的值
@@ -172,6 +184,7 @@ public class BTree {
         //TODO 最少需要2个孩子
         this(2);
     }
+
     public BTree(int t) {
         this.t = t;
         root = new Node(t);
@@ -179,6 +192,7 @@ public class BTree {
         MAX_KEY_NUMBER = 2 * t - 1;
         MIN_KEY_NUMBER = t - 1;
     }
+
     /**
      * 1. 是否存在
      *
@@ -188,6 +202,7 @@ public class BTree {
     public boolean contains(int key) {
         return root.get(key) != null;
     }
+
     /**
      * TODO 2. 新增
      * 1.首先查找本节点中的插入位置i，如果没有空位 （key 被找到)，应该走更新的逻辑，目前什么没做
@@ -201,6 +216,7 @@ public class BTree {
     public void put(int key) {
         doPut(root, key, null, 0);
     }
+
     /**
      * TODO 递归插入 执行的是这个方法
      *
@@ -236,14 +252,14 @@ public class BTree {
             split(node, parent, index);
         }
     }
+
     /**
      * TODO 分裂方法
      * 创建right节点 也就是新节点(分裂后大于当前left 节点的)，[把t以后的key和child都拷贝过去]重点☆☆☆☆☆
      * 如果当前被分裂的节点不是叶子结点 那么其孩子节点也要分裂
      * t-1处的 key插入到 parent 的 index 处,index指left 作为孩子时的索引
      * right 节点作为 parent的孩子插入到 index +1处  也就是被分裂节点的右边一个
-     * <p>
-     * <p>
+     * <pre>
      * TODO 叶子结点的情况
      *  eg: t=2
      *              [2]
@@ -279,23 +295,26 @@ public class BTree {
      *          ↙      ↓     ↘
      *      [1,2]    [4,5]    [7,8]
      *  [3,6]这个节点 的孩子0是1,2 ,孩子1是4,5，孩子2是7,8
+     * </pre>
      * TODO
      *   如果被分裂的节点是叶子结点 那么 新创建的节点也是叶子结点
      *   如果被分裂的节点是非叶子结点 那么 新创建的节点也是非叶子结点
      * TODO
-     *  创建right 节点（分裂后大于当前left 节点的)，把t以后的key和child都拷贝过去
+     *  创建right 节点(分裂后大于当前left 节点的)，把t以后的key和child都拷贝过去
      *  t-1处的key插入到 parent 的 index处，index 指 left 作为孩子时的索刳
      *  right节点作为parent的孩子插入到 index+1处
+     *  <pre>
      *  非叶子节点 t=2
      *                 [4]
      *         ↙                 ↘
      *      [2]                  [6,8,10](需要被分裂)
      *    ↙     ↘               ↙  ↓  ↓   ↘
      *  [1]      [3]          [5] [7] [9] [11]
+     *  <pre>
      *  第1步
      *                  [4]
      *          ↙                 ↘
-     *      [2]                    [6,8]                 10(被单独出来成为一个节点)
+     *      [2]                    [6,8]             10(被单独出来成为一个节点)
      *    ↙     ↘                ↙  ↓  ↓
      *  [1]      [3]            [5] [7] [9] [11]
      *  第2步
@@ -316,12 +335,14 @@ public class BTree {
      *      [2]            [10]          [6]
      *    ↙     ↘        ↙     ↘        ↙    ↘
      *  [1]     [3]    [9]   [11]     [5]   [7]
+     *  </pre>
      * TODO 分裂根节点
      *  如果parent == null表示要分裂的是根节点，此时需要创建新根，原来的根节点作为新根的О孩子
      *  否则
      *      创建 right节点（分裂后大于当前left节点的)，把t以后的 key和child都拷贝过去
      *      t-1处的 key插入到 parent 的 index 处，index指left作为孩子时的索引
      *      right 节点作为parent的孩子插入到 index+1处
+     *   <pre>
      *   t=3  当前只有一个
      *       [1,2,3,4,5]
      *  第1步  创建出新的根节点 作为left  新的节点 作为right
@@ -340,6 +361,7 @@ public class BTree {
      *        [3]
      *     ↙        ↘
      *   [1,2]     [4,5]
+     *  </pre>
      *
      * @param left   要分裂的节点
      * @param parent 分裂节点的父节点
@@ -376,10 +398,12 @@ public class BTree {
         //TODO 3. right 节点作为父节点的孩子
         parent.insertChild(right, index + 1);
     }
+
     // 3. 删除
     public void remove(int key) {
         doRemove(null, root, 0, key);
     }
+
     /**
      * TODO 删除某个节点的key 不是删除节点
      * case 1:当前节点是叶子节点，没找到被删除的key 就直接返回
@@ -425,15 +449,19 @@ public class BTree {
             } else { //TODO case4  当前节点是非叶子节点 找到了
                 /**
                  *TODO  这是一个3层的树
-                 *       [9]
-                 *  [8]         [12,15] (是[9]的右侧孩子)
-                 *           [10,11]   [13,14]
+                 *         [9]
+                 *       ↙    ↘
+                 *  [8]       [12,15] (是[9]的右侧孩子)
+                 *            ↙    ↘
+                 *        [10,11]  [13,14]
                  * 要删除[9]这个节点的话  需要找到后继节点10
                  * 把9用10替换掉
                  * 把原始10的key删去
                  *      [10]
-                 * [8]          [12,15](是[10]的右侧孩子)
-                 *          [11]   [13,14]
+                 *     ↙    ↘
+                 *  [8]     [12,15](是[10]的右侧孩子)
+                 *          ↙    ↘
+                 *      [11]   [13,14]
                  *  从[9]这个节点的key=9的索引(0)+1的的孩子  以1号孩子 为根节点 一直找最左侧的分支
                  *  直到到达了最后一层的最左侧节点 把该节点的索引0的key拿出来
                  *  这里是[10,11] 只有一层 直接就是[12,15]的最左侧的子节点
@@ -457,8 +485,9 @@ public class BTree {
     }
 
     /**
-     *TODO
+     * TODO
      * case 5-1
+     * <pre>
      *             [4]
      *       ↙          ↘
      *    [1,2,3]       [5,6]
@@ -472,7 +501,9 @@ public class BTree {
      *           [3]
      *      ↙          ↘
      *    [1,2]       [4,6]
+     * </pre>
      * case 5-2
+     * <pre>
      *            [3]
      *       ↙          ↘
      *    [1,2]       [4,5,6]
@@ -486,7 +517,9 @@ public class BTree {
      *            [4]
      *       ↙          ↘
      *    [2,3]       [5,6]
+     * </pre>
      * case 5-3
+     * <pre>
      *  eg:有一个t=3的树
      *          [3]
      *       ↙          ↘
@@ -503,10 +536,12 @@ public class BTree {
      * 此时把 [3] [1,2]合并
      * 就剩下 []的根节点 和 [1,2,3] 和  单独出来的[5]
      * 最后整个合并 剩下[]的根节点 和 [1,2,3,5]
-     *    []
+     *     []
      *     ↓
      *  [1,2,3,5]
      * 最后把[1,2,3,5] 替换掉原始的根
+     * </pre>
+     * <pre>
      * eg:有一个t=3的树
      *          [3]
      *       ↙        ↘
@@ -520,7 +555,7 @@ public class BTree {
      * 就剩下 []的根节点 和 [1,3] 和  单独出来的[4,5]
      * 最后整个合并 剩下[]的根节点 和 [1,3,4,5]
      * 最后把[1,3,4,5] 替换掉原始的根
-     *
+     * </pre>
      * @param parent
      * @param x
      * @param i
@@ -528,6 +563,7 @@ public class BTree {
     private void balance(Node parent, Node x, int i) {
         /**
          *TODO  case 6 根节点
+         * <pre>
          * eg: t = 3
          *       [4]
          *     ↙      ↘
@@ -548,6 +584,7 @@ public class BTree {
          *   [1,4,5,7]
          *  此时根节点的key数=0 没有用了
          *  用唯一的孩子 变成新的根节点
+         * </pre>
          */
         if (x == root) {
             if (root.keyNumber == 0 && root.children[0] != null) {
