@@ -248,10 +248,12 @@ class TestBTree {
     @Test
     @DisplayName("case2: remove directly")
     public void testRemove2() {
-        /*
-                 3
-               /   \
-             1|2  4|5|6|7
+        /**
+         * <pre>
+         *         3
+         *       /   \
+         *     1|2  4|5|6|7
+         * </pre>
          */
         BTree tree = new BTree(3);
         tree.put(1);
@@ -344,14 +346,16 @@ class TestBTree {
         assertEquals("[5, 6]", tree.root.children[1].toString());
     }
 
+    /**
+     * <pre>
+     *       3
+     *     /   \
+     *  1|2    4|5
+     * </pre>
+     */
     @Test
     @DisplayName("case5: balance merge a")
     public void testRemove6() { // 合并
-        /*
-                  3
-                /   \
-             1|2    4|5
-         */
         BTree tree = new BTree(3);
         tree.put(1);
         tree.put(2);
@@ -363,14 +367,16 @@ class TestBTree {
         assertEquals("[1, 2, 3, 5]", tree.root.toString());
     }
 
+    /**
+     * <pre>
+     *       3
+     *     /   \
+     *  1|2    4|5
+     *  </pre>
+     */
     @Test
     @DisplayName("case5: balance merge b")
     public void testRemove7() { // 合并
-        /*
-                  3
-                /   \
-             1|2    4|5
-         */
         BTree tree = new BTree(3);
         tree.put(1);
         tree.put(2);
@@ -384,30 +390,30 @@ class TestBTree {
 
     /**
      * <pre>
-     *                 4|8                    4
-     *                / | \                  / \
-     *               2  6  10        =>     2  6|8
-     *              /\  /\  /\             /\ / | \
-     *             1 3 5 7 9 11           1 3 5 7 9|10
+     *       4|8                    4
+     *      / | \                  / \
+     *     2  6  10        =>     2  6|8
+     *    /\  /\  /\             /\ / | \
+     *   1 3 5 7 9 11           1 3 5 7 9|10
      *
      *
-     *                 4                       4
-     *                / \                     / \
-     *               2  6|8        =>        2   6
-     *              /\ / | \                /\  / \
-     *             1 3 5 7  9              1 3 5  7|8
+     *       4                       4
+     *      / \                     / \
+     *     2  6|8        =>        2   6
+     *    /\ / | \                /\  / \
+     *   1 3 5 7  9              1 3 5  7|8
      *
      *
-     *                 4                       4
-     *                / \                     / \
-     *               2   6         =>        2   _      =>     2|4
-     *              /\   /\                 /\  /             / | \
-     *             1  3 5  7               1 3 5|6           1 3 5|6
+     *       4                       4
+     *      / \                     / \
+     *     2   6         =>        2   _      =>     2|4
+     *    /\   /\                 /\  /             / | \
+     *   1  3 5  7               1 3 5|6           1 3 5|6
      *
-     *               2|4                       2
-     *              / | \          =>         / \
-     *             1 3  5                    1  3|4
-     *         </pre>
+     *     2|4                       2
+     *    / | \          =>         / \
+     *   1 3  5                    1  3|4
+     * </pre>
      */
     @Test
     @DisplayName("case6: from right to left")
