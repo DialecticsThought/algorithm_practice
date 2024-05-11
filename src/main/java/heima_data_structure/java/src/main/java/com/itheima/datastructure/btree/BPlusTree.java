@@ -15,6 +15,13 @@ import java.io.*;
  * 数据指针仅存在于 B+ 树上的叶节点上，而数据指针存在于 B 树上的内部节点、叶节点或根节点中。
  * 叶子在 B 树上不相互连接，而在 B+ 树上连接。
  * 对 B+ 树的操作比对 B 树的操作更快
+ * <p>
+ * https://www.cnblogs.com/nullzx/p/8729425.html
+ * https://blog.csdn.net/c630843901/article/details/121423196
+ * https://www.prepbytes.com/blog/tree/b-tree-in-data-structure/
+ * https://www.scaler.com/topics/data-structures/b-plus-trees/
+ * https://byjus.com/gate/b-plus-tree-in-dbms-notes/
+ * https://www.programiz.com/dsa/b-plus-tree
  */
 public class BPlusTree {
     int m;
