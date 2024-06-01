@@ -2,7 +2,7 @@ package algorithmbasic2020_master.class32;
 
 /**
  * TODO
- * https://www.bilibili.com/video/BV1rE411a7x9/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=8c3ea033fcc647a394b81960385d0ab8
+ * https://www.bilibili.com/video/BV1rE411a7x9/
  * 有一个数组
  * arr = [a,b,c,d,e,f,g,h,i,j,k,l,m,n]
  * [1,10,11,100,101,110,111,1000,1001,1010,1011,1100,1101,1110]
@@ -16,24 +16,44 @@ package algorithmbasic2020_master.class32;
  * 树的每一个节点是c[i]，这个树用树状数组c表示
  * 也就是c的length和arr的length相同
  * arr = [a,b,c,d,e,f,g,h,i,j,k,l,m,n] 用树状数组表示
- *                      h
- *          d                           l
- *    b            f            j               n
- * a    c       e    g      i       k       m
+ * <pre>
+ *                       h
+ *              ↙                   ↘
+ *          d                         l
+ *       ↙     ↘                   ↙      ↘
+ *    b           f             j             n
+ *  ↙  ↘         ↙  ↘         ↙  ↘
+ * a    c       e    g      i      k       m
+ * </pre>
  * 对这颗树进行改造 每一个节点的值 c[i] = 原始的值 + 左子节点的值
+ * <pre>
  *                      h
+ *             ↙                   ↘
  *          d                           l
- *   a+b          e+f           i+j             m+n
+ *      ↙     ↘                     ↙     ↘
+ *   a+b          e+f           i+j            m+n
+ *  ↙   ↘        ↙   ↘         ↙   ↘         ↙
  * a     c      e     g      i       k      m
+ * </pre>
+ * <pre>
  *                      h
- *         a+b+d                          i+j+l
+ *             ↙                    ↘
+ *         a+b+d                       i+j+l
+ *        ↙     ↘                     ↙     ↘
  *   a+b          e+f           i+j             m+n
+ *   ↙  ↘         ↙  ↘         ↙  ↘           ↙
  * a     c      e     g      i       k      m
+ * </pre>
  * 下面是树状数组的最终版本
- *                    a+b+d+h+i+j+l
- *         a+b+d                          i+j+l
+ * <pre>
+ *                   a+b+d+h+i+j+l
+ *               ↙                    ↘
+ *         a+b+d                       i+j+l
+ *        ↙     ↘                     ↙     ↘
  *   a+b          e+f           i+j             m+n
+ *   ↙  ↘         ↙  ↘         ↙  ↘           ↙
  * a     c      e     g      i       k      m
+ * </pre>
  * 满足c[i]
  * = a[x]  x是奇数
  * = a[1] + a[2] + ... + a[x]  x是2的次方幂
