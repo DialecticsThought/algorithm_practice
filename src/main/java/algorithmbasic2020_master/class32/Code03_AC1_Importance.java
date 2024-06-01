@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * https://www.bilibili.com/video/BV1Ag41117YU/?spm_id_from=333.788.top_right_bar_window_custom_collection.content.click
+ * https://www.bilibili.com/video/BV1Ag41117YU/
+ * <p>
  * 一、构建fail指针的遍历为层次遍历。
  * 二、root节点的fail指针指向自己本身。
  * 三、如果当前节点父节点的fail指针指向的节点下存在与当前节点一样的子节点，
@@ -17,33 +18,51 @@ import java.util.Queue;
  * <p>
  * 每个节点都有可能无法继续向下进行匹配，每个节点都要去构建
  * 敏感词：[say,she,shr,he,her]
- *TODO
- * |		  R
- * | 		 ↙ ↘
- * |	   s	 h
- * |	  ↙ ↘	   ↘
- * |	 a   h 	 	e[2]
- * |    ↙   ↙  ↘	   ↘
- * |  y   e     r		r
- * | [3]  [3]   [3]      [3]
- *TODO
- * |         → → → →  ↓ ← ← ← ← ← ← ←
- * |		 ↑		  R → ↑          ↑      1
- * |		 ↑		 ↙ ↘             ↑
- * |		 ↑ ← ← s	 h → → → → → ↑      2
- * |		 ↑	  ↙ ↘ ↗    ↘         ↑
- * |		 ← ← a   h 	 	e[2] → → ↑      3
- * |		 ↑  ↙   ↙  ↘	↑  ↘     ↑
- * |		 ← y    e   r	↑	 r → ↑      4
- * |		 [3,2]  ↓       ↑
- * |               → → → → →
+ * TODO
+ * <pre>
+ *         R
+ *  	  ↙ ↘
+ * 	   s	 h
+ * 	  ↙ ↘	   ↘
+ * 	 a   h 	 	e[2]
+ *  ↙   ↙  ↘	   ↘
+ * y   e     r		r
+ * [3]  [3]   [3]   [3]
+ * </pre>
+ * TODO
+ * <pre>
+ *        → → → →  ↓ ← ← ← ← ← ← ←
+ * 		 ↑		  R → ↑          ↑      1
+ * 		 ↑		 ↙ ↘             ↑
+ * 		 ↑ ← ← s	 h → → → → → ↑      2
+ * 		 ↑	  ↙ ↘ ↗    ↘         ↑
+ * 		 ← ← a   h 	 	e[2] → → ↑      3
+ * 		 ↑  ↙   ↙  ↘	↑  ↘     ↑
+ * 		 ← y    e   r	↑	 r → ↑      4
+ * 		 [3,2]  ↓       ↑
+ *              → → → → →
+ *
+ *       → → → → ↓ ← ← ← ← ← ← ←
+ *  ↑	 		  R → ↑         ↑      1
+ * 	↑	 		 / \            ↑
+ * 	↑	       /    \           ↑
+ *  ↑  ← ← ←  s	     h → → → →  ↑       2
+ *  ↑		 / \   ↗  \         ↑
+ *  ↑	    /   \ ↗    \        ↑
+ * 	↑ ← ←  a     h 	 	e[2] →  ↑       3
+ * 	↑     /     / \       \     ↑
+ * 	↑	 /     /   \       \    ↑
+ * 	↑ ← y    e      r	↑   r → ↑       4
+ * 	   [3,2] ↓          ↑
+ *           →  → → → → →
+ * </pre>
  * 对于第1层的root指向自己
  * 对于第2层的所有节点都是指向root
- * 对于第4层的y节点而言，其父是a，a的fail == root， root无y的分支
- * 对于第3层的h节点而言，其父是s，s的fail == root， root有h的分支
- * 对于第4层的e节点而言，其父是h，h的fail == h， h有e的分支
+ * 对于第4层的y节点而言，其父是a,a的fail == root, root无y的分支
+ * 对于第3层的h节点而言，其父是s,s的fail == root, root有h的分支
+ * 对于第4层的e节点而言，其父是h,h的fail == h, h有e的分支
  */
-public class Code03_AC1 {
+public class Code03_AC1_Importance {
 
     public static class Node {
         public int end; // 有多少个字符串以该节点结尾
