@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 /**
- *TODO undirected graph only
+ * TODO undirected graph only
  * 1）可以从任意节点出发来寻找最小生成树
  * 2）某个点加入到被选取的点中后，解锁这个点出发的所有新的边
  * 3）在所有解锁的边中选最小的边，然后看看这个边会不会形成环
@@ -14,9 +14,9 @@ import java.util.Set;
  * 5）如果不会，要当前边，将该边的指向点加入到被选取的点中，重复2)
  * 6)当所有点都被选取，最小生成树就得到了
  * 3个操作
- * update：到一个新的节点 更新与该点相连的边和点的信息
- * scan：扫描minDict表，找到最小值对应的节点
- * add：添加scan找到的顶点，到一个已选的集合里面，并且根据最小生成的信息创建一条边
+ * scan操作必须首先进行，以找到当前最优的节点。
+ * add操作必须在scan之后进行，以将节点加入到生成树中。
+ * update操作必须在add之后进行，以更新邻接节点的最小距离。
  * <pre>
  * 		    8		7
  *  	 ①-----② ----- ③
@@ -28,29 +28,29 @@ import java.util.Set;
  *     ⑦ -----⑥ ---- ⑤
  *         2       2
  * </pre>
- * <pre>
  * prim 从定点出发 优先选择所有边中的权值最小的边
- * 有2个集合：
- * 一个是已选定点的集合，就是确定路径最小生成树的方式的那些定点集合
- * 一个是未确定最小生成树方式的顶点的集合
- * 有1张表selected：记录顶点是否被选
- * F F F F F F F F F
- * 0 1 2 3 4 5 6 7 8
- * </pre>
+ *
  * <pre>
  * 初始
- * 出发点是0 ★★★★★★★★★★★★
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	F 	F 	F 	F 	F 	F 	F 	F
- * minDist	-  max max max max max max max max
- * parent	-1	-1 -1  -1  -1  -1  -1  -1  -1
- * 1.
- * 0->4,4<max,执行update 0->7,8<max 执行update
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	F 	F 	F 	F 	F 	F 	F 	F
- * minDist	-   4  max max max max max  8 max
- * parent	-1	0  -1  -1  -1  -1  -1   0  -1
- * scan操作，找到minDist[1],然后执行add操作
+ * 初始状态
+ * selected: [false, false, false, false, false, false, false, false, false]
+ * minDist: [0, ∞, ∞, ∞, ∞, ∞, ∞, ∞, ∞]
+ * parent: [-1, -1, -1, -1, -1, -1, -1, -1, -1]
+ *
+ * 1（从节点0开始）
+ * scan操作：
+ * 查找未被选定的节点中最小距离的节点：节点0。
+ * u = 0
+ * add操作：
+ * 标记节点0被选定。
+ * selected: [true, false, false, false, false, false, false, false, false]
+ * 当前没有连接任何边，因为这是起点
+ * update操作：
+ * 更新节点0的邻接节点的最小距离和前驱节点。
+ * 更新节点1的距离为4，前驱节点为0。
+ * 更新节点7的距离为8，前驱节点为0。
+ * minDist: [0, 4, ∞, ∞, ∞, ∞, ∞, 8, ∞]
+ * parent: [-1, 0, -1, -1, -1, -1, -1, 0, -1]
  * | 	 ①      ②       ③
  * |    /
  * |  /
@@ -58,18 +58,21 @@ import java.util.Set;
  * |
  * |
  * |    ⑦       ⑥      ⑤
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	F 	F 	F 	F 	F 	F 	F
- * minDist	-   -  max max max max max  8 max
- * parent	-1	0  -1  -1  -1  -1  -1   0  -1
  *
  * 2.
- * 1->2,8<max,执行update 1->7,11>8 不执行update
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	F 	F 	F 	F 	F 	F 	F
- * minDist	-   -   8 max max max max   8 max
- * parent	-1	0   1  -1  -1  -1  -1   0  -1
- * scan操作，找到minDist[7],然后执行add操作
+ * scan操作：
+ * 查找未被选定的节点中最小距离的节点：节点1。
+ * u = 1
+ * add操作：
+ * 标记节点1被选定。
+ * selected: [true, true, false, false, false, false, false, false, false]
+ * 连接边：0 - 1 (weight: 4)
+ * update操作：
+ * 更新节点1的邻接节点的最小距离和前驱节点。
+ * 更新节点2的距离为8，前驱节点为1。
+ * 更新节点7的距离为10，前驱节点为1（不更新，因为已有更小距离8）。
+ * minDist: [0, 4, 8, ∞, ∞, ∞, ∞, 8, ∞]
+ * parent: [-1, 0, 1, -1, -1, -1, -1, 0, -1]
  * | 	 ①      ②       ③
  * |    /
  * |  /
@@ -77,18 +80,22 @@ import java.util.Set;
  * |  \
  * |   \
  * |    ⑦       ⑥      ⑤
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	T 	F 	F 	F 	F 	T 	F
- * minDist	-   -   8 max max max max   - max
- * parent	-1	0   1  -1  -1  -1  -1   0  -1
  *
  * 3.
- * 7->6,2<max,执行update 7->8,7<max 不执行update
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	F 	F 	F 	F 	F 	T 	F
- * minDist	-   -   8 max max max   2   -   7
- * parent	-1	0   1  -1  -1  -1   7   0   7
- * scan操作，找到minDist[6],然后执行add操作
+ * scan操作：
+ * 查找未被选定的节点中最小距离的节点：节点2。
+ * u = 2
+ * add操作：
+ * 标记节点2被选定。
+ * selected: [true, true, true, false, false, false, false, false, false]
+ * 连接边：1 - 2 (weight: 8)
+ * update操作：
+ * 更新节点2的邻接节点的最小距离和前驱节点。
+ * 更新节点8的距离为2，前驱节点为2。
+ * 更新节点5的距离为7，前驱节点为2。
+ * 更新节点3的距离为7，前驱节点为2。
+ * minDist: [0, 4, 8, 7, ∞, 7, ∞, 8, 2]
+ * parent: [-1, 0, 1, 2, -1, 2, -1, 0, 2]
  * | 	 ①      ②       ③
  * |    /
  * |  /
@@ -96,18 +103,20 @@ import java.util.Set;
  * |  \
  * |   \
  * |    ⑦ ----- ⑥      ⑤
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	F 	F 	F 	F 	T 	T 	F
- * minDist	-   -   8 max max max   -   -   7
- * parent	-1	0   1  -1  -1  -1   7   0   7
  *
  * 4.
- * 6->5,2<max,执行update 6->8,6<7 执行update
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	F 	F 	F 	F 	T 	T 	F
- * minDist	-   -   8 max max   2   -   -   6
- * parent	-1	0   1  -1  -1  -1   7   0   6
- * scan操作，找到minDist[5],然后执行add操作
+ * scan操作：
+ * 查找未被选定的节点中最小距离的节点：节点8。
+ * u = 8
+ * add操作：
+ * 标记节点8被选定。
+ * selected: [true, true, true, false, false, false, false, false, true]
+ * 连接边：2 - 8 (weight: 2)
+ * update操作：
+ * 更新节点8的邻接节点的最小距离和前驱节点。
+ * 更新节点6的距离为6，前驱节点为8。
+ * minDist: [0, 4, 8, 7, ∞, 7, 6, 8, 2]
+ * parent: [-1, 0, 1, 2, -1, 2, 8, 0, 2]
  * | 	 ①      ②       ③
  * |    /
  * |  /
@@ -115,17 +124,21 @@ import java.util.Set;
  * |  \
  * |   \
  * |    ⑦ ----- ⑥ ----- ⑤
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	F 	F 	F 	T 	T 	T 	F
- * minDist	-   -   8 max max   -   -   -   6
- * parent	-1	0   1  -1  -1  -1   7   0   6
  *
  * 5.
- * 5->2,7<8,执行update 5->3,14<max 执行update  5->4,10<max 执行update
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	F 	F 	F 	T 	T 	T 	F
- * minDist	-   -   7  14  10   -   -   -   6
- * parent	-1	0   5   5   5  -1   7   0   6
+ * scan操作：
+ * 查找未被选定的节点中最小距离的节点：节点6。
+ * u = 6
+ * add操作：
+ * 标记节点6被选定。
+ * selected: [true, true, true, false, false, false, true, false, true]
+ * 连接边：8 - 6 (weight: 6)
+ * update操作：
+ * 更新节点6的邻接节点的最小距离和前驱节点。
+ * 更新节点7的距离为2，前驱节点为6。
+ * 更新节点5的距离为2，前驱节点为6。
+ * minDist: [0, 4, 8, 7, ∞, 2, 6, 2, 2]
+ * parent: [-1, 0, 1, 2, -1, 6, 8, 6, 2]
  * scan操作，找到minDist[2],然后执行add操作
  * | 	 ①      ②       ③
  * |    /		   \
@@ -134,18 +147,20 @@ import java.util.Set;
  * |  \               \
  * |   \			   \
  * |    ⑦ ----- ⑥ -----⑤
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	T 	F 	F 	T 	T 	T 	F
- * minDist	-   -   -  14  10   -   -   -   6
- * parent	-1	0   5   5   5  -1   7   0   6
  *
  * 6.
- * 2->8,2<6,执行update
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	T 	F 	F 	T 	T 	T 	F
- * minDist	-   -   -   7  10   -   -   -   2
- * parent	-1	0   5   2   5  -1   7   0   2
- * scan操作，找到minDist[8],然后执行add操作
+ * scan操作：
+ * 查找未被选定的节点中最小距离的节点：节点5。
+ * u = 5
+ * add操作：
+ * 标记节点5被选定。
+ * selected: [true, true, true, false, false, true, true, false, true]
+ * 连接边：6 - 5 (weight: 2)
+ * update操作：
+ * 更新节点5的邻接节点的最小距离和前驱节点。
+ * 不更新，因为所有邻接节点已选定或已有更小距离。
+ * minDist: [0, 4, 8, 7, ∞, 2, 6, 2, 2]
+ * parent: [-1, 0, 1, 2, -1, 6, 8, 6, 2]
  * | 	 ①      ②       ③
  * |    /		 | \
  * |  /          |  \
@@ -153,16 +168,20 @@ import java.util.Set;
  * |  \               \
  * |   \			   \
  * |    ⑦ ----- ⑥ -----⑤
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	T 	F 	F 	T 	T 	T 	T
- * minDist	-   -   -   7  10   -   -   -   -
- * parent	-1	0   5   2   5  -1   7   0   2
+ *
  * 7.
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	T 	F 	F 	T 	T 	T 	T
- * minDist	-   -   -   7  10   -   -   -   -
- * parent	-1	0   5   2   5  -1   7   0   2
- * scan操作，找到minDist[3],然后执行add操作
+ * scan操作：
+ * 查找未被选定的节点中最小距离的节点：节点7。
+ * u = 7
+ * add操作：
+ * 标记节点7被选定。
+ * selected: [true, true, true, false, false, true, true, true, true]
+ * 连接边：6 - 7 (weight: 2)
+ * update操作：
+ * 更新节点7的邻接节点的最小距离和前驱节点。
+ * 不更新，因为所有邻接节点已选定或已有更小距离。
+ * minDist: [0, 4, 8, 7, ∞, 2, 6, 2, 2]
+ * parent: [-1, 0, 1, 2, -1, 6, 8, 6, 2]
  * | 	 ①      ② ----- ③
  * |    /		 | \
  * |  /          |  \
@@ -170,17 +189,21 @@ import java.util.Set;
  * |  \               \
  * |   \			   \
  * |    ⑦ ----- ⑥ -----⑤
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	T 	T 	F 	T 	T 	T 	T
- * minDist	-   -   -   -  10   -   -   -   -
- * parent	-1	0   5   2   5  -1   7   0   6
+ *
+ *
  * 8.
- * 没有更新的了
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	T 	T 	F 	T 	T 	T 	T
- * minDist	-   -   -   -  10   -   -   -   -
- * parent	-1	0   5   2   5  -1   7   0   6
- * scan操作，找到minDist[4],然后执行add操作
+ * scan操作：
+ * 查找未被选定的节点中最小距离的节点：节点3。
+ * u = 3
+ * add操作：
+ * 标记节点3被选定。
+ * selected: [true, true, true, true, false, true, true, true, true]
+ * 连接边：2 - 3 (weight: 7)
+ * update操作：
+ * 更新节点3的邻接节点的最小距离和前驱节点。
+ * 更新节点4的距离为9，前驱节点为3。
+ * minDist: [0, 4, 8, 7, 9, 2, 6, 2, 2]
+ * parent: [-1, 0, 1, 2, 3, 6, 8, 6, 2]
  * | 	 ①      ② ----- ③
  * |    /		   \		\
  * |  /             \		 \
@@ -188,10 +211,20 @@ import java.util.Set;
  * |  \          |    \
  * |   \		 |	   \
  * |    ⑦ ----- ⑥ -----⑤
- * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	T 	T 	T 	T 	T 	T 	T
- * minDist	-   -   -   -   -   -   -   -   -
- * parent	-1	0   5   2   5  -1   7   0   6
+ *
+ * 9
+ * scan操作：
+ * 查找未被选定的节点中最小距离的节点：节点4。
+ * u = 4
+ * add操作：
+ * 标记节点4被选定。
+ * selected: [true, true, true, true, true, true, true, true, true]
+ * 连接边：3 - 4 (weight: 9)
+ * update操作：
+ * 更新节点4的邻接节点的最小距离和前驱节点。
+ * 不更新，因为所有邻接节点已选定或已有更小距离。
+ * minDist: [0, 4, 8, 7, 9, 2, 6, 2, 2]
+ * parent: [-1, 0, 1, 2, 3, 6, 8, 6, 2]
  * </pre>
  */
 public class Code05_Prim {
