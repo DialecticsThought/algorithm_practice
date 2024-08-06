@@ -19,9 +19,10 @@ import java.util.ArrayList;
  * 迭代
  *  主循环：对于每个中间节点k（从 0 到n−1），执行以下操作：
  *      对于每一对节点(i,j)，检查是否通过节点k 可以得到更短的路径。
- *      如果dist[i][j]>dist[i][k]+dist[k][j]，则更新：
- *          dist[i][j]=dist[i][k]+dist[k][j]
- *          pred[i][j]=pred[k][j]
+ *      如果dist[i][j]>dist[i][k]+dist[k][j]，
+ *          则更新：
+ *              dist[i][j]=dist[i][k]+dist[k][j]
+ *              pred[i][j]=pred[k][j]
  * 输出结果
  * 打印或返回距离矩阵dist，以及用于重建路径的前驱矩阵pred
  * </pre>
