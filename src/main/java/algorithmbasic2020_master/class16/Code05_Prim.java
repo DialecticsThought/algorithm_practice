@@ -39,7 +39,7 @@ import java.util.Set;
  * </pre>
  * <pre>
  * 初始
- * 出发点是0
+ * 出发点是0 ★★★★★★★★★★★★
  * 			0 	1	2 	3 	4 	5 	6 	7 	8
  * selected T 	F 	F 	F 	F 	F 	F 	F 	F
  * minDist	-  max max max max max max max max
@@ -62,13 +62,14 @@ import java.util.Set;
  * selected T 	T 	F 	F 	F 	F 	F 	F 	F
  * minDist	-   -  max max max max max  8 max
  * parent	-1	0  -1  -1  -1  -1  -1   0  -1
+ *
  * 2.
  * 1->2,8<max,执行update 1->7,11>8 不执行update
  * 			0 	1	2 	3 	4 	5 	6 	7 	8
- * selected T 	T 	F 	F 	F 	F 	F 	T 	F
- * minDist	-   -   8 max max max max   - max
+ * selected T 	T 	F 	F 	F 	F 	F 	F 	F
+ * minDist	-   -   8 max max max max   8 max
  * parent	-1	0   1  -1  -1  -1  -1   0  -1
- * scan操作，找到minDist[1],然后执行add操作
+ * scan操作，找到minDist[7],然后执行add操作
  * | 	 ①      ②       ③
  * |    /
  * |  /
@@ -78,14 +79,15 @@ import java.util.Set;
  * |    ⑦       ⑥      ⑤
  * 			0 	1	2 	3 	4 	5 	6 	7 	8
  * selected T 	T 	T 	F 	F 	F 	F 	T 	F
- * minDist	-   -   8 max max max max   8 max
+ * minDist	-   -   8 max max max max   - max
  * parent	-1	0  1  -1  -1  -1  -1    0  -1
+ *
  * 3.
  * 7->6,1<max,执行update 7->8,7<max 不执行update
  * 			0 	1	2 	3 	4 	5 	6 	7 	8
  * selected T 	T 	F 	F 	F 	F 	F 	T 	F
  * minDist	-   -   8 max max max   1   -   7
- * parent	-1	0   1  -1  -1  -1   7   0  7
+ * parent	-1	0   1  -1  -1  -1   7   0   7
  * scan操作，找到minDist[6](随便选),然后执行add操作
  * | 	 ①      ②       ③
  * |    /
@@ -98,6 +100,7 @@ import java.util.Set;
  * selected T 	T 	F 	F 	F 	F 	T 	T 	F
  * minDist	-   -   8 max max max   -   -   7
  * parent	-1	0   1  -1  -1  -1   7   0   7
+ *
  * 4.
  * 6->5,2<max,执行update 6->8,6<7 执行update
  * 			0 	1	2 	3 	4 	5 	6 	7 	8
