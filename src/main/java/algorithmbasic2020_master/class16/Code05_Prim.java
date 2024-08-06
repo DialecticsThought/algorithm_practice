@@ -21,12 +21,12 @@ import java.util.Set;
  * 		    8		7
  *  	 ①-----② ----- ③
  *   4/ | 	   2| \ 	|  \ 9
- *   /	 |      |  \    |   \
- *  0	 |11   ⑧   \4  |    ④
- *   \  |	  / |   \   |  /
- *  8 \ | 7/	|    \  |/ 10
+ *   /	|       |  \    |   \
+ *  0	|11    ⑧   \7  |    ④
+ *   \  |	  /|    \  |  /
+ *  8 \ | 7/   |6    \ |/ 10
  *     ⑦ -----⑥ ---- ⑤
- *         1       2
+ *         2       2
  * </pre>
  * <pre>
  * prim 从定点出发 优先选择所有边中的权值最小的边
@@ -80,13 +80,13 @@ import java.util.Set;
  * 			0 	1	2 	3 	4 	5 	6 	7 	8
  * selected T 	T 	T 	F 	F 	F 	F 	T 	F
  * minDist	-   -   8 max max max max   - max
- * parent	-1	0  1  -1  -1  -1  -1    0  -1
+ * parent	-1	0   1  -1  -1  -1  -1   0  -1
  *
  * 3.
- * 7->6,1<max,执行update 7->8,7<max 不执行update
+ * 7->6,2<max,执行update 7->8,7<max 不执行update
  * 			0 	1	2 	3 	4 	5 	6 	7 	8
  * selected T 	T 	F 	F 	F 	F 	F 	T 	F
- * minDist	-   -   8 max max max   1   -   7
+ * minDist	-   -   8 max max max   2   -   7
  * parent	-1	0   1  -1  -1  -1   7   0   7
  * scan操作，找到minDist[6](随便选),然后执行add操作
  * | 	 ①      ②       ③
@@ -119,11 +119,12 @@ import java.util.Set;
  * selected T 	T 	F 	F 	F 	T 	T 	T 	F
  * minDist	-   -   8 max max   -   -   -   6
  * parent	-1	0   1  -1  -1  -1   7   0   6
+ *
  * 5.
- * 5->2,4<8,执行update 5->3,14<max 执行update  5->4,10<max 执行update
+ * 5->2,7<8,执行update 5->3,14<max 执行update  5->4,10<max 执行update
  * 			0 	1	2 	3 	4 	5 	6 	7 	8
  * selected T 	T 	F 	F 	F 	T 	T 	T 	F
- * minDist	-   -   4  14  10   -   -   -   6
+ * minDist	-   -   7  14  10   -   -   -   6
  * parent	-1	0   5   5   5  -1   7   0   6
  * scan操作，找到minDist[2],然后执行add操作
  * | 	 ①      ②       ③
@@ -137,6 +138,7 @@ import java.util.Set;
  * selected T 	T 	T 	F 	F 	T 	T 	T 	F
  * minDist	-   -   -  14  10   -   -   -   6
  * parent	-1	0   5   5   5  -1   7   0   6
+ *
  * 6.
  * 2->8,2<6,执行update
  * 			0 	1	2 	3 	4 	5 	6 	7 	8
