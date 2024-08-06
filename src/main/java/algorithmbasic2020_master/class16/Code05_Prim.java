@@ -88,7 +88,7 @@ import java.util.Set;
  * selected T 	T 	F 	F 	F 	F 	F 	T 	F
  * minDist	-   -   8 max max max   2   -   7
  * parent	-1	0   1  -1  -1  -1   7   0   7
- * scan操作，找到minDist[6](随便选),然后执行add操作
+ * scan操作，找到minDist[6],然后执行add操作
  * | 	 ①      ②       ③
  * |    /
  * |  /
