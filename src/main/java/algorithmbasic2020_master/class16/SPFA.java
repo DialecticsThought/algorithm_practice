@@ -4,7 +4,10 @@ import java.util.*;
 
 /**
  * <pre>
- * SPFA 算法
+ * 假设已经知道一条从 v_0到 v_j的路径 v_0∼v_j，而通过某一节点 v_i（和v_j相连的某一节点）的路径 v_0∼v_i → v_j比原来的路径 v_0∼v_j的距离要小，
+ * 即 d(v_i) + w(e_i,j) < d(v_j) ，其中 d(v_i) 表示从源节点 v0到节点v_i的距离，
+ * 则v_0到节点v_j的距离更新为 d(v_j) <- d(v_i) + w(e_i,j):
+ *  以上操作称之为通过e_i,j对节点v_j的松弛操作，也称通过节点 v_i对节点 v_j 的松弛操作，定义为 relax(v_i,v_j)。
  *
  * SPFA 算法全称是最短路径快速算法 (Shortest Path Faster Algorithm)，它是对 Bellman-Ford 算法的改进
  *
