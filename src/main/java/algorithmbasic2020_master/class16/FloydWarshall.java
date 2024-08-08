@@ -41,114 +41,77 @@ public class FloydWarshall {
      *                 4
      * </pre>
      * <pre>
-     * 初始化距离矩阵和前驱矩阵
-     * Initial distance matrix:
-     * 0   -1  3   INF INF
-     * INF 0   INF 2   INF
-     * INF INF 0   7   4
-     * INF INF -6  0   5
-     * INF INF INF INF 0
+     * 初始状态
+     * 距离矩阵 (dist)
+     * 0   -1   3   ∞   ∞
+     * ∞    0   ∞   2   ∞
+     * ∞    ∞   0   7   4
+     * ∞    ∞  -6   0   5
+     * ∞    ∞   ∞   ∞   0
+     * 前驱矩阵 (pred)
+     * -1   0   0  -1  -1
+     * -1  -1  -1   1  -1
+     * -1  -1  -1   2   2
+     * -1  -1   3  -1   3
+     * -1  -1  -1  -1  -1
      *
-     * Initial predecessor matrix:
-     * 0   0   0   NIL NIL
-     * NIL 1   NIL 1   NIL
-     * NIL NIL 2   2   2
-     * NIL NIL 3   3   3
-     * NIL NIL NIL NIL 4
+     * 第一轮 (k=0)
+     * 对于所有节点i和j，检查是否可以通过节点0使路径更短。
      *
-     * 第1次迭代 (k = 0)
-     * 考虑通过节点 0 (k = 0) 的路径，更新距离矩阵和前驱矩阵：
-     * 更新说明：
-     * 节点0到节点3的距离更新为 0 + 1 = 1
-     * 前驱矩阵中，节点0到节点3的前驱节点更新为1
-     * After considering vertex 0 (distance matrix):
-     * 0   -1  3   1   INF
-     * INF 0   INF 2   INF
-     * INF INF 0   7   4
-     * INF INF -6  0   5
-     * INF INF INF INF 0
+     * 第二轮 (k=1)
+     * 更新步骤：dist[i][j] = dist[i][k] + dist[k][j] (其中k=1)
+     * 示例更新：dist[0][3] = dist[0][1] + dist[1][3] = -1 + 2 = 1
+     * 更新后的矩阵：
+     * 距离矩阵 (dist):
+     * 0   -1   3   1   ∞
+     * ∞    0   ∞   2   ∞
+     * ∞    ∞   0   7   4
+     * ∞    ∞  -6   0   5
+     * ∞    ∞   ∞   ∞   0
+     * 前驱矩阵 (pred):
+     * -1   0   0   1  -1
+     * -1  -1  -1   1  -1
+     * -1  -1  -1   2   2
+     * -1  -1   3  -1   3
+     * -1  -1  -1  -1  -1
      *
-     * After considering vertex 0 (predecessor matrix):
-     * 0   0   0   1   NIL
-     * NIL 1   NIL 1   NIL
-     * NIL NIL 2   2   2
-     * NIL NIL 3   3   3
-     * NIL NIL NIL NIL 4
+     * 第三轮 (k=2)
+     * 更新步骤：dist[i][j] = dist[i][k] + dist[k][j] (其中k=2)
+     * 示例更新：dist[3][3] = dist[3][2] + dist[2][3] = -6 + 7 = 1
+     * 更新后的矩阵：
+     * 距离矩阵 (dist):
+     * 0   -1   3   1   ∞
+     * ∞    0   ∞   2   ∞
+     * ∞    ∞   0   7   4
+     * ∞    ∞  -6   1   5
+     * ∞    ∞   ∞   ∞   0
+     * 前驱矩阵 (pred):
+     * -1   0   0   1  -1
+     * -1  -1  -1   1  -1
+     * -1  -1  -1   2   2
+     * -1  -1   3   2   3
+     * -1  -1  -1  -1  -1
      *
-     * 第2次迭代 (k = 1)
-     * 考虑通过节点 1 (k = 1) 的路径，更新距离矩阵和前驱矩阵：
-     * 更新说明：
-     * 该步无更新
-     * After considering vertex 1 (distance matrix):
-     * 0   -1  3   1   INF
-     * INF 0   INF 2   INF
-     * INF INF 0   7   4
-     * INF INF -6  0   5
-     * INF INF INF INF 0
+     * 第四轮 (k=3)
+     * 更新步骤：dist[i][j] = dist[i][k] + dist[k][j] (其中k=3)
+     * 示例更新：dist[1][4] = dist[1][3] + dist[3][4] = 2 + 5 = 7
+     * 更新后的矩阵：
+     * 距离矩阵 (dist):
+     * 0   -1   3   1   6
+     * ∞    0   ∞   2   7
+     * ∞    ∞   0   7   4
+     * ∞    ∞  -6   1   5
+     * ∞    ∞   ∞   ∞   0
+     * 前驱矩阵 (pred):
+     * -1   0   0   1   3
+     * -1  -1  -1   1   3
+     * -1  -1  -1   2   2
+     * -1  -1   3   2   3
+     * -1  -1  -1  -1  -1
      *
-     * After considering vertex 1 (predecessor matrix):
-     * 0   0   0   1   NIL
-     * NIL 1   NIL 1   NIL
-     * NIL NIL 2   2   2
-     * NIL NIL 3   3   3
-     * NIL NIL NIL NIL 4
-     *
-     * 第3次迭代 (k = 2)
-     * 考虑通过节点 2 (k = 2) 的路径，更新距离矩阵和前驱矩阵
-     * 更新说明：
-     * 节点0到节点4的距离更新为 3 + 4 = 7
-     * 前驱矩阵中，节点0到节点4的前驱节点更新为2
-     * After considering vertex 2 (distance matrix):
-     * 0   -1  3   1   7
-     * INF 0   INF 2   INF
-     * INF INF 0   7   4
-     * INF INF -6  0   5
-     * INF INF INF INF 0
-     *
-     * After considering vertex 2 (predecessor matrix):
-     * 0   0   0   1   2
-     * NIL 1   NIL 1   NIL
-     * NIL NIL 2   2   2
-     * NIL NIL 3   3   3
-     * NIL NIL NIL NIL 4
-     *
-     * 第4次迭代 (k = 3)
-     * 考虑通过节点 3 (k = 3) 的路径，更新距离矩阵和前驱矩阵：
-     * 更新说明：
-     * 节点0到节点2的距离更新为 1 - 6 = -5
-     * 节点0到节点4的距离更新为 1 + 5 = 6
-     * 前驱矩阵中，节点0到节点2的前驱节点更新为3，节点0到节点4的前驱节点更新为2
-     * After considering vertex 3 (distance matrix):
-     * 0   -1  -5  1   6
-     * INF 0   INF 2   INF
-     * INF INF 0   7   4
-     * INF INF -6  0   5
-     * INF INF INF INF 0
-     *
-     * After considering vertex 3 (predecessor matrix):
-     * 0   0   3   1   2
-     * NIL 1   NIL 1   NIL
-     * NIL NIL 2   2   2
-     * NIL NIL 3   3   3
-     * NIL NIL NIL NIL 4
-     *
-     * 第5次迭代 (k = 4)
-     * 考虑通过节点 4 (k = 4) 的路径，更新距离矩阵和前驱矩阵：
-     * 更新说明：
-     * 该步无更新
-     * Final distance matrix:
-     * 0   -1  -5  1   6
-     * INF 0   INF 2   INF
-     * INF INF 0   7   4
-     * INF INF -6  0   5
-     * INF INF INF INF 0
-     *
-     * Final predecessor matrix:
-     * 0   0   3   1   2
-     * NIL 1   NIL 1   NIL
-     * NIL NIL 2   2   2
-     * NIL NIL 3   3   3
-     * NIL NIL NIL NIL 4
+     * 第五轮 (k=4)
+     * 更新步骤：dist[i][j] = dist[i][k] + dist[k][j] (其中k=4)
+     * 此轮不会进行任何更新，因为k=4的行和列中所有值都为INF。
      * </pre>
      *
      * @param nodes
