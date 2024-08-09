@@ -1,6 +1,6 @@
 package heima_data_structure.java.src.main.java.com.itheima.algorithm.recursion_multi;
 
-import org.springframework.util.StopWatch;
+//import org.springframework.util.StopWatch;
 
 import java.util.LinkedList;
 
@@ -42,7 +42,7 @@ public class E02HanoiTower {
 
 
     public static void main(String[] args) {
-        StopWatch sw = new StopWatch();
+/*        StopWatch sw = new StopWatch();
         int n = 1;
         init(n);
         print();
@@ -50,7 +50,7 @@ public class E02HanoiTower {
         move(n, a, b, c);
         sw.stop();
         print();
-        System.out.println(sw.prettyPrint());
+        System.out.println(sw.prettyPrint());*/
     }
 
     private static void print() {

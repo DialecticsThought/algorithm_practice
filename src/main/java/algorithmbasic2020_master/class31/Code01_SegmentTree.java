@@ -34,7 +34,7 @@ package algorithmbasic2020_master.class31;
  * 我们规定：
  * start，end，mid，idx指定的是ARR的索引，node指定的是TREE索引
  * 并且tree[node]=arr[start]~arr[end]的值
- *TODO
+ * TODO
  * 从根节点进入,递归找到叶子节点[x,x]，把该节点的值增加k。然后从下往上更新其祖先节点上的统计值。
  * eg:
  *        [0-5]
@@ -170,36 +170,35 @@ package algorithmbasic2020_master.class31;
  *     [1,3]        [4,5]        [6,8]           [9,10]
  *                                              ↙↗
  *  [1,2]  [3,3]  [4,4] [5,5]  [6,7]  [8,8]  [9,9] [10,10]
- *
- *  [1,1][2,2]                 [6,6][7,7]
+ * <p>
+ * [1,1][2,2]                 [6,6][7,7]
  * 入1 => 入2 => 入5  re10 => 回2 re10  => 回1 s=10 => 入3 =>入6 re10 => 回3 s=10
  * 入7 =>  入14 re2 =>  回7 s=2 re2 =>  回3 s=12 re12 => 回1 s=22 re22
  * 区间修改
  * 例如，对区间[4,9]内的每个数加上5。如果修改区间[x,y]所覆盖的每个叶子节点，时间将是O(n)的。
  * 我们做懒惰修改,当[x,y]完全覆盖节点区间[a,b]时，先修改该区间的sum值，再打上一个“懒标记”，然后立即返回。
  * 等下次需要时，再下传“懒标记”。这样，可以把每次修改和查询的时间都控制到O(logn)
- *                       [1,10]
- *             ↙↗                    ↘↖
- *          [1,5]                       [6,10]
- *                  ↘↖               ↙↗         ↘↖
- *     [1,3]        [4,5]        [6,8]           [9,10]
- *                                              ↙↗
- *  [1,2]  [3,3]  [4,4] [5,5]  [6,7]  [8,8]  [9,9] [10,10]
- *
- *  [1,1][2,2]                 [6,6][7,7]
- *  [4,5]和 [6,8]和[9,9] 这3个节点承接住了，
- *  这样的话，不会传递到[4,4] [5,5] [6,7]  [8,8]这些节点
- *  [6,7]不会传递到 [6,6][7,7]
- *  真需要传递给子节点的时候（添加/修改）就执行pushdown，执行添加/修改，再执行pushup
- *  pushup是因为pushdown之后，子节点变化了，父节点也要变化，
- *  也就是[4,5]和 [6,8]和[9,9]分别传递给子节点，直到某一个节点所在的区间完全被修改或添加的区间覆盖，
- *  这里就是[4,4] [5,5] [6,7]  [8,8]
- *  分配给子节点的时候，还需要计算子节点所占用的区间长度，子节点所占用的区间长度*加上的值(5)
- *  入1 => 入2 => 入5 => sum=20 .a=5(这是完全覆盖,所以修改5) =>  回2 .sum=27
+ * [1,10]
+ * ↙↗                    ↘↖
+ * [1,5]                       [6,10]
+ * ↘↖               ↙↗         ↘↖
+ * [1,3]        [4,5]        [6,8]           [9,10]
+ * ↙↗
+ * [1,2]  [3,3]  [4,4] [5,5]  [6,7]  [8,8]  [9,9] [10,10]
+ * <p>
+ * [1,1][2,2]                 [6,6][7,7]
+ * [4,5]和 [6,8]和[9,9] 这3个节点承接住了，
+ * 这样的话，不会传递到[4,4] [5,5] [6,7]  [8,8]这些节点
+ * [6,7]不会传递到 [6,6][7,7]
+ * 真需要传递给子节点的时候（添加/修改）就执行pushdown，执行添加/修改，再执行pushup
+ * pushup是因为pushdown之后，子节点变化了，父节点也要变化，
+ * 也就是[4,5]和 [6,8]和[9,9]分别传递给子节点，直到某一个节点所在的区间完全被修改或添加的区间覆盖，
+ * 这里就是[4,4] [5,5] [6,7]  [8,8]
+ * 分配给子节点的时候，还需要计算子节点所占用的区间长度，子节点所占用的区间长度*加上的值(5)
+ * 入1 => 入2 => 入5 => sum=20 .a=5(这是完全覆盖,所以修改5) =>  回2 .sum=27
  * .=>回1 => 入3 => 入6 => sum=25 .a=5(这是完全覆盖,所以修改6)  =>  回3
  * => 入7 => 入14 => sum=7 .a=5(这是完全覆盖,所以修改6)
  * => 回7 sum=10(重新求和是因为pushup) =>  回3 sum=35 (重新求和是因为pushup) => 回1 sum=62(重新求和是因为pushup)
- *
  */
 public class Code01_SegmentTree {
 
@@ -211,7 +210,10 @@ public class Code01_SegmentTree {
          * sum[]模拟线段树维护区间和
          * lazy[]为累加和懒惰标记 用来揽住任务
          * change[]为更新的值
+         *  当我们对一个区间 [L, R] 执行更新操作时，我们希望将这个区间内的所有值都设置为 val。
+         *  这个 val 就会被保存到 change 数组的相应位置。
          * update[]为更新慵懒标记
+         *  update[rt] 为 true，则表示 change[rt] 中存储的值需要被应用到该节点的区间
          */
         private int MAXN;
         private int[] arr;
@@ -219,8 +221,10 @@ public class Code01_SegmentTree {
         private int[] lazy;//懒信息
         private int[] change;
         private boolean[] update;
+        private int n;         // 原始数组的大小
 
         public SegmentTree(int[] origin) {
+            n = origin.length;                      // 设置原始数组的大小
             MAXN = origin.length + 1;
             //TODO arr[0] 不用 从1开始使用
             arr = new int[MAXN];
@@ -253,6 +257,8 @@ public class Code01_SegmentTree {
          * rt是父节点的下标
          */
         private void pushDown(int rt, int ln, int rn) {
+            System.out.println("正在将节点的: " + rt + " 懒标记（即未被处理的更新或累加操作）传递给其子节点: ");
+            printNodeState(rt);
             //TODO 针对更新操作
             if (update[rt]) {//TODO 对于 change[rt]有更新的任务
                 //TODO change[rt]的左孩子 也有更新的任务
@@ -294,7 +300,7 @@ public class Code01_SegmentTree {
          */
         public void build(int l, int r, int rt) {
             if (l == r) {//TODO 说明是叶子结点 不用向子节点派发任务
-                sum[rt] = arr[l];//TODO 老数组中的值 直接塞入
+                sum[rt] = arr[l];//TODO 叶子节点的值等于原始数组的值
                 return;
             }
             int mid = (l + r) >> 1;
@@ -302,8 +308,18 @@ public class Code01_SegmentTree {
             build(l, mid, rt << 1);
             //右边的树
             build(mid + 1, r, rt << 1 | 1);
+            // 向上更新当前节点的区间和
             pushUp(rt);
         }
+
+        // 区间更新方法，将[L, R]范围内的所有元素更新为val
+        public void update(int L, int R, int val) {
+            System.out.println("\nUpdating range [" + L + ", " + R + "] to " + val);
+            update(L, R, val, 1, n, 1);             // 从根节点开始执行update操作
+            System.out.println("范围更新过的树:");
+            printAllNodes();                        // 打印整个树的状态
+        }
+
 
         /**
          * TODO
@@ -313,25 +329,34 @@ public class Code01_SegmentTree {
         public void update(int L, int R, int C, int l, int r, int rt) {
             //TODO 如果 change[rt]表示l~r范围
             // 任务如果把此时的范围全包了！
-            if (L <= l && r <= R) {
+            if (L <= l && r <= R) {  // 如果当前区间完全在[L, R]范围内
                 update[rt] = true;//TODO 标志位 设置成true 表示change[rt] 对应的范围的所有数都更新成C
-                change[rt] = C;
+                change[rt] = C; // 设置更新值
                 sum[rt] = C * (r - l + 1);//TODO 这里不是累加 而是设置成一个num = 个数 * C
                 lazy[rt] = 0;//TODO 之前揽住的所有累加的任务 全部清空
                 return;
             }
             // 当前任务躲不掉，无法懒更新，要往下发
-            int mid = (l + r) >> 1;
+            int mid = (l + r) >> 1;  // 计算中点
             //TODO 以前的任务下发给子节点
-            pushDown(rt, mid - l + 1, r - mid);
-            if (L <= mid) {
-                update(L, R, C, l, mid, rt << 1);
+            pushDown(rt, mid - l + 1, r - mid); // 向下传递懒惰标记
+            if (L <= mid) {   // 如果左子区间与[L, R]有重叠
+                update(L, R, C, l, mid, rt << 1);  // 递归处理左子区间
             }
-            if (R > mid) {
-                update(L, R, C, mid + 1, r, rt << 1 | 1);
+            if (R > mid) {  // 如果右子区间与[L, R]有重叠
+                update(L, R, C, mid + 1, r, rt << 1 | 1);  // 递归处理右子区间
             }
-            pushUp(rt);
+            pushUp(rt);  // 向上更新当前节点的区间和
         }
+
+        // 区间增加方法，在[l, r]范围内的所有元素加上val
+        public void add(int L, int R, int val) {
+            System.out.println("\nAdding " + val + " to range [" + L + ", " + R + "]");
+            add(L, R, val, 1, n, 1);                // 从根节点开始执行add操作
+            System.out.println("范围添加某一个值之后的数:");
+            printAllNodes();                        // 打印整个树的状态
+        }
+
 
         /**
          * TODO
@@ -347,11 +372,9 @@ public class Code01_SegmentTree {
              * 当来到sum[i]节点表达的是251~500范围 那么就不会下发任务 因为任务全部包揽了
              * */
             //TODO 这个情况， 任务如果把此时的范围全包了！
-            if (L <= l && r <= R) {
-                //TODO 调整累加和
-                sum[rt] += C * (r - l + 1);
-                //TODO 更新 懒更新的信息  之前揽住的累加的任务 和当前拦住的累加的任务
-                lazy[rt] += C;
+            if (L <= l && r <= R) {// 如果当前区间完全在[L, R]范围内
+                sum[rt] += C * (r - l + 1); //TODO 更新当前节点的区间和
+                lazy[rt] += C; //TODO 更新 懒更新的信息  之前揽住的累加的任务 和当前拦住的累加的任务
                 return;
             }
             //TODO 来到这里说明 任务没有把你全包！
@@ -359,34 +382,57 @@ public class Code01_SegmentTree {
             pushDown(rt, mid - l + 1, r - mid);//TODO 之前的揽住的任务 先下发 用来承接新任务
             //TODO 到这里老的任务 下发完毕 开始新的任务
             // L~R范围
-            if (L <= mid) {//TODO 判断是否要把新的任务发给左孩子
-                add(L, R, C, l, mid, (rt * 2));
+            if (L <= mid) {//TODO  如果左子区间与[L, R]有重叠 判断是否要把新的任务发给左孩子
+                add(L, R, C, l, mid, (rt * 2)); // 递归处理左子区间
             }
-            if (R > mid) {//TODO 判断是否要把新的任务发给右孩子
-                add(L, R, C, mid + 1, r, (rt * 2 + 1));
+            if (R > mid) {//TODO 如果右子区间与[L, R]有重叠 判断是否要把新的任务发给右孩子
+                add(L, R, C, mid + 1, r, (rt * 2 + 1)); // 递归处理右子区间
             }
-            pushUp(rt);//TODO 更新当前节点的累加和
+            pushUp(rt);//TODO 向上更新当前节点的区间和
         }
 
         // 1~6 累加和是多少？ 1~8 rt
         public long query(int L, int R, int l, int r, int rt) {
-            // 任务如果把此时的范围全包了！
-            if (L <= l && r <= R) {
-                return sum[rt];
+            if (L <= l && r <= R) {                 // 如果当前区间完全在[L, R]范围内
+                return sum[rt];                     // 返回当前节点的区间和
             }
-            int mid = (l + r) >> 1;
-            // 以前的任务下发给子节点
-            pushDown(rt, mid - l + 1, r - mid);
+            int mid = (l + r) >> 1;                  // 计算中点
+            pushDown(rt, mid - l + 1, r - mid);     // 向下传递懒惰标记
             long ans = 0;
-            if (L <= mid) {//TODO 判断是否要把新的任务发给左孩子
-                ans += query(L, R, l, mid, rt << 1);
+            if (L <= mid) {                         // 如果左子区间与[L, R]有重叠
+                ans += query(L, R, l, mid, rt << 1); // 递归查询左子区间
             }
-            if (R > mid) {//TODO 判断是否要把新的任务发给右孩子
-                ans += query(L, R, mid + 1, r, rt << 1 | 1);
+            if (R > mid) {                          // 如果右子区间与[L, R]有重叠
+                ans += query(L, R, mid + 1, r, rt << 1 | 1); // 递归查询右子区间
             }
-            return ans;
+            return ans;                             // 返回查询结果
         }
 
+        // 打印所有节点及其详细信息的方法
+        public void printAllNodes() {
+            printAllNodes(1, n, 1);                 // 从根节点开始打印
+        }
+
+        // 递归打印每个节点的信息
+        private void printAllNodes(int l, int r, int rt) {
+            if (l == r) {                           // 如果是叶子节点
+                printNodeState(rt);
+                return;
+            }
+            int mid = (l + r) / 2;                  // 计算中点
+            printNodeState(rt);                     // 打印当前节点状态
+            printAllNodes(l, mid, rt * 2);          // 打印左子树的信息
+            printAllNodes(mid + 1, r, rt * 2 + 1);  // 打印右子树的信息
+        }
+
+        // 打印某个节点的状态
+        private void printNodeState(int rt) {
+            System.out.println("Node: " + rt +
+                    ", sum: " + sum[rt] +
+                    ", lazy: " + lazy[rt] +
+                    ", change: " + change[rt] +
+                    ", update: " + update[rt]);
+        }
     }
 
     public static class Right {
@@ -474,7 +520,7 @@ public class Code01_SegmentTree {
     }
 
     public static void main(String[] args) {
-        int[] origin = {2, 1, 1, 2, 3, 4, 5};
+/*        int[] origin = {2, 1, 1, 2, 3, 4, 5};
         SegmentTree seg = new SegmentTree(origin);
         int S = 1; // 整个区间的开始位置，规定从1开始，不从0开始 -> 固定
         int N = origin.length; // 整个区间的结束位置，规定能到N，不是N-1 -> 固定
@@ -493,8 +539,38 @@ public class Code01_SegmentTree {
         System.out.println(sum);
 
         System.out.println("对数器测试开始...");
-        System.out.println("测试结果 : " + (test() ? "通过" : "未通过"));
+        System.out.println("测试结果 : " + (test() ? "通过" : "未通过"));*/
 
+        int[] origin = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        SegmentTree segmentTree = new SegmentTree(origin);
+
+        System.out.println("Initial tree structure:");
+        segmentTree.printAllNodes();  // 打印初始状态的线段树
+
+        // 任务1：对1,5区间加上5
+        System.out.println("\nTask 1: Add 5 to range [1, 5]");
+        segmentTree.add(1, 5, 5); // 对1到5范围内所有元素加5
+        // 下放懒标记的过程和修改后的状态将自动打印
+
+        // 任务2：对1,3区间加上3
+        System.out.println("\nTask 2: Add 3 to range [1, 3]");
+        segmentTree.add(1, 3, 3); // 对1到3范围内所有元素加3
+        // 下放懒标记的过程和修改后的状态将自动打印
+
+        // 任务3：对6,10区间加上2
+        System.out.println("\nTask 3: Add 2 to range [6, 10]");
+        segmentTree.add(6, 10, 2); // 对6到10范围内所有元素加2
+        // 下放懒标记的过程和修改后的状态将自动打印
+
+        // 任务4：对1,5区间执行覆盖操作（设为10）
+        System.out.println("\nTask 4: Update range [1, 5] to 10");
+        segmentTree.update(1, 5, 10); // 将1到5范围内的所有元素更新为10
+        // 下放懒标记的过程和修改后的状态将自动打印
+
+        // 任务5：递归访问并更新子节点2,2（加2）
+        System.out.println("\nTask 5: Add 2 to node [2, 2]");
+        segmentTree.add(2, 2, 2); // 对单个节点2进行更新，加2
+        // 下放懒标记的过程和修改后的状态将自动打印
     }
 
 }
