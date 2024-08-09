@@ -268,8 +268,11 @@ public class Code01_SegmentTree {
             int mid = (l + r) / 2;
             System.out.println("正在将节点的: " + rt + " (范围: [" + l + ", " + r + "])" + " 懒标记（即未被处理的更新或累加操作）传递给其子节点: ");
             printNodeState(rt, l, r);
+
             //TODO 针对更新操作
             if (update[rt]) {//TODO 对于 change[rt]有更新的任务
+                System.out.println("更新标记已经被成功传递并应用到节点: " + rt + " (范围: [" + l + ", " + r + "]) 的子节点上，" +
+                        "左子节点范围: [" + l + ", " + mid + "], 右子节点范围: [" + (mid + 1) + ", " + r + "]");
                 //TODO change[rt]的左孩子 也有更新的任务
                 update[rt << 1] = true;
                 //TODO change[rt]的右孩子 也有更新的任务
@@ -289,28 +292,21 @@ public class Code01_SegmentTree {
                 update[rt] = false;
 
                 System.out.println("已经被成功传递并应用到节点: " + rt + " (范围: [" + l + ", " + r + "])" + "的子节点上");
-                printNodeState(rt * 2, l, mid);  // 打印左子节点状态，区间为 [l, mid]
-                printNodeState(rt * 2 + 1, mid + 1, r);  // 打印右子节点状态，区间为 [mid + 1, r]
+                printNodeState(rt * 2, l, mid);  // 左子节点
+                printNodeState(rt * 2 + 1, mid + 1, r);  // 右子节点
             }
-            //TODO 针对添加操作
-            if (lazy[rt] != 0) {
-                System.out.println("当前正在将节点:" + rt + " (范围: [" + l + ", " + r + "])" + "上的懒标记（通常是累加操作的懒标记，即 lazy[] 标记）传递给它的子节点");
-                //TODO 左孩子的之前懒信息+当前节点的的懒信息
-                lazy[rt << 1] += lazy[rt];
-                //左侧孩子的累加和
-                //sum[rt << 1] += lazy[rt] * l;
-                sum[rt * 2] += lazy[rt] * ln;
-                //TODO 右孩子的之前懒信息+当前节点的的懒信息
-                lazy[rt << 1 | 1] += lazy[rt];
-                //右侧孩子的累加和
-                //sum[rt << 1 | 1] += lazy[rt] * r;
-                sum[rt * 2 + 1] += lazy[rt] * rn;
-                //当前节点的的懒信息清空
-                lazy[rt] = 0;
+            if (lazy[rt] != 0) {//TODO 针对添加操作
+                System.out.println("节点：" + rt + " (范围: [" + l + ", " + r + "]) 懒标记的累加操作已被传递并应用到子节点上，" +
+                        "左子节点范围: [" + l + ", " + mid + "], 右子节点范围: [" + (mid + 1) + ", " + r + "]");
+                lazy[rt << 1] += lazy[rt];//TODO 左孩子的之前懒信息+当前节点的的懒信息
+                sum[rt * 2] += lazy[rt] * ln;  //左侧孩子的累加和
+                lazy[rt << 1 | 1] += lazy[rt]; //TODO 右孩子的之前懒信息+当前节点的的懒信息
+                sum[rt * 2 + 1] += lazy[rt] * rn; //右侧孩子的累加和
+                lazy[rt] = 0; //当前节点的的懒信息清空
 
                 System.out.println("节点：" + rt + " (范围: [" + l + ", " + r + "])" + "懒标记的累加操作已被传递并应用到子节点上");
-                printNodeState(rt * 2, l, mid);  // 打印左子节点状态
-                printNodeState(rt * 2 + 1, mid + 1, r);  // 打印右子节点状态
+                printNodeState(rt * 2, l, mid);  // 左子节点
+                printNodeState(rt * 2 + 1, mid + 1, r);  // 右子节点
             }
 
             System.out.println("节点：" + rt + " (范围: [" + l + ", " + r + "])" + "的所有懒标记（包括累加和更新）都已经被下放并处理完毕");
@@ -490,6 +486,17 @@ public class Code01_SegmentTree {
             printAllNodes(mid + 1, r, rt * 2 + 1);  // 打印右子树的信息
         }
 
+        // 递归打印所有受懒标记影响的节点，包括叶子节点
+        private void printAffectedNodes(int rt, int l, int r) {
+            printNodeState(rt, l, r);  // 打印当前节点状态
+
+            if (l == r) return;  // 如果是叶子节点，返回
+
+            int mid = (l + r) / 2;  // 计算中点
+            printAffectedNodes(rt * 2, l, mid);  // 打印左子树所有受影响的节点
+            printAffectedNodes(rt * 2 + 1, mid + 1, r);  // 打印右子树所有受影响的节点
+        }
+
         // 打印某个节点的状态
         private void printNodeState(int rt, int l, int r) {
             System.out.println("Node: " + rt + " (Range: [" + l + ", " + r + "])" +
@@ -629,13 +636,16 @@ public class Code01_SegmentTree {
         // 下放懒标记的过程和修改后的状态将自动打印
 
         // 任务4：对1,5区间执行覆盖操作（设为10）
-        System.out.println("\nTask 4: Update range [1, 5] to 10");
-        segmentTree.update(1, 5, 10); // 将1到5范围内的所有元素更新为10
+        //System.out.println("\nTask 4: Update range [1, 5] to 10");
+        //segmentTree.update(1, 5, 10); // 将1到5范围内的所有元素更新为10
         // 下放懒标记的过程和修改后的状态将自动打印
 
         // 任务5：递归访问并更新子节点2,2（加2）
-        System.out.println("\nTask 5: Add 2 to node [2, 2]");
-        segmentTree.add(2, 2, 2); // 对单个节点2进行更新，加2
+        System.out.println("\nTask 5: Query node [2, 2]");
+        // 递归查询节点[2, 2]的值
+        long result = segmentTree.query(2, 2, 1, origin.length, 1);
+        System.out.println("Value at range [2, 2]: " + result);
+        segmentTree.printAllNodes();  // 打印初始状态的线段树
         // 下放懒标记的过程和修改后的状态将自动打印
     }
 
