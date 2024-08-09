@@ -276,9 +276,14 @@ public class Code01_SegmentTree {
                 sum[rt << 1] = change[rt] * ln;
                 sum[rt << 1 | 1] = change[rt] * rn;
                 update[rt] = false;
+
+                System.out.println("已经被成功传递并应用到节点: " + rt + "的子节点上");
+                printNodeState(rt * 2);  // 打印左子节点状态
+                printNodeState(rt * 2 + 1);  // 打印右子节点状态
             }
             //TODO 针对添加操作
             if (lazy[rt] != 0) {
+                System.out.println("当前正在将节点:" + rt + "上的懒标记（通常是累加操作的懒标记，即 lazy[] 标记）传递给它的子节点");
                 //TODO 左孩子的之前懒信息+当前节点的的懒信息
                 lazy[rt << 1] += lazy[rt];
                 //左侧孩子的累加和
@@ -289,7 +294,14 @@ public class Code01_SegmentTree {
                 sum[rt << 1 | 1] += lazy[rt] * rn;
                 //当前节点的的懒信息清空
                 lazy[rt] = 0;
+
+                System.out.println("节点：" + rt + "懒标记的累加操作已被传递并应用到子节点上");
+                printNodeState(rt * 2);  // 打印左子节点状态
+                printNodeState(rt * 2 + 1);  // 打印右子节点状态
             }
+
+            System.out.println("节点：" + rt + "的所有懒标记（包括累加和更新）都已经被下放并处理完毕");
+            printNodeState(rt);
         }
 
         /**
