@@ -253,13 +253,19 @@ public class Code01_SegmentTree {
          * TODO
          * 之前的，所有懒增加，和懒更新，从父范围，发给左右两个子范围
          * 分发策略是什么
-         * ln表示左子树元素结点个数，rn表示右子树结点个数
-         * rt是父节点的下标
+         * rt 是当前节点在线段树中的索引，用于访问线段树中存储的数组
+         * l：当前节点所代表的区间的左边界（左端点）。
+         * r：当前节点所代表的区间的右边界（右端点）。
+         *  这两个参数共同确定了当前节点覆盖的区间 [l, r]。
+         *  示例：假设当前节点覆盖的区间是 [1, 5]，那么 l = 1，r = 5。
+         * ln：当前节点的左子节点所覆盖的区间长度。
+         * rn：当前节点的右子节点所覆盖的区间长度。
+         *  这两个参数分别表示左子区间和右子区间的大小，用于在懒标记下放时正确计算累加值对子节点的影响。
+         *  示例：如果当前节点覆盖的区间是 [1, 5]，那么它的左子节点覆盖 [1, 3]，右子节点覆盖 [4, 5]。
+         *      在这种情况下，ln = 3（即 [1, 3] 的长度），rn = 2（即 [4, 5] 的长度）
          */
-        private void pushDown(int rt, int l, int r) {
+        private void pushDown(int rt, int l, int r, int ln, int rn) {
             int mid = (l + r) / 2;
-            int ln = mid - l + 1; // 左子节点的区间长度
-            int rn = r - mid;     // 右子节点的区间长度
             System.out.println("正在将节点的: " + rt + " (范围: [" + l + ", " + r + "])" + " 懒标记（即未被处理的更新或累加操作）传递给其子节点: ");
             printNodeState(rt, l, r);
             //TODO 针对更新操作
@@ -276,13 +282,15 @@ public class Code01_SegmentTree {
                 lazy[rt << 1] = 0;
                 lazy[rt << 1 | 1] = 0;
                 //TODO 因为修改了一定范围的数 那么左和右孩子之前的累加和也要被修改
-                sum[rt << 1] = change[rt] * l;
-                sum[rt << 1 | 1] = change[rt] * r;
+                //sum[rt << 1] = change[rt] * l;
+                //sum[rt << 1 | 1] = change[rt] * r;
+                sum[rt * 2] = change[rt] * ln;
+                sum[rt * 2 + 1] = change[rt] * rn;
                 update[rt] = false;
 
                 System.out.println("已经被成功传递并应用到节点: " + rt + " (范围: [" + l + ", " + r + "])" + "的子节点上");
-                printNodeState(rt * 2, l, mid);  // 打印左子节点状态
-                printNodeState(rt * 2 + 1, mid + 1, r);  // 打印右子节点状态
+                printNodeState(rt * 2, l, mid);  // 打印左子节点状态，区间为 [l, mid]
+                printNodeState(rt * 2 + 1, mid + 1, r);  // 打印右子节点状态，区间为 [mid + 1, r]
             }
             //TODO 针对添加操作
             if (lazy[rt] != 0) {
@@ -290,11 +298,13 @@ public class Code01_SegmentTree {
                 //TODO 左孩子的之前懒信息+当前节点的的懒信息
                 lazy[rt << 1] += lazy[rt];
                 //左侧孩子的累加和
-                sum[rt << 1] += lazy[rt] * l;
+                //sum[rt << 1] += lazy[rt] * l;
+                sum[rt * 2] += lazy[rt] * ln;
                 //TODO 右孩子的之前懒信息+当前节点的的懒信息
                 lazy[rt << 1 | 1] += lazy[rt];
                 //右侧孩子的累加和
-                sum[rt << 1 | 1] += lazy[rt] * r;
+                //sum[rt << 1 | 1] += lazy[rt] * r;
+                sum[rt * 2 + 1] += lazy[rt] * rn;
                 //当前节点的的懒信息清空
                 lazy[rt] = 0;
 
@@ -340,6 +350,16 @@ public class Code01_SegmentTree {
          * TODO
          * 把 arr元素中的 L~R 所有的值变成C
          * change[rt]表示l~r范围
+         * rt 是当前节点在线段树中的索引，用于访问线段树中存储的数组
+         * l：当前节点所代表的区间的左边界（左端点）。
+         * r：当前节点所代表的区间的右边界（右端点）。
+         *  这两个参数共同确定了当前节点覆盖的区间 [l, r]。
+         *  示例：假设当前节点覆盖的区间是 [1, 5]，那么 l = 1，r = 5。
+         * ln：当前节点的左子节点所覆盖的区间长度。
+         * rn：当前节点的右子节点所覆盖的区间长度。
+         *  这两个参数分别表示左子区间和右子区间的大小，用于在懒标记下放时正确计算累加值对子节点的影响。
+         *  示例：如果当前节点覆盖的区间是 [1, 5]，那么它的左子节点覆盖 [1, 3]，右子节点覆盖 [4, 5]。
+         *      在这种情况下，ln = 3（即 [1, 3] 的长度），rn = 2（即 [4, 5] 的长度）
          */
         public void update(int L, int R, int C, int l, int r, int rt) {
             //TODO 如果 change[rt]表示l~r范围
@@ -349,12 +369,13 @@ public class Code01_SegmentTree {
                 change[rt] = C; // 设置更新值
                 sum[rt] = C * (r - l + 1);//TODO 这里不是累加 而是设置成一个num = 个数 * C
                 lazy[rt] = 0;//TODO 之前揽住的所有累加的任务 全部清空
+                printNodeState(rt, l, r);
                 return;
             }
             // 当前任务躲不掉，无法懒更新，要往下发
             int mid = (l + r) >> 1;  // 计算中点
             //TODO 以前的任务下发给子节点
-            pushDown(rt, mid - l + 1, r - mid); // 向下传递懒惰标记
+            pushDown(rt, l, r, mid - l + 1, r - mid); // 向下传递懒惰标记
             if (L <= mid) {   // 如果左子区间与[L, R]有重叠
                 update(L, R, C, l, mid, rt << 1);  // 递归处理左子区间
             }
@@ -377,6 +398,16 @@ public class Code01_SegmentTree {
          * TODO
          * arr的L~R范围的每个数 + C  任务！
          * 当前来的格子rt，也就是lazy[rt]表示的范围l~r
+         * rt 是当前节点在线段树中的索引，用于访问线段树中存储的数组
+         * l：当前节点所代表的区间的左边界（左端点）。
+         * r：当前节点所代表的区间的右边界（右端点）。
+         *  这两个参数共同确定了当前节点覆盖的区间 [l, r]。
+         *  示例：假设当前节点覆盖的区间是 [1, 5]，那么 l = 1，r = 5。
+         * ln：当前节点的左子节点所覆盖的区间长度。
+         * rn：当前节点的右子节点所覆盖的区间长度。
+         *  这两个参数分别表示左子区间和右子区间的大小，用于在懒标记下放时正确计算累加值对子节点的影响。
+         *  示例：如果当前节点覆盖的区间是 [1, 5]，那么它的左子节点覆盖 [1, 3]，右子节点覆盖 [4, 5]。
+         *      在这种情况下，ln = 3（即 [1, 3] 的长度），rn = 2（即 [4, 5] 的长度）
          */
         public void add(int L, int R, int C, int l, int r, int rt) {
             /**
@@ -394,7 +425,7 @@ public class Code01_SegmentTree {
             }
             //TODO 来到这里说明 任务没有把你全包！
             int mid = (l + r) / 2;//mid = (l+r) >>1
-            pushDown(rt, mid - l + 1, r - mid);//TODO 之前的揽住的任务 先下发 用来承接新任务
+            pushDown(rt, l, r, mid - l + 1, r - mid);//TODO 之前的揽住的任务 先下发 用来承接新任务
             //TODO 到这里老的任务 下发完毕 开始新的任务
             // L~R范围
             if (L <= mid) {//TODO  如果左子区间与[L, R]有重叠 判断是否要把新的任务发给左孩子
@@ -406,13 +437,32 @@ public class Code01_SegmentTree {
             pushUp(rt);//TODO 向上更新当前节点的区间和
         }
 
-        // 1~6 累加和是多少？ 1~8 rt
+        /**
+         * 1~6 累加和是多少？ 1~8 rt
+         * rt 是当前节点在线段树中的索引，用于访问线段树中存储的数组
+         * l：当前节点所代表的区间的左边界（左端点）。
+         * r：当前节点所代表的区间的右边界（右端点）。
+         * 这两个参数共同确定了当前节点覆盖的区间 [l, r]。
+         * 示例：假设当前节点覆盖的区间是 [1, 5]，那么 l = 1，r = 5。
+         * ln：当前节点的左子节点所覆盖的区间长度。
+         * rn：当前节点的右子节点所覆盖的区间长度。
+         * 这两个参数分别表示左子区间和右子区间的大小，用于在懒标记下放时正确计算累加值对子节点的影响。
+         * 示例：如果当前节点覆盖的区间是 [1, 5]，那么它的左子节点覆盖 [1, 3]，右子节点覆盖 [4, 5]。
+         * 在这种情况下，ln = 3（即 [1, 3] 的长度），rn = 2（即 [4, 5] 的长度）
+         *
+         * @param L
+         * @param R
+         * @param l
+         * @param r
+         * @param rt
+         * @return
+         */
         public long query(int L, int R, int l, int r, int rt) {
             if (L <= l && r <= R) {                 // 如果当前区间完全在[L, R]范围内
                 return sum[rt];                     // 返回当前节点的区间和
             }
             int mid = (l + r) >> 1;                  // 计算中点
-            pushDown(rt, mid - l + 1, r - mid);     // 向下传递懒惰标记
+            pushDown(rt, l, r, mid - l + 1, r - mid);     // 向下传递懒惰标记
             long ans = 0;
             if (L <= mid) {                         // 如果左子区间与[L, R]有重叠
                 ans += query(L, R, l, mid, rt << 1); // 递归查询左子区间
@@ -431,25 +481,16 @@ public class Code01_SegmentTree {
         // 递归打印每个节点的信息
         private void printAllNodes(int l, int r, int rt) {
             if (l == r) {                           // 如果是叶子节点
-                printNodeState(rt);
+                printNodeState(rt, l, r);
                 return;
             }
             int mid = (l + r) / 2;                  // 计算中点
-            printNodeState(rt);                     // 打印当前节点状态
+            printNodeState(rt, l, r);                     // 打印当前节点状态
             printAllNodes(l, mid, rt * 2);          // 打印左子树的信息
             printAllNodes(mid + 1, r, rt * 2 + 1);  // 打印右子树的信息
         }
 
         // 打印某个节点的状态
-        private void printNodeState(int rt) {
-            System.out.println("Node: " + rt +
-                    ", sum: " + sum[rt] +
-                    ", lazy: " + lazy[rt] +
-                    ", change: " + change[rt] +
-                    ", update: " + update[rt]);
-        }
-
-        // 打印某个节点的状态，并显示该节点的区间范围
         private void printNodeState(int rt, int l, int r) {
             System.out.println("Node: " + rt + " (Range: [" + l + ", " + r + "])" +
                     ", sum: " + sum[rt] +
@@ -457,6 +498,7 @@ public class Code01_SegmentTree {
                     ", change: " + change[rt] +
                     ", update: " + update[rt]);
         }
+
     }
 
     public static class Right {
