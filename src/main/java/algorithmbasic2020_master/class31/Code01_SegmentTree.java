@@ -621,32 +621,42 @@ public class Code01_SegmentTree {
         segmentTree.printAllNodes();  // 打印初始状态的线段树
 
         // 任务1：对1,5区间加上5
-        System.out.println("\nTask 1: Add 5 to range [1, 5]");
+        System.out.println("Task 1: Add 5 to range [1, 5]");
         segmentTree.add(1, 5, 5); // 对1到5范围内所有元素加5
         // 下放懒标记的过程和修改后的状态将自动打印
+        System.out.println("================================================\n");
 
         // 任务2：对1,3区间加上3
-        System.out.println("\nTask 2: Add 3 to range [1, 3]");
+        System.out.println("Task 2: Add 3 to range [1, 3]");
         segmentTree.add(1, 3, 3); // 对1到3范围内所有元素加3
         // 下放懒标记的过程和修改后的状态将自动打印
+        System.out.println("================================================\n");
 
         // 任务3：对6,10区间加上2
-        System.out.println("\nTask 3: Add 2 to range [6, 10]");
+        System.out.println("Task 3: Add 2 to range [6, 10]");
         segmentTree.add(6, 10, 2); // 对6到10范围内所有元素加2
         // 下放懒标记的过程和修改后的状态将自动打印
+        System.out.println("================================================\n");
+
+        // 任务4：对6,10区间加上2
+        System.out.println("Task 3: Add 4 to range [2, 7]");
+        segmentTree.add(2, 7, 4); // 对6到10范围内所有元素加2
+        System.out.println("================================================\n");
 
         // 任务4：对1,5区间执行覆盖操作（设为10）
-        //System.out.println("\nTask 4: Update range [1, 5] to 10");
+        //System.out.println("Task 4: Update range [1, 5] to 10");
         //segmentTree.update(1, 5, 10); // 将1到5范围内的所有元素更新为10
         // 下放懒标记的过程和修改后的状态将自动打印
+        //System.out.println("================================================\n");
 
         // 任务5：递归访问并更新子节点2,2（加2）
-        System.out.println("\nTask 5: Query node [2, 2]");
+        System.out.println("Task 5: Query node [2, 2]");
         // 递归查询节点[2, 2]的值
         long result = segmentTree.query(2, 2, 1, origin.length, 1);
         System.out.println("Value at range [2, 2]: " + result);
         segmentTree.printAllNodes();  // 打印初始状态的线段树
         // 下放懒标记的过程和修改后的状态将自动打印
+        System.out.println("================================================\n");
     }
 
 }
