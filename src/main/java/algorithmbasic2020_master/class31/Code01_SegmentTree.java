@@ -639,12 +639,12 @@ public class Code01_SegmentTree {
         System.out.println("================================================\n");
 
         // 任务4：对6,10区间加上2
-        System.out.println("Task 3: Add 4 to range [2, 7]");
+/*        System.out.println("Task 3: Add 4 to range [2, 7]");
         segmentTree.add(2, 7, 4); // 对6到10范围内所有元素加2
-        System.out.println("================================================\n");
+        System.out.println("================================================\n");*/
 
-        // 任务4：对1,5区间执行覆盖操作（设为10）
-        //System.out.println("Task 4: Update range [1, 5] to 10");
+        // 任务5：对1,5区间执行覆盖操作（设为10）
+        //System.out.println("Task 5: Update range [1, 5] to 10");
         //segmentTree.update(1, 5, 10); // 将1到5范围内的所有元素更新为10
         // 下放懒标记的过程和修改后的状态将自动打印
         //System.out.println("================================================\n");
