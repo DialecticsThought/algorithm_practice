@@ -24,29 +24,60 @@
  * 删除操作的目标是将 word1[i-1] 删除，从而尝试通过删除操作使得 word1 与 word2 的剩余部分匹配。
  * 递归调用为 minDistance(i-1, j)，表示删除当前 word1 的字符后，继续处理剩下的部分。
  * </pre>
- * <pre>
- * 赝本对应模型，需要对2个数组的最后一个位置做操作
- * 我们定义一个递归函数 minDistance(i, j)，表示将 word1[0:i-1] 转换成 word2[0:j-1] 所需要的最少操作数。我们从这两个字符串的末尾开始向前递归处理：
- * 基本情况：
- * 如果 i == 0，即 word1 是空字符串，则只能通过插入 j 个字符来匹配 word2，操作数为 j。
- * 如果 j == 0，即 word2 是空字符串，则只能通过删除 i 个字符来匹配 word1，操作数为 i。
- * 递归情况：
- *      如果 word1[i-1] == word2[j-1]：两个字符相同，不需要任何操作，我们只需处理剩下的部分，即 minDistance(i-1, j-1)。
- *      如果 word1[i-1] != word2[j-1]：有三种操作可以考虑：
- *          插入：在 word1 的当前字符前插入 word2[j-1]，然后处理 minDistance(i, j-1)。
- *          删除：删除 word1[i-1]，然后处理 minDistance(i-1, j)。
- *          替换：将 word1[i-1] 替换为 word2[j-1]，然后处理 minDistance(i-1, j-1)。
- * 我们取这三种操作中的最小值，并加上一步操作数。
- * </pre>
  * @Author veritas
  * @Data 2024/8/12 16:34
  */
 public class Code_72_EditDistance {
-
+    /**
+     * <pre>
+     * d表示删除  i表示插入  r表示replace  2表示 "to"
+     *                                                 (5,3)
+     *                          /                     |                                   \
+     *                   (4,3)                        (5,2)                               (4,2)
+     *                   d'e'                          i's'                                 r'e'2's'
+     *              "hors"和"ros"                     "horse"和"ro"                           "hors"和"ro"
+     *               /    |      \                /        |           \                      /   |    \
+     *         (3,3)     (4,2)    (3,2)        (4,2)       (5,1)        (4,1)              (3,2)  (4,1)  (3,1)
+     *          d's'     i's'     r's'2'o'      d'e'       i'o'      r'e'2'o'            d's'      i'o'       r's'2'r'
+     * "hor"和"ros" "hors"和"ro" "hor"和"ro"   "hors"和"ro" "horse"和"r" "hors"和"r"   "hor"和"ro"  "hors"和"r" "hor"和"r"
+     *     /    |   \             /  |  \                /    | \                                /  |  \
+     *   (2,3) (3,2) (2,2)       (2,2)(3,1)(2,1)        (4,1) (5,0) (4,0)                       (3,1)(4,0)(3,0)
+     * d'r'     i's'  r'r'2'o'    d'r' i'o' r'r'2'r'     d'e'   i'r'  r'e'2'r'                  d's'   i'r'  r's'2'r'
+     *"ho"和"ros"                "ho"和"ro"            "hors"和"r"                            "hor"和"r"
+     *       "hor"和"ro"              "hor"和"r"              "horse"和""                             "hors"和""
+     *               "ho"和"ro"               "ho"和"r"                "hors"和""                            "hor"和""
+     * </pre>
+     *
+     * @param word1
+     * @param word2
+     * @return
+     */
     public static int minDistance(String word1, String word2) {
         return minDistance(word1, word2, word1.length(), word2.length());
     }
 
+    /**
+     * <pre>
+     * 赝本对应模型，需要对2个数组的最后一个位置做操作
+     * 我们定义一个递归函数 minDistance(i, j)，表示将 word1[0:i-1] 转换成 word2[0:j-1] 所需要的最少操作数。我们从这两个字符串的末尾开始向前递归处理：
+     * 基本情况：
+     * 如果 i == 0，即 word1 是空字符串，则只能通过插入 j 个字符来匹配 word2，操作数为 j。
+     * 如果 j == 0，即 word2 是空字符串，则只能通过删除 i 个字符来匹配 word1，操作数为 i。
+     * 递归情况：
+     *      如果 word1[i-1] == word2[j-1]：两个字符相同，不需要任何操作，我们只需处理剩下的部分，即 minDistance(i-1, j-1)。
+     *      如果 word1[i-1] != word2[j-1]：有三种操作可以考虑：
+     *          插入：在 word1 的当前字符前插入 word2[j-1]，然后处理 minDistance(i, j-1)。
+     *          删除：删除 word1[i-1]，然后处理 minDistance(i-1, j)。
+     *          替换：将 word1[i-1] 替换为 word2[j-1]，然后处理 minDistance(i-1, j-1)。
+     * 我们取这三种操作中的最小值，并加上一步操作数。
+     * </pre>
+     *
+     * @param word1
+     * @param word2
+     * @param i
+     * @param j
+     * @return
+     */
     public static int minDistance(String word1, String word2, int i, int j) {
         // 基本情况
         if (i == 0) return j;
