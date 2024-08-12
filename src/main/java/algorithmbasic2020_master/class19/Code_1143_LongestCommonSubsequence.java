@@ -2,14 +2,37 @@ package algorithmbasic2020_master.class19;
 
 
 /**
- * TODO
- * 这个问题leetcode上可以直接测
  * 链接：https://leetcode.cn/problems/longest-common-subsequence/
- * 样本对应模型 就以最后一个元素为基础，讨论可能性
- * 样本对应模型
- * <p>
+ * 样本对应模型 就以最后一个元素为基础，讨论可能性  ☆☆☆☆☆☆☆☆☆
+ * <pre>
  * TODO
+ * 1.定义子问题
+ *      对于字符串 text1 和 text2，我们定义一个递归函数 lcs(i, j) 来表示 text1[0:i-1] 和 text2[0:j-1] 的最长公共子序列的长度。
+ * 2.考虑所有选择
+ * 如果 text1[i-1] == text2[j-1]，
+ *      那么这个字符属于最长公共子序列的一部分，我们可以将问题缩小为 lcs(i-1, j-1) + 1。
+ * 如果 text1[i-1] != text2[j-1]，那么我们有两种可能的情况：
+ *      忽略 字符 text1[i-1]，递归求解 lcs(i-1, j)。
+ *      忽略 字符  text2[j-1]，递归求解 lcs(i, j-1)。
+ *
+ * eg: text1 = "abcde" 和 text2 = "ace"
+ *                       lcs(5, 3) "abcde" "ace"
+ *                       /         \
+ *  "abcd"   "ace" lcs(4, 3)            lcs(5,2) "abcde" "ac"
+ *                 /      \             /       \
+ * "abc" "ace" lcs(3, 3)  lcs(4, 2)   lcs(4,2)  lcs(5,1)
+ *                      "abcd" "ac"              "abcde" "a"
+ *             / \          / \                    / \
+ *        (3,2)  (2,3)   (3,2) (4,1)           (4,1) (5,0)
+ * "abc" "ac"   "ab" "ace"   "abcd" "a"              "abcde" ""
+ *        / \       / \           / \
+ *  (2,2)  (3,1)  (1,3) (2,2)   (3,1)(4,0)
+ * "ab" "ac"     "a" "ace"
+ *       "abc" "a"     "ab" "ac"
+ * </pre>
+ * eg1:
  * str1 = a12bc345def str2=MNP123QRS45Z    res = 12345
+ * <pre>
  * eg2:
  * str1 = a123bc str2= 12dea3f
  * 那么dp表
@@ -24,6 +47,7 @@ package algorithmbasic2020_master.class19;
  * 5 1                □
  *
  * 对于dp[0][4] 也就是str1 = a str2 = 12dea
+ * </pre>
  * TODO
  *     str1[0...i]和str2[0...j]，这个范围上最长公共子序列长度是多少？
  *     可能性分类:
@@ -35,8 +59,7 @@ package algorithmbasic2020_master.class19;
  *     但是可以肯定，答案不会超过这四种可能性的范围
  *     那么我们分别来看一下，这几种可能性怎么调用后续的递归。
  * TODO 一定以 str2[j] 结尾 还要验证 str1[0~i]里面有没有j字符  ====>所以考虑  可能 和 一定不
- * <p>
- * TODO
+ * <pre>
  *     a) 最长公共子序列，一定不以str1[i]字符结尾、也一定不以str2[j]字符结尾
  *         eg: str1=123d  str2=a123e   公共子序列是123 但是一个是d结尾 另一个是e结尾
  *        如果是这种情况，那么有没有str1[i]和str2[j]就根本不重要了，因为这两个字符一定没用啊
@@ -71,6 +94,7 @@ package algorithmbasic2020_master.class19;
  *     至此，可以知道，a)就是个垃圾，有它没它，都不影响最大值的决策
  *     所以，当str1[i] == str2[j]时，b)、c)、d)中选出最大值
  *     当str1[i] != str2[j]时，b)、c)中选出最大值
+ * </pre>
  */
 public class Code_1143_LongestCommonSubsequence {
 
