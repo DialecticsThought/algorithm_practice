@@ -1,5 +1,8 @@
 /**
- * @Description <pre>
+ * @Description
+ * @Author veritas
+ * @Data 2024/8/12 16:34
+ * <pre>
  * 在编辑距离问题中，插入和替换操作涉及到将一个字符匹配或替换为目标字符串中的字符。我们来看具体原因：
  * 1. 插入操作
  * 定义：插入操作意味着在 word1 中插入一个字符，使其与 word2 的当前字符匹配。
@@ -24,8 +27,9 @@
  * 删除操作的目标是将 word1[i-1] 删除，从而尝试通过删除操作使得 word1 与 word2 的剩余部分匹配。
  * 递归调用为 minDistance(i-1, j)，表示删除当前 word1 的字符后，继续处理剩下的部分。
  * </pre>
- * @Author veritas
- * @Data 2024/8/12 16:34
+ * <h1>
+ *     样本对应模型
+ * </h1>
  */
 public class Code_72_EditDistance {
     /**
@@ -40,10 +44,10 @@ public class Code_72_EditDistance {
      *         (3,3)     (4,2)    (3,2)        (4,2)       (5,1)        (4,1)              (3,2)  (4,1)  (3,1)
      *          d's'     i's'     r's'2'o'      d'e'       i'o'      r'e'2'o'            d's'      i'o'       r's'2'r'
      * "hor"和"ros" "hors"和"ro" "hor"和"ro"   "hors"和"ro" "horse"和"r" "hors"和"r"   "hor"和"ro"  "hors"和"r" "hor"和"r"
-     *     /    |   \             /  |  \                /    | \                                /  |  \
+     *     /    |   \             /  |  \                  /   |   \                                /  |  \
      *   (2,3) (3,2) (2,2)       (2,2)(3,1)(2,1)        (4,1) (5,0) (4,0)                       (3,1)(4,0)(3,0)
      * d'r'     i's'  r'r'2'o'    d'r' i'o' r'r'2'r'     d'e'   i'r'  r'e'2'r'                  d's'   i'r'  r's'2'r'
-     *"ho"和"ros"                "ho"和"ro"            "hors"和"r"                            "hor"和"r"
+     * "ho"和"ros"                "ho"和"ro"            "hors"和"r"                            "hor"和"r"
      *       "hor"和"ro"              "hor"和"r"              "horse"和""                             "hors"和""
      *               "ho"和"ro"               "ho"和"r"                "hors"和""                            "hor"和""
      * </pre>

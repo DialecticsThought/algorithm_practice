@@ -52,7 +52,7 @@ public class Code03_lowestAncestor {
 	public static Node lowestAncestor2(Node head, Node a, Node b) {
 		return process(head, a, b).ans;
 	}
-	/*
+	/**
 	 * TODO
 	 *  这棵树上没有没有a
 	 *  这棵树上没有没有b
@@ -77,7 +77,7 @@ public class Code03_lowestAncestor {
 		//TODO 向x的左子树和右子树要信息
 		Info leftInfo = process(x.left, a, b);
 		Info rightInfo = process(x.right, a, b);
-		/*
+		/**
 		* TODO
 		*  如果根节点 等于a 或 左子树发现a 或 右子树发现a => 发现a
 		*  如果根节点 等于b 或 左子树发现b 或 右子树发现b => 发现b
@@ -85,7 +85,7 @@ public class Code03_lowestAncestor {
 		boolean findA = (x == a) || leftInfo.findA || rightInfo.findA;
 		boolean findB = (x == b) || leftInfo.findB || rightInfo.findB;
 		Node ans = null;//TODO 答案先是空
-		/*
+		/**
 		* TODO
 		*  如果左子树的答案不为空  说明找到了最初汇聚点 那么整棵树的最低汇聚点 也是那个点
 		*  如果右子树的答案不为空  说明找到了最初汇聚点 那么整棵树的最低汇聚点 也是那个点
