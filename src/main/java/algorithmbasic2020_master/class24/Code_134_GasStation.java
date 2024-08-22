@@ -60,6 +60,15 @@ import java.util.LinkedList;
  *  currentSum = currentSum + diff[4] = 4 + (-4) = 0
  *  totalSum = totalSum + diff[4] = 2 + (-4) = -2
  *  currentSum 没有小于 0，不重置 startIndex
+ *  eg2:
+ *  int[] gas = {2, 3, 4, 5, 1};
+ *  int[] cost = {3, 4, 3, 2, 5};
+ *  计算 totalSum:
+ *  totalSum = (2 - 3) + (3 - 4) + (4 - 3) + (5 - 2) + (1 - 5) = -1 + (-1) + 1 + 3 + (-4) = -2
+ *  totalSum 是负数，意味着不可能绕环一圈完成。
+ *  计算 currentSum:
+ *  当遍历到 i = 3 时，currentSum 变得足够大（在 startIndex = 3），这时局部来看你可以完成环路。
+ *  但是由于 totalSum 负数的限制，最终还是无法完成整体旅程，最终答案仍然是 -1。
  * </pre>
  */
 public class Code_134_GasStation {
