@@ -3,7 +3,7 @@ package algorithmbasic2020_master.class24;
 import java.util.LinkedList;
 
 // 测试链接：https://leetcode.com/problems/gas-station
-public class Code03_GasStation {
+public class Code_134_GasStation {
 
 	// 这个方法的时间复杂度O(N)，额外空间复杂度O(N)
 	public static int canCompleteCircuit(int[] gas, int[] cost) {
