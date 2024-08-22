@@ -1,6 +1,6 @@
 package algorithmbasic2020_master.class030;
 
-/**
+/***
  *测试链接：https://leetcode.com/problems/linked-list-cycle-ii
  * TODO
  *					 ↙	9 <- 8 ↖
@@ -52,32 +52,32 @@ package algorithmbasic2020_master.class030;
  */
 public class Code_142_EnterLoopNode {
 
-	// 这个类不用提交
-	public static class ListNode {
-		public int val;
-		public ListNode next;
-	}
+    // 这个类不用提交
+    public static class ListNode {
+        public int val;
+        public ListNode next;
+    }
 
-	// 只提交以下的代码
-	public static ListNode detectCycle(ListNode head) {
-		if (head == null || head.next == null || head.next.next == null) {
-			return null;
-		}
-		ListNode slow = head.next;
-		ListNode fast = head.next.next;
-		while (slow != fast) {
-			if (fast.next == null || fast.next.next == null) {
-				return null;
-			}
-			fast = fast.next.next;
-			slow = slow.next;
-		}
-		fast = head;
-		while (slow != fast) {
-			slow = slow.next;
-			fast = fast.next;
-		}
-		return slow;
-	}
+    // 只提交以下的代码
+    public static ListNode detectCycle(ListNode head) {
+        if (head == null || head.next == null || head.next.next == null) {
+            return null;
+        }
+        ListNode slow = head.next;
+        ListNode fast = head.next.next;
+        while (slow != fast) {
+            if (fast.next == null || fast.next.next == null) {
+                return null;
+            }
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        fast = head;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
 
 }
