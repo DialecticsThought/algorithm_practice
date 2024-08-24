@@ -140,7 +140,8 @@ public class Code_30_SubstringWithConcatenationOfAllWords {
             for (String word : words) {
                 wordMap.put(word, wordMap.getOrDefault(word, 0) + 1);
             }// 遍历每个可能的起始点（0 到 wordLen - 1）
-// 通过i从0到wordLen - 1，尝试不同的起点。这样可以确保从每个可能的位置开始都能覆盖所有可能的串联情况
+
+            // 通过i从0到wordLen - 1，尝试不同的起点。这样可以确保从每个可能的位置开始都能覆盖所有可能的串联情况
             for (int i = 0; i < wordLen; i++) {
                 // 当前窗口的左边界
                 int left = i;
