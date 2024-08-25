@@ -130,7 +130,7 @@ public class SkipListLeetcode1206 {
         }
 
         /**
-         *TODO
+         * <pre>
          * -1   -> null -> null ->  null -> null  ->  null ->  null ->   null ->  null ->  null ->  null
          * ↓
          * -1   -> null -> null ->  null -> null  ->  null ->  null ->   null ->  null ->  null ->  null
@@ -175,6 +175,8 @@ public class SkipListLeetcode1206 {
          * TODO
          * -1.若next 指针为null，或者next 指向的节点值>=目标，向下找
          * -2.若next 指针不为null，next 指向的节点值<目标，向右找
+         * </pre>
+         *
          *
          * @param val
          * @return 这个返回的是找val所产生的路径数组
@@ -201,6 +203,7 @@ public class SkipListLeetcode1206 {
         /**
          * 返回查找某个节点的路径
          * 但是这个路径是去重的 也就是每一个节点的第0层
+         *
          * @param val
          * @return
          */
@@ -212,7 +215,8 @@ public class SkipListLeetcode1206 {
         }
 
         /**
-         *TODO
+         * TODO
+         * <pre>
          * 跳表里面 要加入15这个节点的话 要找到最接近15的节点 这里是12
          * -1   -> null -> null ->  null -> null  ->  null ->  null ->   null ->  null ->  null ->  null
          *  ↓
@@ -235,27 +239,29 @@ public class SkipListLeetcode1206 {
          * -1   ->  3   ->   7  ->   11  ->   12  ->   16  ->   19  ->   22  ->   23  ->   26  ->   30  ->   37
          * 假设15这个节点高度是5
          * -1   -> null -> null ->  null -> null  -> null  ->  null ->  null ->   null ->  null ->  null ->  null
-         *  ↓
+         * ↓
          * -1   -> null -> null ->  null -> null  -> null  ->  null ->  null ->   null ->  null ->  null ->  null
-         *  ↓
+         * ↓
          * -1   ->      ->      ->       ->       ->       ->       ->   19  ->   null ->  null ->  null ->  null
-         *  ↓
+         * ↓
          * -1   ->      ->      ->       ->       ->       ->       ->   19  ->   null ->  null ->  null ->  null
-         *  ↓
+         * ↓
          * -1   ->      ->      ->       ->       ->       ->       ->   19  ->   null ->  null ->  null ->  null
-         *  ↓
+         * ↓
          * -1   ->      ->      ->       ->       ->   15  ->       ->   19  ->   null ->  null ->  null ->  null
-         *  ↓
+         * ↓
          * -1   ->      ->      ->       ->       ->   15  ->       ->   19  ->       ->       ->   26  ->  null
-         *  ↓
+         * ↓
          * -1   ->  3   ->   7  ->       ->       ->   15  ->   16  ->   19  ->   22  ->       ->   26  ->  null
-         *                   ↓
+         * ↓
          * -1   ->  3   ->   7  ->       ->   12  ->   15  ->   16  ->   19  ->   22  ->       ->   26  ->       ->   37
          *
          * -1   ->  3   ->   7  ->   11  ->   12  ->   15  ->   16  ->   19  ->   22  ->   23  ->   26  ->   30  ->   37
          * 修改被添加节点的next[]指针
          * 原先为了找被插入节点的位置的路径所对应的节点的next[]指针
          * path[] = [12,0] [12,1] [7,2] [3,2] [-1,3] .....[-1,9]
+         * </pre>
+         *
          * @param val
          */
         public void add(int val) {
@@ -295,6 +301,7 @@ public class SkipListLeetcode1206 {
         }
 
         /**
+         * <pre>
          * -1   -> null -> null ->  null -> null  -> null  ->  null ->  null
          *
          *  -1   -> null -> null ->  null -> null  -> null  ->  null ->  null
@@ -314,9 +321,11 @@ public class SkipListLeetcode1206 {
          *  -1   ->  3   ->   7  ->       ->   12  ->   15  ->   16  ->   19
          *
          *  -1   ->  3   ->   7  ->   11  ->   12  ->   15  ->   16  ->   19
+         *  </pre>
          * 上面被删除的节点是15
          * 那么path[] = [12,0],[12,1],[7,1],[7,2],[-1,2],[-1,3]......[-1,10]
          * 因为被删除的节点是5层 当遍历到第6层的时候 已经没有被删除节点了 直接结束
+         *
          * @param val
          * @return
          */
