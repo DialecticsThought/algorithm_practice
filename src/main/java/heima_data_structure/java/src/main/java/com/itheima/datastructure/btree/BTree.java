@@ -5,14 +5,15 @@ import java.util.Arrays;
 /**
  * TODO
  * B-树
- * 度degree指树中节点孩子数
- * 阶order 指所有节点孩子数最大值
+ * 度degree: 树中节点孩子数
+ * 阶order: 所有节点孩子数最大值
  * B-树的特性:
- * 1.每个节点最多有m个孩子，其中m称为B-树的阶;
- * 2．除根节点和叶子节点外,其他每个节点至少有ceil(m/2)个孩子;
+ * 1.每个节点最多有m个孩子，其中 m 称为 B树 的阶;
+ * 2.除根节点和叶子节点外,其他每个节点至少有ceil(m/2)个孩子; ceil表示向上取整
  * 3.若根节点不是叶子节点，则至少有两个孩子;
  * 4.所有叶子节点都在同一层;
- * 5.每个非叶子节点由n个关键字和n+1个指针组成，其中ceil(m/2)-1<=n<=m-1;6，关键字按非降序排列，即节点中的第i个关键字大于等于第i-1个关键字;
+ * 5.每个非叶子节点由n个关键字和n+1个指针组成，其中 ceil(m/2)-1 <= n <= m-1 (m-1是因为因为最多m个孩子)
+ * 6.关键字按非降序排列，即节点中的第i个关键字 >= 第i-1个关键字;
  * 7.指针P.[i]指向关键字值位于第i个关键字和第i+1个关键字之间的子树。
  * 孩子数ceil(m/2) ~ m
  * 关键字数ceil(m/2)-1 ~ m
@@ -28,15 +29,15 @@ import java.util.Arrays;
 public class BTree {
 
     public static class Node {
-        public int[] keys; //TODO  该节点关键字
-        public Node[] children; //TODO  该节点孩子  该数组索引与keys索引对应
-        public int keyNumber; //TODO  该节点有效关键字数目
-        public boolean leaf = true; //TODO  该节点是否是叶子节点
-        public int t; //TODO  该节点最小度数 (最小孩子数)
+        public int[] keys; // 该节点关键字
+        public Node[] children; // 该节点孩子  该数组索引与keys索引对应
+        public int keyNumber; // 该节点有效关键字数目 可能数组没有存满
+        public boolean leaf = true; // 该节点是否是叶子节点
+        public int t; // 该节点最小度数 (最小孩子数)
 
         public Node(int t) { // t>=2
             this.t = t;
-            //TODO 若根节点不是叶子节点，则至少有两个孩子;  最小度数*2 这是规定
+            //TODO 若根节点不是叶子节点，则至少有两个孩子;  最小度数 >= 2 这是规定
             this.children = new Node[2 * t];
             //TODO 关键字 比孩子数-1
             this.keys = new int[2 * t - 1];
@@ -54,18 +55,25 @@ public class BTree {
         /**
          * TODO 多路查找  下面有2层树
          * <pre>
-         *                             0  1  2  3  4
-         *                            [5 10 15 20 25]
-         * [1,2,3,4] [5,7,8,9]  [11,12,13,14]  [16,17,18,19]  [21,22,23,24]  [26,27,28,29,30]
-         *   0            1           2               3             4             5
+         *                             0    1    2    3    4
+         *                            [5   10   15   20   25]
+         *                    ↙        ↙      ↙     ↘      ↘       ↘
+         *                 ↙        ↙      ↙           ↘      ↘       ↘
+         *             ↙        ↙       ↙                 ↘      ↘       ↘
+         *          ↙        ↙       ↙                       ↘      ↘       ↘
+         *   [1,2,3,4] [5,7,8,9]  [11,12,13,14]   [16,17,18,19] [21,22,23,24] [26,27,28,29,30]
+         *     0            1           2                   3             4             5
          * </pre>
-         * 比如我要找16 这个key 那么执行该方法 从头节点开始 5 -> 10 -> 15
+         * eg:
+         * 要找16 这个key 那么执行该方法 从头节点开始 5 -> 10 -> 15
          * 到20的时候 16 < 20的时候 退出循环  此时 i = 3
          * 根据3，找3这个子节点 ，继续 在子节点执行该方法
-         * 比如我要找22 这个key 那么执行该方法 从头节点开始 5 -> 10 -> 15 -> 20
+         * eg:
+         * 要找22 这个key 那么执行该方法 从头节点开始 5 -> 10 -> 15 -> 20
          * 到25的时候 22 < 25的时候 退出循环  此时 i = 4
          * 根据4，找4这个子节点 ，继续 在子节点执行该方法
-         * 比如我要找30 这个key 那么执行该方法 从头节点开始 5 -> 10 -> 15 -> 20 -> 25
+         * eg:
+         * 要找30 这个key 那么执行该方法 从头节点开始 5 -> 10 -> 15 -> 20 -> 25
          * 到25的时候 30 > 25的时候 退出循环  此时 i = 5
          * 根据4，找4这个子节点 ，继续 在子节点执行该方法
          *
@@ -86,11 +94,18 @@ public class BTree {
                 }
                 i++;
             }
-            //TODO  当前节点是叶子情况 执行到此时 keys[i]>key 或 i==keyNumber
+            // 执行到此时 已经退出循环了 keys[i]>key 或 i==keyNumber
+            // 当前节点是叶子情况   说明没找到
             if (leaf) {
                 return null;
             }
             // 当前节点是非叶子情况
+            /**
+             * eg:
+             * 要找16 这个key 那么执行该方法 从头节点开始 5 -> 10 -> 15
+             * 到20的时候 16 < 20的时候 退出循环  此时 i = 3
+             * 根据3，找3这个子节点 ，继续 在子节点执行该方法
+             */
             return children[i].get(key);
         }
 
@@ -101,8 +116,11 @@ public class BTree {
          * @param index
          */
         void insertKey(int key, int index) {
+            // 原有数组从i位置往后的所有元素 后移一个单位
             System.arraycopy(keys, index, keys, index + 1, keyNumber - index);
+            // 数组i位置设置新的值
             keys[index] = key;
+            // 更新关键字数量
             keyNumber++;
         }
 
@@ -113,11 +131,13 @@ public class BTree {
          * @param index
          */
         void insertChild(Node child, int index) {
+            // 原有数组从i位置往后的所有元素 后移一个单位
             System.arraycopy(children, index, children, index + 1, keyNumber - index);
+            // 数组i位置设置新的值
             children[index] = child;
         }
 
-        //TODO 移除指定 index 处的 key
+        // 移除指定 index 处的 key
         int removeKey(int index) {
             int t = keys[index];
             // 向左移动一位
@@ -125,17 +145,17 @@ public class BTree {
             return t;
         }
 
-        //TODO 移除最左边的 key
+        // 移除最左边的 key
         int removeLeftmostKey() {
             return removeKey(0);
         }
 
-        //TODO 移除最右边的 key
+        // 移除最右边的 key
         int removeRightmostKey() {
             return removeKey(keyNumber - 1);
         }
 
-        //TODO 移除指定 index 处的 child
+        // 移除指定 index 处的 child
         Node removeChild(int index) {
             Node t = children[index];
             System.arraycopy(children, index + 1, children, index, keyNumber - index);
@@ -143,27 +163,27 @@ public class BTree {
             return t;
         }
 
-        //TODO 移除最左边的 child
+        // 移除最左边的 child
         Node removeLeftmostChild() {
             return removeChild(0);
         }
 
-        //TODO 移除最右边的 child
+        // 移除最右边的 child
         Node removeRightmostChild() {
             return removeChild(keyNumber);
         }
 
-        //TODO index 孩子处左边的兄弟 先找到index处的孩子 但是要找这个孩子的左兄弟
+        // index 孩子处左边的兄弟 先找到index处的孩子 但是要找这个孩子的左兄弟
         Node childLeftSibling(int index) {
             return index > 0 ? children[index - 1] : null;
         }
 
-        //TODO index 孩子处右边的兄弟 先找到index处的孩子 但是要找这个孩子的右兄弟
+        // index 孩子处右边的兄弟 先找到index处的孩子 但是要找这个孩子的右兄弟
         Node childRightSibling(int index) {
             return index == keyNumber ? null : children[index + 1];
         }
 
-        //TODO 复制当前节点的所有 key 和 child 到 target节点
+        // 复制当前节点的所有 key 和 child 到 target节点
         void moveToTarget(Node target) {
             int start = target.keyNumber;
             if (!leaf) {
@@ -210,8 +230,8 @@ public class BTree {
     }
 
     /**
-     * TODO 2. 新增
-     * 1.首先查找本节点中的插入位置i，如果没有空位 （key 被找到)，应该走更新的逻辑，目前什么没做
+     * 新增
+     * 1.首先查找本节点中的插入位置i，如果没有空位 (key 被找到)，应该走更新的逻辑，目前什么没做
      * 2.接下来分两种情况
      *      如果节点是叶子节点，可以直接插入了
      *      如果节点是非叶子节点，需要继续在children[i]处继续递归插入
