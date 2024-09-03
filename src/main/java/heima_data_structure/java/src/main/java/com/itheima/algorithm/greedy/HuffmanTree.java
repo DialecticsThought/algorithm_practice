@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
 /**
  * <h3>Huffman 树以及编解码</h3>
  */
-public class HuffmanTree {
+public class  HuffmanTree {
 
     /*
         Huffman 树的构建过程
