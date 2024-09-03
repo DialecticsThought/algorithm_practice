@@ -516,6 +516,8 @@ public class BTree {
                  * 从[9]这个节点的(key=9的索引，也就是0 再+1 = 1)的的孩子  以1号孩子 为根节点 一直找最左侧的分支
                  * 直到到达了最后一层的最左侧节点 把该节点的索引0的key拿出来
                  * 这里是[10,11] 只有一层 直接就是[12,15]的最左侧的子节点
+                 * 用10替换掉9
+                 * 再把10这个节点删掉
                  * </pre>
                  */
                 // 1. 找到后继 key
@@ -526,7 +528,7 @@ public class BTree {
                 int skey = s.keys[0];
                 // 2. 替换待删除 key
                 node.keys[i] = skey;
-                //T 3. 删除后继 key
+                // 3. 删除后继 key
                 doRemove(node, node.children[i + 1], i + 1, skey);
             }
         }
