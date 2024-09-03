@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.btree;
 import java.util.Arrays;
 
 /**
- * TODO
+ * TODO  这个B树的分裂条件是 = 2 * t -1的时候就分裂 而不是超过 2 * t -1的时候分裂
  * B-树
  * 度degree: 树中节点孩子数
  * 阶order: 所有节点孩子数最大值
@@ -484,21 +484,22 @@ public class BTree {
         /**
          *TODO
          * i 找到：代表待删除 key 的索引
-         * i 没找到： 代表到第i个孩子继续查找
+         * i 没找到： 代表到第i个孩子继续查找  本质就是递归
          */
         if (node.leaf) {
-            if (!found(node, key, i)) { //TODO case1 当前节点是叶子节点  没找到
-                return; //TODO 直接返回
-            } else { //TODO case2 当前节点是叶子节点  找到了
-                node.removeKey(i);//TODO 直接删去
+            if (!found(node, key, i)) { // case1 当前节点是叶子节点  没找到
+                return; // 直接返回
+            } else { // case2 当前节点是叶子节点  找到了
+                node.removeKey(i);// 直接删去
             }
         } else {
-            if (!found(node, key, i)) { //TODO case3 当前节点是非叶子节点 没找到
-                //TODO 到 当前节点的第i个子节点继续查找  => 递归
+            if (!found(node, key, i)) { // case3 当前节点是非叶子节点 没找到
+                // 到 当前节点的第i个子节点继续查找  => 递归
                 doRemove(node, node.children[i], i, key);
-            } else { //TODO case4  当前节点是非叶子节点 找到了
+            } else { // case4  当前节点是非叶子节点 找到了
                 /**
-                 *TODO  这是一个3层的树
+                 * <pre>
+                 * 这是一个3层的树
                  *         [9]
                  *       ↙    ↘
                  *  [8]       [12,15] (是[9]的右侧孩子)
@@ -512,19 +513,20 @@ public class BTree {
                  *  [8]     [12,15](是[10]的右侧孩子)
                  *          ↙    ↘
                  *      [11]   [13,14]
-                 *  从[9]这个节点的key=9的索引(0)+1的的孩子  以1号孩子 为根节点 一直找最左侧的分支
-                 *  直到到达了最后一层的最左侧节点 把该节点的索引0的key拿出来
-                 *  这里是[10,11] 只有一层 直接就是[12,15]的最左侧的子节点
+                 * 从[9]这个节点的(key=9的索引，也就是0 再+1 = 1)的的孩子  以1号孩子 为根节点 一直找最左侧的分支
+                 * 直到到达了最后一层的最左侧节点 把该节点的索引0的key拿出来
+                 * 这里是[10,11] 只有一层 直接就是[12,15]的最左侧的子节点
+                 * </pre>
                  */
-                //TODO 1. 找到后继 key
+                // 1. 找到后继 key
                 Node s = node.children[i + 1];
                 while (!s.leaf) {
                     s = s.children[0];
                 }
                 int skey = s.keys[0];
-                //TODO 2. 替换待删除 key
+                // 2. 替换待删除 key
                 node.keys[i] = skey;
-                //TODO 3. 删除后继 key
+                //T 3. 删除后继 key
                 doRemove(node, node.children[i + 1], i + 1, skey);
             }
         }
