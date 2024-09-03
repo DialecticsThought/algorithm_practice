@@ -231,10 +231,10 @@ public class BTree {
 
     /**
      * 新增
-     * 1.首先查找本节点中的插入位置i，如果没有空位 (key 被找到)，应该走更新的逻辑，目前什么没做
+     * 1.首先查找本节点中的插入位置i，如果没有空位 (key 被找到)，也就是遇到相同的key, 应该走更新的逻辑，目前什么没做
      * 2.接下来分两种情况
-     *      如果节点是叶子节点，可以直接插入了
-     *      如果节点是非叶子节点，需要继续在children[i]处继续递归插入
+     * 如果节点是叶子节点，可以直接插入了
+     * 如果节点是非叶子节点，需要继续在children[i]处继续递归插入
      * 3.无论哪种情况，插入完成后都可能超过节点keys 数目限制，此时应当执行节点分裂
      *
      * @param key
@@ -244,7 +244,7 @@ public class BTree {
     }
 
     /**
-     * TODO 递归插入 执行的是这个方法
+     * 递归插入 执行的是这个方法
      *
      * @param node
      * @param key
@@ -253,26 +253,24 @@ public class BTree {
      */
     private void doPut(Node node, int key, Node parent, int index) {
         int i = 0;
-        /**
-         * TODO 要插入的key 对这个节点的每一个已存在的key一个个比较
-         */
+        // 要插入的key 对这个节点的每一个已存在的key一个个比较
         while (i < node.keyNumber) {
-            if (node.keys[i] == key) {//TODO 已存在的key == 被插入的key
+            if (node.keys[i] == key) {// 已存在的key == 被插入的key
                 return; // 更新
             }
             if (node.keys[i] > key) {// 已存在的key > 被插入的key
-                break; //TODO  退出循环的时候 找到了插入位置，即为此时的 i
+                break; // 退出循环的时候 找到了插入位置，即为此时的 i
             }
-            //TODO 继续向后找
+            // 继续向后找
             i++;
         }
-        if (node.leaf) {//TODO 如果是叶子结点 直接插入
+        if (node.leaf) {// 如果是叶子结点 直接插入
             node.insertKey(key, i);
-        } else {//TODO 不是当前节点叶子结点的话 需要找 该节点的孩子
-            //TODO 根据当前的被插入的节点索引 去第i个子节点做递归插入
+        } else {// 不是当前节点叶子结点的话 需要找 该节点的孩子
+            // 根据当前的被插入的节点索引 去第i个子节点做递归插入
             doPut(node.children[i], key, node, i);
         }
-        //TODO 插入完成后都可能超过节点keys 数目限制，此时应当执行节点分裂
+        // 插入完成后都可能超过节点keys 数目限制，此时应当执行节点分裂
         // 分裂的过程中 有些节点会扩充 这时候 还会出现需要再次分裂的情况
         if (node.keyNumber == MAX_KEY_NUMBER) {
             split(node, parent, index);
@@ -280,10 +278,14 @@ public class BTree {
     }
 
     /**
-     * TODO 分裂方法
-     * 创建right节点 也就是新节点(分裂后大于当前left 节点的)，[把t以后的key和child都拷贝过去]重点☆☆☆☆☆
+     * 分裂方法
+     * t = 该节点最小度数 (最小孩子数)
+     * 把被分裂的节点一分为三
+     * 被分裂的节点称为left节点  新创建出的节点称为right节点
+     * 创建right节点 也就是新节点(分裂后大于当前left 节点的)，[把索引从t开始的key和key对应的child都拷贝过去]重点☆☆☆☆☆
      * 如果当前被分裂的节点不是叶子结点 那么其孩子节点也要分裂
-     * t-1处的 key插入到 parent 的 index 处,index指left 作为孩子时的索引
+     * index指left作为parent节点孩子时的索引
+     * 索引t-1处的 key插入到 parent 的 index 处,
      * right 节点作为 parent的孩子插入到 index +1处  也就是被分裂节点的右边一个
      * <pre>
      * TODO 叶子结点的情况
@@ -326,9 +328,11 @@ public class BTree {
      *   如果被分裂的节点是叶子结点 那么 新创建的节点也是叶子结点
      *   如果被分裂的节点是非叶子结点 那么 新创建的节点也是非叶子结点
      * TODO
-     *  创建right 节点(分裂后大于当前left 节点的)，把t以后的key和child都拷贝过去
-     *  t-1处的key插入到 parent 的 index处，index 指 left 作为孩子时的索刳
-     *  right节点作为parent的孩子插入到 index+1处
+     *   创建right节点 也就是新节点(分裂后大于当前left 节点的)，[把索引从t开始的key和key对应的child都拷贝过去]重点☆☆☆☆☆
+     *   如果当前被分裂的节点不是叶子结点 那么其孩子节点也要分裂
+     *   index指left作为parent节点孩子时的索引
+     *   索引t-1处的 key插入到 parent 的 index 处,
+     *   right 节点作为 parent的孩子插入到 index +1处  也就是被分裂节点的右边一个
      *  <pre>
      *  非叶子节点 t=2
      *                 [4]
@@ -341,8 +345,8 @@ public class BTree {
      *                  [4]
      *          ↙                 ↘
      *      [2]                    [6,8]             10(被单独出来成为一个节点)
-     *    ↙     ↘                ↙  ↓  ↓
-     *  [1]      [3]            [5] [7] [9] [11]
+     *    ↙     ↘                ↙  ↓
+     *  [1]      [3]            [5] [7]  [9]  [11]
      *  第2步
      *                           [4]
      *         ↙                   ↓             ↘
@@ -369,20 +373,17 @@ public class BTree {
      *      t-1处的 key插入到 parent 的 index 处，index指left作为孩子时的索引
      *      right 节点作为parent的孩子插入到 index+1处
      *   <pre>
-     *   t=3  当前只有一个
+     *   t=3  当前只有一个 节点
      *       [1,2,3,4,5]
-     *  第1步  创建出新的根节点 作为left  新的节点 作为right
-     *       [null]
-     *         ↓
-     *      [1,2,3,4,5]
-     *         ↓
-     *       [null]
+     *  需要创建2个节点
+     *  第1步  创建出新的根节点 ，原始的根节点作为新的根节点的0号孩子  另一个新的节点 作为right
+     *            [null]
+     *         ↙
+     *      [1,2,3,4,5]      [null]
      *  第2步  有3个节点
-     *       [3]
-     *        ↓
-     *      [1,2]
-     *        ↓
-     *      [4,5]
+     *           [3]
+     *        ↙
+     *      [1,2]  [4,5]
      *  第3步
      *        [3]
      *     ↙        ↘
