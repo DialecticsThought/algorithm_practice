@@ -76,7 +76,6 @@ public class BTree {
          * 要找30 这个key 那么执行该方法 从头节点开始 5 -> 10 -> 15 -> 20 -> 25
          * 到25的时候 30 > 25的时候 退出循环  此时 i = 5
          * 根据4，找4这个子节点 ，继续 在子节点执行该方法
-         *
          * @param key
          * @return
          */
@@ -245,7 +244,31 @@ public class BTree {
 
     /**
      * 递归插入 执行的是这个方法
+     * <pre>
+     *    t=2
+     *  初始
+     *              [2,4]
+     *          ↙     ↓     ↘
+     *      [1]      [3]    [5,6]
+     *   加入7
+     *              [2,4]
+     *          ↙     ↓     ↘
+     *      [1]      [3]    [5,6,7]
+     *  分裂
+     *              [2,4]
+     *          ↙     ↓     ↘
+     *      [1]      [3]    [5,6]    [7]
      *
+     *               [2,4,6]
+     *          ↙     ↙     ↘    ↘
+     *      [1]      [3]    [5]    [7]
+     *   分裂
+     *           [4]
+     *          /   \
+     *       [2]    [6]
+     *      /  \    /  \
+     *    [1]  [3] [5] [7]
+     * </pre>
      * @param node
      * @param key
      * @param parent
@@ -395,21 +418,21 @@ public class BTree {
      * @param index  分裂节点是第几个孩子
      */
     public void split(Node left, Node parent, int index) {
-        //TODO 分裂的是根节点
+        // 分裂的是根节点
         if (parent == null) {
-            //TODO 所有节点的t都是一个
+            // 所有节点的t都是一个
             Node newRoot = new Node(t);
             newRoot.leaf = false;//新的根节点 创建出来 肯定不是叶子节点
-            newRoot.insertChild(left, 0); // TODO keyNumber 的维护（新节点没有孩子，应该不会有问题）
+            newRoot.insertChild(left, 0); // keyNumber 的维护（新节点没有孩子，应该不会有问题）
             this.root = newRoot;
             parent = newRoot;
         }
-        //TODO 1. 创建 right 节点，把 left 中 t 之后的 key 和 child 移动过去
+        // 1. 创建 right 节点，把 left 中 t 之后的 key 和 child 移动过去
         Node right = new Node(t);
         right.leaf = left.leaf;
         // left.keys 旧数组 从t开始拷贝 到right.keys这个新数组  从新数组的0位置开始 拷贝旧数组的长度t-1
         System.arraycopy(left.keys, t, right.keys, 0, t - 1);
-        //TODO 分裂节点是非叶子的情况
+        // 分裂节点是非叶子的情况
         if (!left.leaf) {
             // left.keys 旧数组 从t开始拷贝 到right.keys这个新数组  从新数组的0位置开始 拷贝旧数组的长度t(因为拷贝孩子比父节点多一个)
             System.arraycopy(left.children, t, right.children, 0, t);
@@ -419,10 +442,10 @@ public class BTree {
         }
         right.keyNumber = t - 1;
         left.keyNumber = t - 1;
-        //TODO 2. 中间的 key （t-1 处）插入到父节点
-        int mid = left.keys[t - 1];//TODO 得到中间的key 需要插入到父节点
+        // 2. 中间的 key （t-1 处）插入到父节点
+        int mid = left.keys[t - 1];// 得到中间的key 需要插入到父节点
         parent.insertKey(mid, index);
-        //TODO 3. right 节点作为父节点的孩子
+        // 3. right 节点作为父节点的孩子
         parent.insertChild(right, index + 1);
     }
 
