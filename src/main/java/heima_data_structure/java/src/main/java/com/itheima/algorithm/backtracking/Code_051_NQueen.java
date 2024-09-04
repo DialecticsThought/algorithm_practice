@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * <h3>N皇后 - 回溯</h3>
  */
-public class NQueenLeetcode51 {
+public class Code_051_NQueen {
     public static void main(String[] args) {
         int n = 4;
         boolean[] ca = new boolean[n]; // 记录列冲突

@@ -2,7 +2,7 @@ package heima_data_structure.java.src.main.java.com.itheima.algorithm.backtracki
 
 import java.util.Arrays;
 
-public class SudokuLeetcode37 {
+public class Code_037_Sudoku {
 
     static void solveSudoku(char[][] table) {
         /*

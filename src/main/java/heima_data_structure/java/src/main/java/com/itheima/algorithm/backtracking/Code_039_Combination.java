@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * <h3>组合总和 回溯</h3>
  */
-public class CombinationLeetcode39 {
+public class Code_039_Combination {
     static List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
         dfs(0, candidates, target, new LinkedList<>(), result);

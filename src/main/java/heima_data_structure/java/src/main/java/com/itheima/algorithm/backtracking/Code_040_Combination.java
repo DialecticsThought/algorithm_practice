@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * <h3>组合总和 II 回溯</h3>
  */
-public class CombinationLeetcode40 {
+public class Code_040_Combination {
     static List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(candidates);

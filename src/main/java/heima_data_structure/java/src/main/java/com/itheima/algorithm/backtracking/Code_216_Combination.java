@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * <h3>组合总和 III 回溯</h3>
  */
-public class CombinationLeetcode216 {
+public class Code_216_Combination {
     // 此 target 代表数字组合后的和
     static List<List<Integer>> combinationSum3(int k, int target) {
         List<List<Integer>> result = new ArrayList<>();
