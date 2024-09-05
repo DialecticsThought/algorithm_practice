@@ -1,6 +1,6 @@
 package heima_data_structure.java.src.main.java.com.itheima.algorithm.dynamicprogramming;
 
-import static heima_data_structure.java.src.main.java.com.itheima.algorithm.dynamicprogramming.ChangeMakingProblemLeetcode518.print;
+import static heima_data_structure.java.src.main.java.com.itheima.algorithm.dynamicprogramming.Code_518_ChangeMakingProblem.print;
 
 /**
  * <h3>钢条切割问题 - 动态规划</h3>
