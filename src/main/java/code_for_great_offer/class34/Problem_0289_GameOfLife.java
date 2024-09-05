@@ -19,12 +19,11 @@ package code_for_great_offer.class34;
 *
 * */
 public class Problem_0289_GameOfLife {
-	/*
-	*TODO eg:
+	/**
+	* eg:
 	* 0  0  1
 	* 0  1  1
 	* 0  0  0
-	*TODO
 	* 对于[0][0]，这个位置的下一轮是0
 	* 对于[0][1]，这个位置的下一轮是1
 	* 但是当前这一轮的值是0 把0看成32个0
