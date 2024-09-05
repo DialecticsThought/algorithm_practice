@@ -19,7 +19,7 @@ package code_for_great_offer.class31;
  * 解释：在移除非字母数字字符之后，s 是一个空字符串 "" 。
  * 由于空字符串正着反着读都一样，所以是回文串。
  * */
-public class Problem_0125_ValidPalindrome {
+public class leetCode_0125_ValidPalindrome {
 
     // 忽略空格、忽略大小写 -> 是不是回文
     // 数字不在忽略大小写的范围内

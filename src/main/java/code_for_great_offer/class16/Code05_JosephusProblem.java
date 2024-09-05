@@ -1,6 +1,6 @@
 package code_for_great_offer.class16;
 
-/**
+/***
  * 本题测试链接 : https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/
  * 约瑟夫环问题
  * 给定一个链表头节点head，和一个正数m从头开始，每次数到m就杀死当前节点

@@ -3,7 +3,7 @@ package code_for_great_offer.class31;
 import java.util.ArrayList;
 import java.util.List;
 //https://leetcode.cn/problems/word-break-ii/
-public class Problem_0140_WordBreakII {
+public class leetCode_0140_WordBreakII {
 
 	public static class Node {
 		//是否是单词的结尾 是 path记录

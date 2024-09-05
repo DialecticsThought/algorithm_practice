@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
-public class Code_612_MinRange {
+public class leetCode_612_MinRange {
 
 	// 本题为求最小包含区间
 	// 测试链接 :

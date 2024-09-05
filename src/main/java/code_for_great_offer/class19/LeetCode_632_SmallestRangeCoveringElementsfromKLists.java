@@ -36,7 +36,7 @@ import java.util.TreeSet;
  * 弹出有序表的第1个数 找到这个数的所属arr，把该arr[1]放入有序表
  * 有序表 从小到大 ： 21,30,67 找到一个区间[21,67]  没有比原先的[3,21] 小
  */
-public class Code_632_SmallestRangeCoveringElementsfromKLists {
+public class LeetCode_632_SmallestRangeCoveringElementsfromKLists {
 
 	public static class Node {
 		public int value;

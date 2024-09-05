@@ -96,9 +96,9 @@ import java.util.HashMap;
  * hashmap2: <<<A,5>,3>,桶3的地址> <<<B,70>,2>,桶2的地址>  <<<C,50>,1>,桶1的地址>
  * </pre>
  */
-public class Code_460_LFUCache {
+public class LeetCode_460_LFUCache {
 
-    public Code_460_LFUCache(int K) {
+    public LeetCode_460_LFUCache(int K) {
         capacity = K;
         size = 0;
         records = new HashMap<>();

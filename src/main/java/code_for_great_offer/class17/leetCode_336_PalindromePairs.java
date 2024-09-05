@@ -41,7 +41,7 @@ import java.util.List;
  * arr[6]表示str[0]~str[6]是不是回文
  * 上面的操作可以用马拉车算法优化
  */
-public class Code_336_PalindromePairs {
+public class leetCode_336_PalindromePairs {
 
     public static List<List<Integer>> palindromePairs(String[] words) {
         /**

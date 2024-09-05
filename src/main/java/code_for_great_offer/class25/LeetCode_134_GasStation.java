@@ -5,7 +5,7 @@ package code_for_great_offer.class25;
 // leetcode只让返回其中一个良好出发点的位置
 // 本题是返回结果数组，每一个出发点是否是良好出发点都求出来了
 // 得到结果数组的过程，时间复杂度O(N)，额外空间复杂度O(1)
-public class Code04_GasStation {
+public class LeetCode_134_GasStation {
 
 	public static int canCompleteCircuit(int[] gas, int[] cost) {
 		if (gas == null || gas.length == 0) {

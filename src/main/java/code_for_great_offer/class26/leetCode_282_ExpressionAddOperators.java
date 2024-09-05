@@ -8,7 +8,7 @@ import java.util.List;
 /*
  * 282. 给表达式添加运算符
  * */
-public class Code_282_ExpressionAddOperators {
+public class leetCode_282_ExpressionAddOperators {
 
     public static List<String> addOperators(String num, int target) {
         List<String> ret = new LinkedList<>();

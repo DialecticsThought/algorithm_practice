@@ -38,7 +38,7 @@ import java.util.HashMap;
  * ......
  * 之前有多少个字面值必须以9结尾
  */
-public class Code_940_DistinctSubseqValue {
+public class leetCode_940_DistinctSubseqValue {
 
     public static int distinctSubseqII(String s) {
         if (s == null || s.length() == 0) {

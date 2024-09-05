@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 // 本题测试链接 : https://leetcode.cn/problems/word-search-ii/
-public class Code_212_WordSearchII2 {
+public class leetCode_212_WordSearchII2 {
 
 	public static class TrieNode {//前缀树
 		public TrieNode[] nexts;

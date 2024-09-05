@@ -1,7 +1,7 @@
 package code_for_great_offer.class31;
 
 //https://leetcode.cn/problems/surrounded-regions/
-public class Problem_0130_SurroundedRegions {
+public class leetCode_0130_SurroundedRegions {
 
 //	// m -> 二维数组， 不是0就是1
 //	//

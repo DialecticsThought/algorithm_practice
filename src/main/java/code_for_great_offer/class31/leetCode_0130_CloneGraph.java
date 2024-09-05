@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class Problem_0130_CloneGraph {
+public class leetCode_0130_CloneGraph {
 
 	public static class Node {
 		int val;

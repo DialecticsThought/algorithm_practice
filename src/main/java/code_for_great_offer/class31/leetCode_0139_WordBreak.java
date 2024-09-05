@@ -1,6 +1,5 @@
 package code_for_great_offer.class31;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,7 +23,7 @@ import java.util.List;
  *
  * */
 
-public class Problem_0139_WordBreak {
+public class leetCode_0139_WordBreak {
     //TODO 前缀树加速枚举
     public static class Node {
         public boolean end;

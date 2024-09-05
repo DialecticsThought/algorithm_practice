@@ -72,9 +72,9 @@ import java.util.HashMap;
  *      <B,<B,23>> <A,<A,3>> <D,<D,15>>
  * ......
  */
-public class Code_146_LRUCache {
+public class LeetCode_146_LRUCache {
 
-    public Code_146_LRUCache(int capacity) {
+    public LeetCode_146_LRUCache(int capacity) {
         cache = new MyCache<>(capacity);
     }
 

@@ -62,7 +62,7 @@ package code_for_great_offer.class18;
  * 那么nexts[5]=7，表示arr[2][3]被修改了 records[7]=2
  * 此时 record[]=[1,2,2,0,1,1,1,2,2,2,2,0] 此时就差3和11位置没有被修改
  */
-public class Code_934_ShortestBridge {
+public class leetCode_934_ShortestBridge {
 
     public static int shortestBridge(int[][] m) {
         int N = m.length;

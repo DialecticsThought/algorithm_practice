@@ -1,6 +1,6 @@
 package code_for_great_offer.class31;
 //https://leetcode.cn/problems/sort-list/submissions/
-public class Problem_0148_SortList {
+public class leetCode_0148_SortList {
 
 	public static class ListNode {
 		int val;

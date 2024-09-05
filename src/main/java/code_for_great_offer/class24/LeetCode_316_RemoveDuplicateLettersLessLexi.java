@@ -1,7 +1,7 @@
 package code_for_great_offer.class24;
 
 // 本题测试链接 : https://leetcode.cn/problems/remove-duplicate-letters/
-public class Code_316_RemoveDuplicateLettersLessLexi {
+public class LeetCode_316_RemoveDuplicateLettersLessLexi {
 
 	// 在str中，每种字符都要保留一个，让最后的结果，字典序最小 ，并返回
 	public static String removeDuplicateLetters1(String str) {

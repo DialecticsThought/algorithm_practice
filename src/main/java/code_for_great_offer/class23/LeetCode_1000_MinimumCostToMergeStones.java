@@ -1,7 +1,7 @@
 package code_for_great_offer.class23;
 
 // 本题测试链接 : https://leetcode.com/problems/minimum-cost-to-merge-stones/
-public class Code_1000_MinimumCostToMergeStones {
+public class LeetCode_1000_MinimumCostToMergeStones {
 
 //	// arr[L...R]一定要整出P份，合并的最小代价，返回！ arr和K是固定值
 //	public static int f(int[] arr, int K, int L, int R, int P) {

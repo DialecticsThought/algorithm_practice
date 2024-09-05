@@ -21,7 +21,7 @@ import java.util.*;
 * 解释：endWord "cog" 不在字典中，所以无法进行转换。
 *
 * */
-public class Problem_0127_WordLadder {
+public class leetCode_0127_WordLadder {
 
 	/*
 	* start，出发的单词

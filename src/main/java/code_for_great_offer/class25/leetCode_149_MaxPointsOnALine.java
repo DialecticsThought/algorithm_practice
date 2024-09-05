@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // 本题测试链接: https://leetcode.cn/problems/max-points-on-a-line/
-public class Code03_MaxPointsOnALine {
+public class leetCode_149_MaxPointsOnALine {
 
     // [
     //    [1,3]

@@ -34,7 +34,7 @@ import java.util.Stack;
 链接：https://leetcode.cn/problems/evaluate-reverse-polish-notation
 *
 * */
-public class Problem_0150_EvaluateReversePolishNotation {
+public class leetCode_0150_EvaluateReversePolishNotation {
 
 	public static int evalRPN(String[] tokens) {
 		Stack<Integer> stack = new Stack<>();

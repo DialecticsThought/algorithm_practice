@@ -17,7 +17,7 @@ package code_for_great_offer.class27;
 * 输入：x = 0
  * 输出：0
 * */
-public class Problem_0007_ReverseInteger {
+public class LeetCode_0007_ReverseInteger {
 	//TODO 争取 用int 类型 而不是long类型
 	public static int reverse(int x) {
 		//TODO 得到 数字的符号位

@@ -54,7 +54,7 @@ import java.util.PriorityQueue;
  * 也就是说  50 -> 52 -> 51，这个链中 最接近55的就是52
  * 假设 <= 55的个数有8个，但是<=55但有时最接近的是52，那么说明<= 52的个数有8个☆☆☆☆☆☆☆☆☆☆☆
  */
-public class Code_378_KthSmallestElementInSortedMatrix {
+public class leetCode_378_KthSmallestElementInSortedMatrix {
 
 	// 堆的方法
 	public static int kthSmallest1(int[][] matrix, int k) {

@@ -1,7 +1,7 @@
 package code_for_great_offer.class17;
 
 // 测试链接 : https://leetcode-cn.com/problems/21dk04/
-public class Code_097_DistinctSubseq {
+public class leetCode_097_DistinctSubseq {
 
     public static int numDistinct1(String S, String T) {
         char[] s = S.toCharArray();
