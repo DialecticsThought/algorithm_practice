@@ -1,6 +1,6 @@
 package code_for_great_offer.class29;
 
-public class Problem_0073_SetMatrixZeroes {
+public class LeetCode_0073_SetMatrixZeroes {
 
 	public static void setZeroes1(int[][] matrix) {
 		boolean row0Zero = false;

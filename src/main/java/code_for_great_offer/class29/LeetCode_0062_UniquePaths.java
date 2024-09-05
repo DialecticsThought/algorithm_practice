@@ -1,7 +1,6 @@
 package code_for_great_offer.class29;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /*
 * 62. 不同路径
@@ -23,7 +22,7 @@ import java.util.Map;
 输入：m = 3, n = 3
 输出：6
 * */
-public class Problem_0062_UniquePaths {
+public class LeetCode_0062_UniquePaths {
 
     // m 行
     // n 列

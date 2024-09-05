@@ -1,6 +1,6 @@
 package code_for_great_offer.class29;
 
-public class Problem_0066_PlusOne {
+public class LeetCode_0066_PlusOne {
 
 	/*
 	* 66. 加一

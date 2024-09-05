@@ -14,7 +14,7 @@ package code_for_great_offer.class29;
 解释：8 的算术平方根是 2.82842..., 由于返回类型是整数，小数部分将被舍去。
 *
 * */
-public class Problem_0069_SqrtX {
+public class LeetCode_0069_SqrtX {
 
 	// x一定非负，输入可以保证
 	public static int mySqrt(int x) {
