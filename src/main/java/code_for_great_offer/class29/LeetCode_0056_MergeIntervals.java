@@ -19,7 +19,7 @@ import java.util.Arrays;
 intervals[i].length == 2
 0 <= starti <= endi <= 104
 * */
-public class Problem_0056_MergeIntervals {
+public class LeetCode_0056_MergeIntervals {
 
 	public static int[][] merge(int[][] intervals) {
 		if (intervals.length == 0) {

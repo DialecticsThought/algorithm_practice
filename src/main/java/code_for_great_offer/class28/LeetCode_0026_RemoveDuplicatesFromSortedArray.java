@@ -1,6 +1,6 @@
 package code_for_great_offer.class28;
 
-public class Problem_0026_RemoveDuplicatesFromSortedArray {
+public class LeetCode_0026_RemoveDuplicatesFromSortedArray {
 
 	public static int removeDuplicates(int[] nums) {
 		if (nums == null) {

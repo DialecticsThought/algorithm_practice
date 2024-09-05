@@ -11,7 +11,7 @@ package code_for_great_offer.class28;
 * 只需要根据以上规则，验证已经填入的数字是否有效即可。
 * 空白格用 '.' 表示。
 * */
-public class Problem_0036_ValidSudoku {
+public class LeetCode_0036_ValidSudoku {
 
 	public static boolean isValidSudoku(char[][] board) {
 		/*

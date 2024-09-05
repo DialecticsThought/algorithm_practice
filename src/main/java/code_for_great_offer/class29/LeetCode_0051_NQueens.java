@@ -8,7 +8,7 @@ import java.util.List;
  * @Author veritas
  * @Data 2023/3/19 15:07
  */
-public class Problem_0051_NQueens {
+public class LeetCode_0051_NQueens {
     public static void main(String[] args) {
         int n=4;
         int[] record = new int[n];
@@ -17,7 +17,7 @@ public class Problem_0051_NQueens {
         dfs(n,0,record,result);
         System.out.println(result);
     }
-    /*
+    /**
      * 一共n行 n列
      * 当前来到第i行
      * record[i]记录第行 皇后放在哪一列
@@ -33,10 +33,9 @@ public class Problem_0051_NQueens {
 
             return;
         }
-        //TODO  第i行的皇后，放哪一列呢？j列，=> 枚举尝试
-        for (int j = 0; j < n; j++) {//TODO 当前行在i行 尝试i行所有的列 也就是j
-            /*
-             *TODO
+        // 第i行的皇后，放哪一列呢？j列，=> 枚举尝试
+        for (int j = 0; j < n; j++) {// 当前行在i行 尝试i行所有的列 也就是j
+            /**
              * 表示传入要摆的皇后的当前坐标i行j列 和 record 判断要摆的皇后的当前位置有不有效
              * 不冲突 有效  直接尝试下一行
              * 冲突 尝试下一列
@@ -52,8 +51,7 @@ public class Problem_0051_NQueens {
         return;
     }
 
-    /*
-     *TODO
+    /**
      *  没有必要加上行的判断
      * 加入两个坐标(a,b) (c,d)
      * 共列的话就是 b == d

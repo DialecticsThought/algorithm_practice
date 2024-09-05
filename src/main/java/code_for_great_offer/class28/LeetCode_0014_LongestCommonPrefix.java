@@ -14,7 +14,7 @@ package code_for_great_offer.class28;
 0 <= strs[i].length <= 200
 strs[i] 仅由小写英文字母组成
 * */
-public class Problem_0014_LongestCommonPrefix {
+public class LeetCode_0014_LongestCommonPrefix {
 	/*
 	* eg：
 	* 遍历第1个 str[0] = abcdef  共6个char

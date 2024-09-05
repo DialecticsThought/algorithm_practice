@@ -1,7 +1,6 @@
 package code_for_great_offer.class29;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  * @Author veritas
  * @Data 2023/3/19 15:11
  */
-public class Problem_0046_Permutations {
+public class LeetCode_0046_Permutations {
 
     public static List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();

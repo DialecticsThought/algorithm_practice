@@ -17,7 +17,7 @@ package code_for_great_offer.class28;
 输入：s = "(]"
 输出：false
 * */
-public class Problem_0020_ValidParentheses {
+public class LeetCode_0020_ValidParentheses {
 	/*
 	* 准备一个栈
 	* 遇到 "{" "(" "[" 就压入栈

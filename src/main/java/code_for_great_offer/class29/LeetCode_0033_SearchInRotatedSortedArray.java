@@ -16,7 +16,7 @@ package code_for_great_offer.class29;
 输入：nums = [1], target = 0
 输出：-1
 * */
-public class Problem_0033_SearchInRotatedSortedArray {
+public class LeetCode_0033_SearchInRotatedSortedArray {
 	/*
 	*TODO
 	* arr，原本是有序数组，旋转过，而且左部分长度不知道

@@ -23,7 +23,7 @@ import java.util.List;
  * 也就是说 判断2个str是否是一种的套路 就是分别对str1和2排序
  * 也就是说 strs数组里的每一个str排序，在放入hashmap，最后查看hashmap的大小
  * */
-public class Problem_0049_GroupAnagrams {
+public class LeetCode_0049_GroupAnagrams {
 
 	public static List<List<String>> groupAnagrams1(String[] strs) {
 		HashMap<String, List<String>> map = new HashMap<String, List<String>>();

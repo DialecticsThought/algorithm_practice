@@ -1,6 +1,6 @@
 package code_for_great_offer.class28;
 
-public class Problem_0037_SudokuSolver {
+public class LeetCode_0037_SudokuSolver {
 
 	public static void solveSudoku(char[][] board) {
 		boolean[][] row = new boolean[9][10];

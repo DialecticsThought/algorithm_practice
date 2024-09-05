@@ -12,7 +12,7 @@ package code_for_great_offer.class28;
 输入：head = [1,2], n = 1
 输出：[1]
 * */
-public class Problem_0019_RemoveNthNodeFromEndofList {
+public class LeetCode_0019_RemoveNthNodeFromEndofList {
 
     public static class ListNode {
         public int val;

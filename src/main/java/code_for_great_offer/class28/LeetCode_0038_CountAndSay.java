@@ -20,7 +20,7 @@ package code_for_great_offer.class28;
 * 然后对于每个组，先描述字符的数量，然后描述字符，形成一个描述组。要将描述转换为数字字符串，先将每组中的字符数量用数字替换，再将所有描述组连接起来。
 链接：https://leetcode.cn/problems/count-and-say
 * */
-public class Problem_0038_CountAndSay {
+public class LeetCode_0038_CountAndSay {
 
 	public static String countAndSay(int n) {
 		if (n < 1) {

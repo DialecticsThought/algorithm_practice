@@ -3,7 +3,7 @@ package code_for_great_offer.class28;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Problem_0022_GenerateParentheses {
+public class LeetCode_0022_GenerateParentheses {
 
 	public static List<String> generateParenthesis(int n) {
 		char[] path = new char[n << 1];

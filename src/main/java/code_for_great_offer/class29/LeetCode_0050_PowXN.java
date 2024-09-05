@@ -1,6 +1,6 @@
 package code_for_great_offer.class29;
 
-public class Problem_0050_PowXN {
+public class LeetCode_0050_PowXN {
 	/*
 	* 50. Pow(x, n)
 	* 实现 pow(x, n) ，即计算 x 的整数 n 次幂函数（即，xn ）。

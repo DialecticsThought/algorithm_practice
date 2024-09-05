@@ -1,6 +1,6 @@
 package code_for_great_offer.class28;
 
-public class Problem_0034_FindFirstAndLastPositionOfElementInSortedArray {
+public class LeetCode_0034_FindFirstAndLastPositionOfElementInSortedArray {
 
 	public static int[] searchRange(int[] nums, int target) {
 		if (nums == null || nums.length == 0) {
