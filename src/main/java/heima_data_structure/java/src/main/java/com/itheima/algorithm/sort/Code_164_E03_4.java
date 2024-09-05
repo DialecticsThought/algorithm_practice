@@ -1,11 +1,7 @@
 package heima_data_structure.java.src.main.java.com.itheima.algorithm.sort;
 
 
-import heima_data_structure.java.src.main.java.com.itheima.datastructure.array.DynamicArray;
-
-import java.util.Arrays;
-
-public class E03Leetcode164_4 {
+public class Code_164_E03_4 {
     public int maximumGap(int[] nums) {
         // 1. 处理特殊情况
         if (nums.length < 2) {
@@ -96,7 +92,7 @@ public class E03Leetcode164_4 {
                 [19 25]      6
          */
         int[] nums = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 220};
-        int r = new E03Leetcode164_4().maximumGap(nums);
+        int r = new Code_164_E03_4().maximumGap(nums);
         System.out.println(r);
     }
 }

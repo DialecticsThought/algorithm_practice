@@ -1,13 +1,13 @@
 package heima_data_structure.test.algorithm.sort;
 
-import heima_data_structure.java.src.main.java.com.itheima.algorithm.sort.E01Leetcode1122;
+import heima_data_structure.java.src.main.java.com.itheima.algorithm.sort.Code_1122_E01;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class TestE01Leetcode1122 {
+public class TestCode1122E01 {
 
-    private E01Leetcode1122 leetcode = new E01Leetcode1122();
+    private Code_1122_E01 leetcode = new Code_1122_E01();
 
     @Test
     public void test1() {

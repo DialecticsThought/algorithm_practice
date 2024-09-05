@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.algorithm.sort;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class E03Leetcode164_2 {
+public class Code_164_E03_2 {
     public int maximumGap(int[] nums) {
         // 1. 处理特殊情况
         if (nums.length < 2) {
@@ -68,7 +68,7 @@ public class E03Leetcode164_2 {
      */
     public static void main(String[] args) {
         int[] nums = {26, 16, 13, 11, 100000};
-        int r = new E03Leetcode164_2().maximumGap(nums);
+        int r = new Code_164_E03_2().maximumGap(nums);
         System.out.println(r);
     }
 }

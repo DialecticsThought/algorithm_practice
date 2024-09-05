@@ -7,7 +7,7 @@ import java.util.Arrays;
     1. 元素值均 >= 0  <=1000
     2. 两个数组长度 <= 1000
  */
-public class E01Leetcode1122 {
+public class Code_1122_E01 {
     public int[] relativeSortArray(int[] arr1, int[] arr2) {
         int[] count = new int[1001];
         for (int i : arr1) {
@@ -39,7 +39,7 @@ public class E01Leetcode1122 {
         int[] arr1 = {3, 2, 1, 2, 2, 1, 2, 5, 4};
         int[] arr2 = {2, 3, 1};
 
-        E01Leetcode1122 leetcode = new E01Leetcode1122();
+        Code_1122_E01 leetcode = new Code_1122_E01();
         int[] result = leetcode.relativeSortArray(arr1, arr2);
         System.out.println(Arrays.toString(result));
     }
