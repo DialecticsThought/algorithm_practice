@@ -19,7 +19,7 @@ package code_for_great_offer.class15;
 *输入：prices = [1,3,7,5,10,3], fee = 3
 *输出：6
 * */
-public class Code06_BestTimeToBuyAndSellStockWithTransactionFee {
+public class leetCode_714_BestTimeToBuyAndSellStockWithTransactionFee {
 	/*
 	* 到了i位置 0~i范围上 最后一个动作是买入的情况下 综合考虑-好的买入价格
 	*  0~i范围上 最后一个动作是卖出的情况下

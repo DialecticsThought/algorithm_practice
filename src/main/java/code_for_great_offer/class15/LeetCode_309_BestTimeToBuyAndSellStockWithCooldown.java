@@ -15,7 +15,7 @@ package code_for_great_offer.class15;
 * 输出: 0
 *
 * */
-public class Code05_BestTimeToBuyAndSellStockWithCooldown {
+public class LeetCode_309_BestTimeToBuyAndSellStockWithCooldown {
 
 	// 该方法是对的，提交之后大量的测试用例通过，最后几个会超时
 	// 如果把这个方法改成动态规划，是可以通过的，但这个尝试不是最优解

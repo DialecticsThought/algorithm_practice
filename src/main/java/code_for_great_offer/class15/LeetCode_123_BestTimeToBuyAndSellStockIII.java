@@ -1,7 +1,7 @@
 package code_for_great_offer.class15;
 
 //leetcode 123
-public class Code03_BestTimeToBuyAndSellStockIII {
+public class LeetCode_123_BestTimeToBuyAndSellStockIII {
 
 	public static int maxProfit(int[] prices) {
 		if (prices == null || prices.length < 2) {
