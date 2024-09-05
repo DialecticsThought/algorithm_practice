@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // 本题测试链接 : https://leetcode.com/problems/palindrome-partitioning-ii/
-public class Code02_PalindromePartitioningII {
+public class LeetCode_132_PalindromePartitioningII {
 
 
 /*    public static int f(char[] str, int i) {

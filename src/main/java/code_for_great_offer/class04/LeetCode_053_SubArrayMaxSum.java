@@ -24,7 +24,7 @@ package code_for_great_offer.class04;
  *
  *
  */
-public class Code02_053_SubArrayMaxSum {
+public class LeetCode_053_SubArrayMaxSum {
 
 	public int maxSubArray(int[] nums) {
 		// 调用递归函数，初始从第0个元素开始，前一个子数组和为0

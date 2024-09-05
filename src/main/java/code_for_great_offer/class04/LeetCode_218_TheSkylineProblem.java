@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 // 本题测试链接 : https://leetcode.com/problems/the-skyline-problem/
-public class Code08_TheSkylineProblem {
+public class LeetCode_218_TheSkylineProblem {
 	/**
 	 * Node 类表示建筑物的一个边界（左或右）。
 	 */

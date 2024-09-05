@@ -20,7 +20,7 @@ package code_for_great_offer.class01;
  * 最长路径是[1, 2, 6, 9].
  * @date 2020/2/15 18:37
  */
-public class Code_329_LongestIncreasingPath {
+public class LeetCode_329_LongestIncreasingPath {
     /*
      * TODO
      *  给定一个二维数组matrix,

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 // 本题测试链接 : https://leetcode.cn/problems/freedom-trail/
-public class Code_514_FreedomTrail {
+public class LeetCode_514_FreedomTrail {
 
 	public static int findRotateSteps(String r, String k) {
 		char[] ring = r.toCharArray();

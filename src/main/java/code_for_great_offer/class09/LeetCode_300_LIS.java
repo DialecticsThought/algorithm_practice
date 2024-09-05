@@ -3,7 +3,7 @@ package code_for_great_offer.class09;
 import java.util.Arrays;
 
 // 本题测试链接 : https://leetcode.com/problems/longest-increasing-subsequence
-public class Code03_LIS {
+public class LeetCode_300_LIS {
 
     public static int lengthOfLIS(int[] arr) {
         if (arr == null || arr.length == 0) {

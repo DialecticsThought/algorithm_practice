@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // 本题测试链接 : https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
-public class Code01_MinimumInsertionStepsToMakeAStringPalindrome {
+public class LeetCode_1312_MinimumInsertionStepsToMakeAStringPalindrome {
 
 	// 测试链接只测了本题的第一问，直接提交可以通过
 	public static int minInsertions(String s) {

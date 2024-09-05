@@ -1,7 +1,7 @@
 package code_for_great_offer.class04;
 
 // 本题测试链接 : https://leetcode.com/problems/interleaving-string/
-public class Code07_InterleavingString {
+public class leetCode_97_InterleavingString {
 
 	public boolean isInterleave(String s1, String s2, String s3) {
 		// 检查长度，如果不匹配直接返回false

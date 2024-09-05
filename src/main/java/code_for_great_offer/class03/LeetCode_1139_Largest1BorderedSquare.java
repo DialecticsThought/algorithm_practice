@@ -1,7 +1,7 @@
 package code_for_great_offer.class03;
 
 // 本题测试链接 : https://leetcode.cn/problems/largest-1-bordered-square/
-public class Code_1139_Largest1BorderedSquare {
+public class LeetCode_1139_Largest1BorderedSquare {
 
 /*    public static int test(int[][] m) {
         int N = m.length;

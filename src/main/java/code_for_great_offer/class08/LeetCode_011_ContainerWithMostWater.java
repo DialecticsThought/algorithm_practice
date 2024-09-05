@@ -1,7 +1,7 @@
 package code_for_great_offer.class08;
 
 // 本题测试链接 : https://leetcode.com/problems/container-with-most-water/
-public class Code02_ContainerWithMostWater {
+public class LeetCode_011_ContainerWithMostWater {
 
 	public static int maxArea1(int[] h) {
 		int max = 0;

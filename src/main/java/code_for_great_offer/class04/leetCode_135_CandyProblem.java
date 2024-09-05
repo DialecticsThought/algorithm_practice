@@ -1,7 +1,7 @@
 package code_for_great_offer.class04;
 
 // 测试链接 : https://leetcode.com/problems/candy/
-public class Code05_CandyProblem {
+public class leetCode_135_CandyProblem {
 
 	// 这是原问题的优良解
 	// 时间复杂度O(N)，额外空间复杂度O(N)

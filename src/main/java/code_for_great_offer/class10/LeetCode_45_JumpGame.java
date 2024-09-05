@@ -14,7 +14,7 @@ package code_for_great_offer.class10;
  * 输出
  * 3
  */
-public class Code01_JumpGame {
+public class LeetCode_45_JumpGame {
 
 	public static int jump(int[] arr) {
 		if (arr == null || arr.length == 0) {

@@ -3,7 +3,7 @@ package code_for_great_offer.class05;
 import java.util.Stack;
 
 // 本题测试链接 : https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
-public class Code_1008_ConstructBinarySearchTreeFromPreorderTraversal {
+public class leetCode_1008_ConstructBinarySearchTreeFromPreorderTraversal {
 
 	// 不用提交这个类
 	public static class TreeNode {
