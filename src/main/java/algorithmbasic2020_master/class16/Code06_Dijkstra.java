@@ -154,7 +154,7 @@ public class Code06_Dijkstra {
             for (Edge edge : minNode.edges) {
                 //eg ： D是minNode 有一条边是 D--->E  那么 E就是toNode
                 Node toNode = edge.to;
-                /*(
+                /**
                  * distanceMap中没有找到与toNode有关的记录
                  * 说明出发点from 到 toNode 的距离还是正无穷 还没有有被找到
                  * 那么记录到Map中 也就是 from 到 minNode距离 + minNode到toNode的距离
