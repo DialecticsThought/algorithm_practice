@@ -49,7 +49,8 @@ public class AVLTree {
         public AVLNode left;
 
         public AVLNode right;
-        int height = 1; // 高度
+
+        int height = 1; // 高度 防止节点是null的时候的高度处理
 
         public AVLNode(int key, Object value) {
             this.key = key;
@@ -79,6 +80,24 @@ public class AVLTree {
     }
 
     /**
+     * 用递归的方式得到高度
+     *
+     * @param node
+     * @return
+     */
+    private int getHeight(AVLNode node) {
+        if (node == null) {
+            return 0;
+        }
+        // 得到左孩子的高度
+        int leftHeight = getHeight(node.left);
+        //  得到右孩子的高度
+        int rightHeight = getHeight(node.right);
+        // 左右孩子中的最大值 + 当前节点的高度
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    /**
      * 更新节点高度 (新增、删除、旋转)
      *
      * @param node
@@ -94,21 +113,21 @@ public class AVLTree {
      * <pre>
      * eg:
      *          6
-     *      ↙    ↘
-     *      2     7
+     *        ↙    ↘
+     *       2     7
      *     ↙  ↘
      *    1    4
-     *  ↙  ↘
-     * 3   5
-     * bf-1时，表示右边太高
+     *        ↙  ↘
+     *        3   5
+     * bf < -1时，表示右边太高
      * eg:
      *          2
      *      ↙    ↘
      *      1     6
-     *    ↙  ↘
-     *   4    7
-     *  ↙  ↘
-     *  3   5
+     *          ↙  ↘
+     *         4    7
+     *       ↙  ↘
+     *       3   5
      * </pre>
      *
      * @param node
