@@ -1,7 +1,7 @@
 package algorithmbasic2020_master.class43;
 
 // leetcode 464题
-public class Code_464_CanIWin {
+public class LeetCode_464_CanIWin {
 
     /**
      * TODO
@@ -27,7 +27,7 @@ public class Code_464_CanIWin {
     }
 
     /**
-     * TODO 当前轮到先手拿，
+     * 当前轮到先手拿，
      * 先手只能选择在arr中还存在的数字，
      * 还剩rest这么值，
      * 返回先手会不会赢
@@ -36,15 +36,15 @@ public class Code_464_CanIWin {
         if (rest <= 0) {
             return false;
         }
-        //TODO 先手去尝试所有的情况
+        //先手去尝试所有的情况
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] != -1) {//TODO 如果当前数字没哟被拿走
-                int cur = arr[i];//TODO 尝试拿走这个数
+            if (arr[i] != -1) {//如果当前数字没哟被拿走
+                int cur = arr[i];//尝试拿走这个数
                 arr[i] = -1;
-                //TODO 当前这一轮的先手 变成下一轮的后手 如果下一轮的先手输掉的话 就是当前这一轮的先手赢
-                //TODO 可以理解为 如果子过程的后手赢了的话，就是当前的先手赢 是同一个人
+                //当前这一轮的先手 变成下一轮的后手 如果下一轮的先手输掉的话 就是当前这一轮的先手赢
+                //可以理解为 如果子过程的后手赢了的话，就是当前的先手赢 是同一个人
                 boolean next = process(arr, rest - cur);
-                arr[i] = cur;//TODO 尝试完后 把数字复原  类似于深度优先遍历
+                arr[i] = cur;//尝试完后 把数字复原  类似于深度优先遍历
                 if (!next) {
                     return true;
                 }
@@ -78,12 +78,12 @@ public class Code_464_CanIWin {
      */
     public static boolean process1(int choose, int status, int rest) {
         if (rest <= 0) {
-            return false;//TODO 先手输
+            return false;//先手输
         }
-        //TODO 先手执行 i~choose所有可能的数 但是只有第i位置是0的数 才能执行  因为0表示没有拿
+        //先手执行 i~choose所有可能的数 但是只有第i位置是0的数 才能执行  因为0表示没有拿
         for (int i = 1; i <= choose; i++) {
             if (((1 << i) & status) == 0) { // i 这个数字，是此时先手的决定！
-                //TODO  (status | (1 << i)) 实现 i位的数 0 -> 1表示使用过了
+                //(status | (1 << i)) 实现 i位的数 0 -> 1表示使用过了
                 if (!process1(choose, (status | (1 << i)), rest - i)) {
                     return true;
                 }
@@ -100,7 +100,7 @@ public class Code_464_CanIWin {
         if ((choose * (choose + 1) >> 1) < total) {
             return false;
         }
-        //TODO +1 是因为 最低位的0 不使用 第二位表示1 第三位表示2 ......
+        //+1 是因为 最低位的0 不使用 第二位表示1 第三位表示2 ......
         int[] dp = new int[1 << (choose + 1)];
         // dp[status] == 1 那么说明过程算过了 返回 true
         // dp[status] == -1 那么说明过程算过了 返回  false
@@ -115,7 +115,7 @@ public class Code_464_CanIWin {
      * 对 status做缓存
      */
     public static boolean process2(int choose, int status, int rest, int[] dp) {
-        if (dp[status] != 0) {//TODO 表示算过了 命中缓存
+        if (dp[status] != 0) {//表示算过了 命中缓存
             return dp[status] == 1 ? true : false;
         }
         //开始算
@@ -123,7 +123,7 @@ public class Code_464_CanIWin {
         if (rest > 0) {
             for (int i = 1; i <= choose; i++) {
                 if (((1 << i) & status) == 0) {
-                    //TODO  (status | (1 << i)) 实现 i位的数 0 -> 1表示使用过了
+                    //(status | (1 << i)) 实现 i位的数 0 -> 1表示使用过了
                     if (!process2(choose, (status | (1 << i)), rest - i, dp)) {
                         ans = true;
                         break;
@@ -131,8 +131,8 @@ public class Code_464_CanIWin {
                 }
             }
         }
-        dp[status] = ans ? 1 : -1;//TODO 算完把结果放入缓存
-        return ans;//TODO 返回结果
+        dp[status] = ans ? 1 : -1;//算完把结果放入缓存
+        return ans;//返回结果
     }
 
 }

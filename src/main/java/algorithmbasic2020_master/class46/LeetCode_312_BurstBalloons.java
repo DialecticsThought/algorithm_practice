@@ -1,7 +1,7 @@
 package algorithmbasic2020_master.class46;
 
 // 本题测试链接 : https://leetcode.com/problems/burst-balloons/
-public class Code_312_BurstBalloons {
+public class LeetCode_312_BurstBalloons {
 
 	public static int maxCoins0(int[] arr) {
 		// [3,2,1,3]

@@ -2,7 +2,7 @@ package algorithmbasic2020_master.class41;
 
 // leetcode原题
 // 测试链接：https://leetcode.com/problems/split-array-largest-sum/
-public class Code_410_SplitArrayLargestSum {
+public class LeetCode_410_SplitArrayLargestSum {
 
 	// 求原数组arr[L...R]的累加和
 	public static int sum(int[] sum, int L, int R) {
