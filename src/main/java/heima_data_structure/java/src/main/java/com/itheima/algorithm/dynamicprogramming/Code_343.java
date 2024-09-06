@@ -2,7 +2,7 @@ package heima_data_structure.java.src.main.java.com.itheima.algorithm.dynamicpro
 
 import java.util.Arrays;
 
-import static heima_data_structure.java.src.main.java.com.itheima.algorithm.dynamicprogramming.Code_518_ChangeMakingProblem.print;
+import static heima_data_structure.java.src.main.java.com.itheima.algorithm.dynamicprogramming.LeetCode_518_ChangeMakingProblem.print;
 
 /**
  * <h3>整数拆分 - 动态规划</h3>
