@@ -1,6 +1,6 @@
 package heima_data_structure.java.src.main.java.com.itheima.algorithm.binarysearch;
 
-public class Code_704 {
+public class LeetCode_704 {
 
     // 平衡版
     public int search1(int[] a, int target) {

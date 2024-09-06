@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * <h3>组合 回溯</h3>
  */
-public class Code_077_Combination {
+public class LeetCode_077_Combination {
     // 此 n 代表数字范围, 1~n
     static List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> result = new ArrayList<>();

@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * <h3>至少k个字符的最长子串</h3>
  */
-public class Code_395_LongestSubstring {
+public class LeetCode_395_LongestSubstring {
 
     // s.length() < k  "a" 2
     static int longestSubstring(String s, int k) {

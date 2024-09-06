@@ -1,6 +1,6 @@
 package heima_data_structure.java.src.main.java.com.itheima.algorithm.binarysearch;
 
-public class Code_34 {
+public class LeetCode_34 {
     public int[] searchRange(int[] a, int target) {
         int x = left(a, target);
         if (x == -1) {

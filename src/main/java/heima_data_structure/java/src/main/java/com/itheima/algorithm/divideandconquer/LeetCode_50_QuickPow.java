@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.algorithm.divideandc
 /**
  * <h3>快速幂 - 分治</h3>
  */
-public class Coed_50_QuickPow {
+public class LeetCode_50_QuickPow {
     /*
 
                            2^16                 65536  乘四次

@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.algorithm.divideandc
 /**
  * <h3>平方根整数部分</h3>
  */
-public class Code_69_Sqrt {
+public class LeetCode_69_Sqrt {
 
     /*
         99 = 9.?

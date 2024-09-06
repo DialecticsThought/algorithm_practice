@@ -1,6 +1,6 @@
 package heima_data_structure.java.src.main.java.com.itheima.algorithm.binarysearch;
 
-public class Code_35 {
+public class LeetCode_35 {
     // java 版
     public int searchInsert1(int[] a, int target) {
         int low = 0;

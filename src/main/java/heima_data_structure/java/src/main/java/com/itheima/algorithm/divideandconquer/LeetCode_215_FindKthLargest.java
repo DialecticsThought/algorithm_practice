@@ -6,7 +6,7 @@ package heima_data_structure.java.src.main.java.com.itheima.algorithm.divideandc
  *     <li>时间复杂度 O(n)</li>
  * </ul>
  */
-public class Code_215_FindKthLargest {
+public class LeetCode_215_FindKthLargest {
 
 
     /*
@@ -26,7 +26,7 @@ public class Code_215_FindKthLargest {
     }
 
     public static void main(String[] args) {
-        Code_215_FindKthLargest code = new Code_215_FindKthLargest();
+        LeetCode_215_FindKthLargest code = new LeetCode_215_FindKthLargest();
         // 应为5
         System.out.println(code.findKthLargest(new int[]{2, 1, 4, 5, 6}, 2));
     }

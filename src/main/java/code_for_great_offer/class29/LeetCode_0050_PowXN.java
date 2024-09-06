@@ -1,7 +1,7 @@
 package code_for_great_offer.class29;
 
 public class LeetCode_0050_PowXN {
-	/*
+	/**
 	* 50. Pow(x, n)
 	* 实现 pow(x, n) ，即计算 x 的整数 n 次幂函数（即，xn ）。
 	* 示例 1：
@@ -30,7 +30,7 @@ public class LeetCode_0050_PowXN {
 				ans *= t;
 			}
 			t *= t;
-			/*
+			/**
 			* n向右 移动一位  也就是拿 n的最低位
 			* 然后判断最低位是否为1
 			* */
@@ -48,7 +48,7 @@ public class LeetCode_0050_PowXN {
 		double t = x;
 		double ans = 1D;
 		while (pow != 0) {
-			/*
+			/**
 			* pow = 01100111
 			* n   = 00000001
 			* &结果= 00000001
@@ -59,7 +59,7 @@ public class LeetCode_0050_PowXN {
 			pow >>= 1;
 			t = t * t;
 		}
-		/*
+		/**
 		* 如果 n是负数 那么 先变成 整数 求出 res 最后 1/res
 		* 但是系统最小值 是转换不了的
 		* x^Math.abs(Integer.MIN_VALUE) = x^Integer.MAX_VALUE * x
