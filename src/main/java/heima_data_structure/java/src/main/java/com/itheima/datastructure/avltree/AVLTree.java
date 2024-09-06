@@ -6,36 +6,38 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.avltre
  * 如果在插入和删除时通过旋转, 始终让二叉搜索树保持平衡, 称为自平衡的二叉搜索树
  * AVL 是自平衡二叉搜索树的实现之一
  * 如果一个节点的左右孩子，高度差超过1，则此节点失衡，才需要旋转
- * TODO
+ * <p>
  * 定义:
- * 向下的P，换爹的G，向上的Y
+ * 向下的Pink，换爹的Green，向上的Yellow
+ * <pre>
  * eg:
  * 旋转前:
- * |           4(P)
- * |          ↙
- * |        3(Y)
- * |      ↙
- * |     2
- * |   ↙
- * |  1
+ *            4(P)
+ *           ↙
+ *         3(Y)
+ *       ↙
+ *      2
+ *    ↙
+ *   1
  * 旋转后:
- * |        3(Y)
- * |      ↙      ↘
- * |     2       4(P)
- * |   ↙
- * |  1
+ *         3(Y)
+ *       ↙      ↘
+ *      2       4(P)
+ *    ↙
+ *   1
  * 对于上面这个树 ，满足 每一个节点的左右孩子  高度差不超过1
  * eg:
  * 旋转前:
- * |           8(P)
- * |          ↙
- * |        6(Y)
- * |      ↙
- * |     3
+ *            8(P)
+ *           ↙
+ *         6(Y)
+ *       ↙
+ *      3
  * 旋转后:
- * |        6(Y)
- * |      ↙      ↘
- * |     3       8(P)
+ *         6(Y)
+ *       ↙      ↘
+ *      3       8(P)
+ * </pre>
  */
 public class AVLTree {
 
@@ -88,24 +90,26 @@ public class AVLTree {
     /**
      * 平衡因子 (balance factor) = 左子树高度-右子树高度  分别可能是:1 -1 0
      * bf = 0，1，-1时，表示左右平衡
-     * bf >1时，表示左边太高
+     * bf > 1时，表示左边太高
+     * <pre>
      * eg:
-     * |         6
-     * |     ↙    ↘
-     * |     2     7
-     * |    ↙  ↘
-     * |   1    4
-     * | ↙  ↘
-     * |3   5
+     *          6
+     *      ↙    ↘
+     *      2     7
+     *     ↙  ↘
+     *    1    4
+     *  ↙  ↘
+     * 3   5
      * bf-1时，表示右边太高
      * eg:
-     * |         2
-     * |     ↙    ↘
-     * |     1     6
-     * |   ↙  ↘
-     * |  4    7
-     * | ↙  ↘
-     * | 3   5
+     *          2
+     *      ↙    ↘
+     *      1     6
+     *    ↙  ↘
+     *   4    7
+     *  ↙  ↘
+     *  3   5
+     * </pre>
      *
      * @param node
      * @return
@@ -116,7 +120,8 @@ public class AVLTree {
 
 
     /**
-     * TODO 参数：要旋转的节点, 返回值：新的根节点 LL
+     * 参数：要旋转的节点, 返回值：新的根节点 LL
+     * <pre>
      * eg:
      *          5(P)
      *       ↙    ↘
@@ -135,27 +140,32 @@ public class AVLTree {
      *      2     5(P)
      *    ↙       ↙  ↘
      *   1       4(G)  6
+     * </pre>
      *
-     * @param red
-     * @return eg:
+     * <pre>
+     * eg:
      * 旋转前：
      * eg
-     * |      8(P)
-     * |    ↙   ↘
-     * |   6(Y)  9
-     * | ↙  ↘
-     * |5   7(G)
+     *       8(P)
+     *     ↙   ↘
+     *    6(Y)  9
+     *  ↙  ↘
+     * 5   7(G)
      * 8是粉红色节点    6是黄色节点      7是绿色节点也就是黄色节点的右孩子
      * 绿色节点需要换爹
      * 旋转的时候绿色节点作为粉红色节点的左孩子
      * 旋转后：
      * eg:
-     * |
-     * |     6
-     * |   ↙   ↘
-     * |  5     8(P)
-     * |       ↙   ↘
-     * |      7(G)  9
+     *
+     *      6
+     *    ↙   ↘
+     *   5     8(P)
+     *        ↙   ↘
+     *       7(G)  9
+     * </pre>
+     *
+     * @param red
+     * @return
      */
     private AVLNode rightRotate(AVLNode red) {
         // 右旋的话 说明是左侧高 那么yellow不可能空指针
@@ -170,7 +180,8 @@ public class AVLTree {
     }
 
     /**
-     * TODO 参数：要旋转的节点, 返回值：新的根节点 RR
+     * 参数：要旋转的节点, 返回值：新的根节点 RR
+     * <pre>
      *  eg:
      *       2(P)
      *    ↙    ↘
@@ -200,6 +211,7 @@ public class AVLTree {
      *   2(P)     5
      *  ↙ ↘       ↘
      *  1   3(G)     6
+     * </pre>
      *
      * @param red
      * @return
@@ -217,7 +229,8 @@ public class AVLTree {
     }
 
     /**
-     * TODO 先右旋右子树, 再左旋根节点 RL
+     * 先右旋右子树, 再左旋根节点 RL
+     * <pre>
      * eg:
      *       6
      *     ↙    ↘
@@ -260,6 +273,7 @@ public class AVLTree {
      *    ↙ ↘      ↙  ↘
      *   1  3     5(G)  7
      *  最后返回黄色节点4
+     * </pre>
      *
      * @param node 失衡的节点
      * @return
@@ -272,7 +286,8 @@ public class AVLTree {
     }
 
     /**
-     * TODO 先左旋左子树, 再右旋根节点 LR
+     * 先左旋左子树, 再右旋根节点 LR
+     * <pre>
      * eg:
      *          6
      *       ↙    ↘
@@ -315,6 +330,7 @@ public class AVLTree {
      *    ↙  ↘    ↙    ↘
      *   1   3    5    7
      *  此时4也就是黄色 要被返回
+     * </pre>
      *
      * @param node 失衡的节点
      * @return
@@ -370,24 +386,24 @@ public class AVLTree {
      * @return
      */
     private AVLNode doPut(AVLNode node, int key, Object value) {
-        //TODO 1. 找到空位, 创建新节点  第一次调用put的时候 root为空 那么 node为空 就会执行这个
+        // 1. 找到空位, 创建新节点  第一次调用put的时候 root为空 那么 node为空 就会执行这个
         if (node == null) {
             return new AVLNode(key, value);
         }
-        //TODO 2. key 已存在, 更新
+        // 2. key 已存在, 更新
         if (key == node.key) {
             node.value = value;
             return node;
         }
-        //TODO 3. 继续查找
+        // 3. 继续查找
         if (key < node.key) {
-            node.left = doPut(node.left, key, value); //TODO 向左
+            node.left = doPut(node.left, key, value); // 向左
         } else {
-            node.right = doPut(node.right, key, value); //TODO 向右
+            node.right = doPut(node.right, key, value); // 向右
         }
-        //TODO  新增节点后 更新高度
+        //  新增节点后 更新高度
         updateHeight(node);
-        //TODO  再平衡
+        //  再平衡
         return balance(node);
     }
 
@@ -401,11 +417,11 @@ public class AVLTree {
      * @return
      */
     private AVLNode doRemove(AVLNode node, int key) {
-        //TODO 1. node == null
+        // 1. node == null
         if (node == null) {
             return null;
         }
-        //TODO 2. 没找到 key
+        // 2. 没找到 key
         if (key < node.key) {
             // 向左孩子
             node.left = doRemove(node.left, key);
@@ -413,7 +429,7 @@ public class AVLTree {
             // 向右孩子
             node.right = doRemove(node.right, key);
         } else {
-            //TODO 3. 找到 key  1) 没有孩子 2) 只有一个孩子 3) 有两个孩子
+            // 3. 找到 key  1) 没有孩子 2) 只有一个孩子 3) 有两个孩子
             if (node.left == null && node.right == null) {
                 return null;
             } else if (node.left == null) {
@@ -422,7 +438,6 @@ public class AVLTree {
                 node = node.left;
             } else {
                 /**
-                 *TODO
                  * 待删除的节点的右孩子还是找，不断对做右孩子的左分支遍历
                  * 直到某一个节点没有左子树 此时这个节点就是要找的后继结点
                  */
@@ -431,7 +446,6 @@ public class AVLTree {
                     s = s.left;
                 }
                 /**
-                 *TODO
                  * 此时s 就是后继节点 ，后继节点 先从 需要被删除的节点为根的子树中删去
                  * 但不是说不用这个后继节点了
                  * 然后 后继结点 替代 被删除的节点 也就是 被删除的节点的右子树 接到 后继结点 上
