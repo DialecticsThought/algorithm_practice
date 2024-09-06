@@ -423,16 +423,16 @@ public class AVLTree {
         }
         //得到节点的平衡因子
         int bf = bf(node);
-        //bf > 1说明当前节点是失衡节点  失衡节点的左子树的左子树比右子树更高
+        //bf > 1说明当前节点是失衡节点  失衡节点的左子树的 左子树比右子树更高
         if (bf > 1 && bf(node.left) >= 0) { // LL
             return rightRotate(node);
-            //bf > 1说明当前节点是失衡节点  失衡节点的左子树的右子树比左子树更高
+            //bf > 1说明当前节点是失衡节点  失衡节点的左子树的 右子树比左子树更高
         } else if (bf > 1 && bf(node.left) < 0) { // LR
             return leftRightRotate(node);
-            //bf > 1说明当前节点是失衡节点   失衡节点的右子树的左子树比右子树更高
+            //bf > 1说明当前节点是失衡节点   失衡节点的右子树的 左子树比右子树更高
         } else if (bf < -1 && bf(node.right) > 0) { // RL
             return rightLeftRotate(node);
-            //bf > 1说明当前节点是失衡节点  失衡节点的右子树的右子树比左子树更高
+            //bf > 1说明当前节点是失衡节点  失衡节点的右子树的 右子树比左子树更高
         } else if (bf < -1 && bf(node.right) <= 0) { // RR
             return leftRotate(node);
         }
