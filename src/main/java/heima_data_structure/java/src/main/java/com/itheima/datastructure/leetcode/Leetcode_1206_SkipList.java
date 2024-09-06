@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * <h3>跳表</h3>
  */
-public class SkipListLeetcode1206 {
+public class Leetcode_1206_SkipList {
 
     public static void main(String[] args) {
         Skiplist list = new Skiplist();

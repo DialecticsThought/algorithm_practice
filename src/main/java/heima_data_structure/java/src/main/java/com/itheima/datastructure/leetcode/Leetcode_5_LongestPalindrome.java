@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 /**
  * <h3>最长回文子串</h3>
  */
-public class LongestPalindromeLeetcode5 {
+public class Leetcode_5_LongestPalindrome {
     public static void main(String[] args) {
         System.out.println(longestPalindrome("babad"));
         System.out.println(longestPalindrome("cbbd"));

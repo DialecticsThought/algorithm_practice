@@ -10,7 +10,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
  *     <li><b>遇到跌 i 变 j，j++</b></li>
  * </ul>
  */
-public class SharesILeetcode121 {
+public class Leetcode_121_SharesI {
     static int maxProfit(int[] prices) {
         int i = 0;
         int j = 1;

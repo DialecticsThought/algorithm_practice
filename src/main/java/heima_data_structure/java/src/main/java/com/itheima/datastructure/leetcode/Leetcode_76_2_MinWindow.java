@@ -4,7 +4,7 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toMap;
 
-public class MinWindowLeetcode76_2 {
+public class Leetcode_76_2_MinWindow {
     public static void main(String[] args) {
         System.out.println(minWindow("ADOBECODEBANC", "ABC")); // BANC
 //        System.out.println(minWindow("aaabbbbbcdd", "abcdd")); // abbbbbcdd

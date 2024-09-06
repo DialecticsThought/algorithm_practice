@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class TinyURLLeetcode535 {
+public class Leetcode_535_TinyURL {
 
     public static void main(String[] args) {
         CodecHashCode codec = new CodecHashCode();

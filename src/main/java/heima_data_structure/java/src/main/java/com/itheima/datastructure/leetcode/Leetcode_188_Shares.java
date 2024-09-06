@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * <h3>某一天买入股票，未来任意一天卖出，只能先卖再买，最多买卖K次，求最大利润</h3>
  */
-public class SharesLeetcode188 {
+public class Leetcode_188_Shares {
 
     static int maxProfit(int[] prices) {
         int i = 0;

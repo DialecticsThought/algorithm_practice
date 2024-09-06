@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * <h3>4数之和</h3>
  */
-public class SumLeetcode18 {
+public class Leetcode_18_Sum {
 
     static List<List<Integer>> fourSum(int[] nums, int target) {
         Arrays.sort(nums);

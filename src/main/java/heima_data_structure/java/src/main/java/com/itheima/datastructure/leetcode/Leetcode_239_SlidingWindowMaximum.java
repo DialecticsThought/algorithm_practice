@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * <h3>滑动窗口最大值 - 单调队列</h3>
  */
-public class SlidingWindowMaximumLeetcode239 {
+public class Leetcode_239_SlidingWindowMaximum {
 
     // 每次向单调递减队列加入元素，队头元素即为滑动窗口最大值
     static int[] maxSlidingWindow(int[] nums, int k) {

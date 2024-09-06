@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * <h3>3数之和</h3>
  */
-public class SumLeetcode15 {
+public class Leetcode_15_Sum {
 
     static List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);

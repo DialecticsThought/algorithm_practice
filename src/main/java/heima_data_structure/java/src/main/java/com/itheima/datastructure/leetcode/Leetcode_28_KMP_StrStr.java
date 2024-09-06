@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * <h3>字符串匹配 - Knuth Morris Pratt 算法</h3>
  */
-public class StrStrLeetcode28KMP {
+public class Leetcode_28_KMP_StrStr {
     static int strStr(String str1, String str2) {
         char[] origin = str1.toCharArray();     // 原始
         char[] pattern = str2.toCharArray();    // 模式

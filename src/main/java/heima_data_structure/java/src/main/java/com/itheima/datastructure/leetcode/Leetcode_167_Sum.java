@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * <h3>2数之和</h3>
  */
-public class SumLeetcode167 {
+public class Leetcode_167_Sum {
     public static void main(String[] args) {
         System.out.println(Arrays.toString(twoSum(new int[]{2, 7, 11, 15}, 9)));
     }

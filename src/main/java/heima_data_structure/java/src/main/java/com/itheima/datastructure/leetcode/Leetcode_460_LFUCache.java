@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * <h3>设计 LFU 缓存</h3>
  */
-public class LFUCacheLeetcode460 {
+public class Leetcode_460_LFUCache {
     static class LFUCache {
         static class Node {
             Node prev;

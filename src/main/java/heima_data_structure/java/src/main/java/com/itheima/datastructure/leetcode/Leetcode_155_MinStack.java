@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 import java.util.LinkedList;
 
 @SuppressWarnings("all")
-public class MinStackLeetcode155 {
+public class Leetcode_155_MinStack {
     /**
      * 有两个栈 一个栈存放数据 还有一个栈表示 每一次放入元素的时候 整个栈的最小值
      * eg:  图中 自上而下 依次是栈底到栈顶

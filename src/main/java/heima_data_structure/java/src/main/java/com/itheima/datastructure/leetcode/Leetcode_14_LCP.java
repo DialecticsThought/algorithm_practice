@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 /**
  * <h3>最长公共前缀</h3>
  */
-public class LCPLeetcode14 {
+public class Leetcode_14_LCP {
     static String longestCommonPrefix(String[] strings) {
         /*
             情况1：比较某一列时，遇到不同字符，i 之前的字符就是解

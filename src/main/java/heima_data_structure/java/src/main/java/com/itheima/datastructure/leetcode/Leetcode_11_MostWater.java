@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 /**
  * <h3>盛最多水的容器</h3>
  */
-public class MostWaterLeetcode11 {
+public class Leetcode_11_MostWater {
     static int maxArea(int[] height) {
         int i = 0;
         int j = height.length - 1;

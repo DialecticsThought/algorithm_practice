@@ -6,7 +6,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
  * 有利润就买卖，只看眼前
  *
  */
-public class SharesIILeetcode122 {
+public class Leetcode_122_SharesII {
 
     static int maxProfit(int[] prices) {
         int i = 0;

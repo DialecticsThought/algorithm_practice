@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 /**
  * <h3>字符串匹配</h3>
  */
-public class StrStrLeetcode28 {
+public class Leetcode_28_StrStr {
     static int strStr(String str1, String str2) {
         char[] origin = str1.toCharArray(); // 原始
         char[] pattern = str2.toCharArray(); // 模式

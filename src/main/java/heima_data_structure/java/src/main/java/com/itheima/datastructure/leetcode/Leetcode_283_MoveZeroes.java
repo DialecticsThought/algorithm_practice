@@ -2,7 +2,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 
 import java.util.Arrays;
 
-public class MoveZeroesLeetcode283 {
+public class Leetcode_283_MoveZeroes {
     static void moveZeroes(int[] nums) {
         int i = 0;
         int j = 0;

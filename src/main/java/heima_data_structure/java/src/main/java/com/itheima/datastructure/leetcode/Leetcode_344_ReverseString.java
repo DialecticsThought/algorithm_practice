@@ -2,7 +2,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 
 import java.util.Arrays;
 
-public class ReverseStringLeetcode344 {
+public class Leetcode_344_ReverseString {
     public static void main(String[] args) {
         char[] array = "abcde".toCharArray();
         reverseString(array);

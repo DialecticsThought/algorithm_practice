@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * <h3>设计 LRU 缓存</h3>
  */
-public class LRUCacheLeetcode146 {
+public class Leetcode_146_LRUCache {
 
     static class LRUCache {
 

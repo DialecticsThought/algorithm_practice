@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * <h3>接雨水 - 单调栈</h3>
  */
-public class TrappingRainWaterLeetcode42 {
+public class Leetcode_42_TrappingRainWater {
     public static void main(String[] args) {
         System.out.println(trap(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1})); // 6
         System.out.println(trap(new int[]{4, 2, 0, 3, 2, 5})); // 9

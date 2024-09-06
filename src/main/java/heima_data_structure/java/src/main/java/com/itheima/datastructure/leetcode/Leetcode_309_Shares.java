@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 /**
  * <h3>某一天买入股票，未来任意一天卖出，可以买卖多次，卖出后只能隔天再买入，求最大利润</h3>
  */
-public class SharesLeetcode309 {
+public class Leetcode_309_Shares {
     /*
         0       1           2           3           4
         1       2           3           0           2

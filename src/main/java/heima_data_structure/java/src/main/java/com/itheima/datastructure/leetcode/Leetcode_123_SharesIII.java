@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 /**
  * <h3>某一天买入股票，未来任意一天卖出，只能先卖再买，最多买卖两次，求最大利润</h3>
  */
-public class SharesIIILeetcode123 {
+public class Leetcode_123_SharesIII {
     static int maxProfit(int[] prices) {
         /*
             第一次买 不依赖之前状态，以当日价格买入

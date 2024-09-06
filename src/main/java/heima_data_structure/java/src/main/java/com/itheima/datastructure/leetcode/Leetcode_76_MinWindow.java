@@ -2,7 +2,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 
 import java.util.HashMap;
 
-public class MinWindowLeetcode76 {
+public class Leetcode_76_MinWindow {
     public static void main(String[] args) {
 //        System.out.println(minWindow("ADOBECODEBANC", "ABC")); // BANC
         System.out.println(minWindow("aaabbbbbcdd", "abcdd")); // abbbbbcdd

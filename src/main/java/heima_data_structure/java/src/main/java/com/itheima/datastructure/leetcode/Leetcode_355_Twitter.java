@@ -2,7 +2,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 
 import java.util.*;
 
-public class TwitterLeetcode355 {
+public class Leetcode_355_Twitter {
     static class Twitter {
 
         static class Tweet {
