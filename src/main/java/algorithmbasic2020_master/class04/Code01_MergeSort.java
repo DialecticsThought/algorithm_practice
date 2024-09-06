@@ -10,67 +10,63 @@ public class Code01_MergeSort {
         process(arr, 0, arr.length - 1);
     }
 
-    // 请把arr[L..R]排有序
-    // l...r N
-    // T(N) = 2 * T(N / 2) + O(N)
-    // O(N * logN)
-    public static void process(intZ[] arr, int L, int R) {
+    /**
+     * <pre>
+     *        _7__3__2__6__0__1__5__4_        |
+     *        ↓                  ↓            |
+     *      _7__3__2__6_  |  _0__1__5__4_     | ==> 划分阶段
+     *        ↓     ↓           ↓     ↓       |
+     *    _7__3_ | _2__6_ | _0__1_ | _5__4_   |
+     *     ↓  ↓     ↓  ↓     ↓  ↓     ↓  ↓
+     *     7  3     2  6     0  1     5  4    《=   触发递归终止条件 base case
+     *       ↓       ↓        ↓        ↓
+     *    _3__7_ | _2__6_ | _0__1_ | _4__5_   |
+     *           ↓                 ↓          |
+     *      _2__3__6__7_  |  _0__1__4__5_     | ==> 合并阶段
+     *                    ↓                   |
+     *         _0__1__2__3__4__5__6__7_       |
+     * </pre>
+     *
+     * @param arr
+     * @param L
+     * @param R
+     */
+    public static void process(int[] arr, int L, int R) {
         if (L == R) { // base case 意思就是 该问题小到什么规模 就不用划分了
             return;
         }
+        // 划分阶段
         // mid = (L + R)/2 = L + ((R - L) >> 1);
-        int mid = L + ((R - L) >> 1);
-        process(arr, L, mid);
-        process(arr, mid + 1, R);
+        int mid = L + ((R - L) >> 1); // 计算中点
+        process(arr, L, mid); // 递归左子数组
+        process(arr, mid + 1, R);  // 递归右子数组
+        // 合并阶段
         merge(arr, L, mid, R);
     }
 
-    public static void merge(int[] arr, int L, int M, int R) {
+    public static void merge(int[] nums, int left, int mid, int right) {
         //准备一个辅助数组 大小是 L~R的范围
-        int[] help = new int[R - L + 1];
-        int i = 0;
-        int p1 = L;//指向L的指针 也就是左部分的指针
-        int p2 = M + 1;//指向M+1的指针 也就是右部分的指针
-        /**
-         * p1和p2都不越界的时候
-         * p1 到达M+1就越界
-         * p2到达R+1就越界
-         * */
-        while (p1 <= M && p2 <= R) {
-            /**
-             * 如果 p1指向的元素 <= p2指向的元素
-             * p1指向的元素 复制到 辅助数组的i位置,i++
-             * 否则  p2指向的元素 复制到 辅助数组的i位置,i++
-             * */
-            if (arr[p1] <= arr[p2]) {
-                help[i] = arr[p1];
-                i++;
-                p1++;
-            } else {
-                help[i] = arr[p2];
-                i++;
-                p2++;
+        int[] tmp = new int[right - left + 1];
+        // 左子数组的起始索引和结束索引
+        int leftStart = left - left, leftEnd = mid - left;
+        // 右子数组的起始索引和结束索引
+        int rightStart = mid + 1 - left, rightEnd = right - left;
+        // i, j 分别指向左子数组、右子数组的首元素
+        int i = leftStart, j = rightStart;
+        // 通过覆盖原数组 nums 来合并左子数组和右子数组
+        for (int k = left; k <= right; k++) {
+            // 若“左子数组已全部合并完”，则选取右子数组元素，并且 j++
+            if (i > leftEnd) {
+                nums[k] = tmp[j++];
             }
-
-        }
-        // 要么p1越界了，要么p2越界了 因为 上面循环中 要么 p1++ 要么p2++
-        while (p1 <= M) {
-            //p1越界了
-            help[i] = arr[p1];
-            i++; // 自增i
-            p1++; // 自增p1
-        }
-        while (p2 <= R) {
-            //p2越界了
-            help[i] = arr[p2];
-            i++; // 自增i
-            p2++; // 自增p2
-        }
-        /*
-         * 赋值完help数组之后 重新放回arr数组
-         * */
-        for (i = 0; i < help.length; i++) {
-            arr[L + i] = help[i];
+            // 否则，若“右子数组已全部合并完”或“左子数组元素 <= 右子数组元素”，则选取左子数组元素，并且 i++
+            else if (j > rightEnd || tmp[i] <= tmp[j]) {
+                nums[k] = tmp[i++];
+            }
+            // 否则，若“左右子数组都未全部合并完”且“左子数组元素 > 右子数组元素”，则选取右子数组元素，并且 j++
+            else {
+                nums[k] = tmp[j++];
+            }
         }
     }
 
@@ -82,7 +78,7 @@ public class Code01_MergeSort {
         int N = arr.length;
         // 步长
         int mergeSize = 1;
-        /*
+        /**
          * arr [ 2,1,0,3,4,2,6,3,7,5,4] mergeSize = 2
          * 2,1 => 1,2  0,3 =>0,3  4,2 =>2,4 6,3=>3,6 7,5=>5,7  4=>4
          * arr [ 1,2,0,3,2,4,3,6,5,7,4] mergeSize = 4
@@ -111,7 +107,7 @@ public class Code01_MergeSort {
                 //下一次的左组的第一个位置就是R+1
                 L = R + 1;
             }
-            /*
+            /**
              * 如果真的 mergeSize > N / 2
              * 那么执行mergeSize <<= 1
              * 导致 mergeSize > N 防止溢出
@@ -123,7 +119,7 @@ public class Code01_MergeSort {
             if (mergeSize > N / 2) {
                 break;
             }
-            /*
+            /**
              * mergeSize *= 2 <==> mergeSize <<= 1
              * 左移一位
              * */
