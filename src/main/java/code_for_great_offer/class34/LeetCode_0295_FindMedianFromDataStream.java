@@ -27,7 +27,7 @@ import java.util.PriorityQueue;
 链接：https://leetcode.cn/problems/find-median-from-data-stream
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 * */
-public class Problem_0295_FindMedianFromDataStream {
+public class LeetCode_0295_FindMedianFromDataStream {
 	/*
 	*TODO
 	* 第1个数字 5

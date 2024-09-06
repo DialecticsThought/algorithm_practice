@@ -17,7 +17,7 @@ import java.util.Comparator;
  * 给定这么一个矩阵，求信封最多可以套几层。
  * 比如上个例子，选[4,3][6,4]，[4,3]可以放在[6,4]里，最多套两层，返回2.
  */
-public class Problem_0354_Russian_Doll_Envelopes {
+public class LeetCode_0354_Russian_Doll_Envelopes {
 
     public static class Dot{
         public int w;

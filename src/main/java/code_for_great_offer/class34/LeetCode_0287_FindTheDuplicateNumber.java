@@ -17,7 +17,7 @@ package code_for_great_offer.class34;
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 *
 * */
-public class Problem_0287_FindTheDuplicateNumber {
+public class LeetCode_0287_FindTheDuplicateNumber {
 	/*
 	*TODO
 	* eg；一个数组 一共7个数 下表是0~6 那么有数字1~6

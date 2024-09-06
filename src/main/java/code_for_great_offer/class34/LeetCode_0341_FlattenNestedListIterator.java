@@ -27,7 +27,7 @@ import java.util.Stack;
 * 解释：通过重复调用next直到hasNext 返回 false，next返回的元素的顺序应该是: [1,4,6]。
 链接：https://leetcode.cn/problems/flatten-nested-list-iterator
 * */
-public class Problem_0341_FlattenNestedListIterator {
+public class LeetCode_0341_FlattenNestedListIterator {
 	/*
 	*TODO
 	* 有一个数组 [[1,[2,3]],[4,5],6,[7,[8,9],10]]

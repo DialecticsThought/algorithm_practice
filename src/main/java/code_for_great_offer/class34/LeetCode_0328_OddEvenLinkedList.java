@@ -1,6 +1,6 @@
 package code_for_great_offer.class34;
 
-public class Problem_0328_OddEvenLinkedList {
+public class LeetCode_0328_OddEvenLinkedList {
 
 	// 提交时不要提交这个类
 	public static class ListNode {

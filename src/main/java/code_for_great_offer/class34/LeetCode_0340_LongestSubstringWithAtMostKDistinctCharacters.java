@@ -30,7 +30,7 @@ package code_for_great_offer.class34;
 * ......
 * 从0位置不断执行上面的操作直到最后一个位置
  * */
-public class Problem_0340_LongestSubstringWithAtMostKDistinctCharacters {
+public class LeetCode_0340_LongestSubstringWithAtMostKDistinctCharacters {
 
 	public static int lengthOfLongestSubstringKDistinct(String s, int k) {
 		if (s == null || s.length() == 0 || k < 1) {

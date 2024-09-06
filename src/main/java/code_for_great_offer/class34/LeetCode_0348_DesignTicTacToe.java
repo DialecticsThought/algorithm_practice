@@ -37,7 +37,7 @@ toe.move(2, 1, 1); -> 函数返回 1 (此时，玩家 1 赢得了该场比赛)
 |O|O| | // 玩家 1 在 (2, 1) 落子。
 |X|X|X|
 * */
-public class Problem_0348_DesignTicTacToe {
+public class LeetCode_0348_DesignTicTacToe {
 
 	class TicTacToe {
 		private int[][] rows;

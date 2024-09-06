@@ -8,7 +8,7 @@ public
 链接：https://leetcode.cn/problems/power-of-three
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 * */
-class Problem_0326_PowerOfThree {
+class LeetCode_0326_PowerOfThree {
 
 	// 如果一个数字是3的某次幂，那么这个数一定只含有3这个质数因子
 	// 1162261467是int型范围内，最大的3的幂，它是3的19次方
