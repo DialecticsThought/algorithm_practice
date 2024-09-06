@@ -1,7 +1,7 @@
 package algorithmbasic2020_master.class18;
 
 /**
- * TODO
+ *
  * 假设有排成一行的N个位置，记为1~N，N一定大于或等于2开始时机器人在其中的M位置上(M一定是1~N中的一个)如果机器人来到1位置，那么下一步只能往右来到2位置;
  * 如果机器人来到N位置,那么下一步只能往左来到N-1位置;
  * 如果机器人来到中间位置，那么下一步可以往左走或者往右走;
@@ -16,6 +16,7 @@ package algorithmbasic2020_master.class18;
  * 起始函数 f(6,3,3,4)  6是固定的  3是开始  3是可移动3步  4是最终目标
  * 中间2各参数是固定的 所以可以抽象为f(3,3)
  * 递归函数有2个固定的分支分别是向左走 向右走
+ * <pre>
  * 		         f(3,3)
  * 	              L ↙    ↘ R
  * 	        f(2,2)	       	 f(4,2)
@@ -23,6 +24,8 @@ package algorithmbasic2020_master.class18;
  *  f(1,1) f(3,2)        f(3,1)   	  f(5,1)
  *   ↓ R	L ↙ ↘ R 	 L ↙ ↘ R		L ↙ ↘ R
  * f(2,0) f(2,1) f(4,1) f(2,0) f(4,0)	f(4,0) f(6,0)
+ * </pre>
+ *  <pre>
  * eg:
  * [1 2 3 4 5 6] M = 3 star = 3  aim = 5
  *           f(3,4)
@@ -31,10 +34,11 @@ package algorithmbasic2020_master.class18;
  *      L ↙  ↘ R      L ↙  ↘ R
  *   f(1,2)	 f(3,2)  f(3,2)	 f(5,2)
  *   ............
+ * </pre>
  */
 public class Code01_RobotWalk {
     /**
-     * TODO
+     *
      * 假设有排成一行的N个位置，记为1~N，N一定大于或等于2开始时机器人在其中的M位置上(M一定是1~N中的一个)
      * 如果机器人来到1位置，那么下一步只能往右来到2位置;
      * 如果机器人来到N位置,那么下一步只能往左来到N-1位置;
@@ -51,7 +55,7 @@ public class Code01_RobotWalk {
     }
 
     /**
-     * TODO
+     *
      * 机器人当前来到的位置是cur，cur是可变参数
      * 机器人还有rest步需要去走， rest是可变参数
      * 最终的目标是aim，
@@ -72,7 +76,7 @@ public class Code01_RobotWalk {
             }
         }
         /**
-         *TODO 如果还有rest步要走，而当前的cur位置在1位置上，那么根据规则当前这步只能从1走向2
+         * 如果还有rest步要走，而当前的cur位置在1位置上，那么根据规则当前这步只能从1走向2
          * 也就是递归函数的cur 传入2
          * 剩下的步数-1 也就是递归函数的rest 传入rest-1 还有rest-1步要走
          * aim最终目的地 和 N总数不变的
@@ -81,7 +85,7 @@ public class Code01_RobotWalk {
             return process1(2, rest - 1, aim, N);
         }
         /**
-         *TODO 如果还有rest步要走，而当前的cur位置在N位置上，那么根据规则当前这步只能从N走向N-1
+         * 如果还有rest步要走，而当前的cur位置在N位置上，那么根据规则当前这步只能从N走向N-1
          * 也就是递归函数的cur 传入N-1
          * 剩下的步数-1 也就是递归函数的rest 传入rest-1 还有rest-1步要走
          * 相加是因为 左走 和右走 是不同的方法
@@ -90,7 +94,7 @@ public class Code01_RobotWalk {
             return process1(N - 1, rest - 1, aim, N);
         }
         /**
-         *TODO 如果还有rest步要走，而当前的cur位置在中间位置上，那么当前这步可以走向左,也可以走向右
+         * 如果还有rest步要走，而当前的cur位置在中间位置上，那么当前这步可以走向左,也可以走向右
          * 走向左之后，后续的过程就是，来到cur-1位置上，还剩rest-1步要走
          * 走向右之后，后续的过程就是，来到cur+1位置上，还剩rest-1步要走
          * 走向左、走向右是截然不同的方法，所以总方法数要都算上. 走向左的方法数+走向右的方法数
@@ -99,25 +103,24 @@ public class Code01_RobotWalk {
         return process1(cur - 1, rest - 1, aim, N) + process1(cur + 1, rest - 1, aim, N);
     }
 
-    //TODO 把所有的cur和rest组合 返回的结果 加入到缓存中 因为有重复计算 会导致多次出现相同的cur和rest
+    // 把所有的cur和rest组合 返回的结果 加入到缓存中 因为有重复计算 会导致多次出现相同的cur和rest
     public static int ways2(int N, int start, int aim, int K) {
         if (N < 2 || start < 1 || start > N || aim < 1 || aim > N || K < 1) {
             return -1;
         }
-        /*
-         *TODO 为什么dp表的行：cur   列：rest 因为这两个是可变参数 只要这两个固定了 结果就出来了
+        /**
+         * 为什么dp表的行：cur   列：rest 因为这两个是可变参数 只要这两个固定了 结果就出来了
          * 有N距离 移动的位置不会超过N  最多走K步 步数不会超过K
          * dp是一个缓存结构
          * 暴力递归就是一棵树 树的高度就是K
          * */
         int[][] dp = new int[N + 1][K + 1];
-        for (int i = 0; i <= N; i++) {//TODO 对整张表初始化 -1表示该组合还没有算过
+        for (int i = 0; i <= N; i++) {// 对整张表初始化 -1表示该组合还没有算过
             for (int j = 0; j <= K; j++) {
                 dp[i][j] = -1;
             }
         }
         /**
-         * TODO
          * dp就是缓存表
          * dp[cur][rest] == -1 -> process1(cur, rest)之前没算过！
          * dp[cur][rest] != -1 -> process1(cur, rest)之前算过！返回值，dp[cur][rest]
@@ -127,7 +130,7 @@ public class Code01_RobotWalk {
     }
 
     /**
-     * TODO 动态规划 之一 记忆化搜索
+     * 动态规划 之一 记忆化搜索
      * 暴力递归有重复计算 加缓存
      * 暴力递归的分析过程抽象出来就是dp的转移方程
      * 所有dp都来自于暴力递归
@@ -136,32 +139,32 @@ public class Code01_RobotWalk {
     // cur 范: 1 ~ N  那么cur的最大是N
     // rest 范：0 ~ K  那么rest的最大是K
     public static int process2(int cur, int rest, int aim, int N, int[][] dp) {
-        if (dp[cur][rest] != -1) {//TODO 计算过cur和rest的组合 这是第2次遇到 不算
+        if (dp[cur][rest] != -1) {// 计算过cur和rest的组合 这是第2次遇到 不算
             return dp[cur][rest];
         }
         // 之前没算过！
         int ans = 0;
         if (rest == 0) {
             //ans = cur == aim ? 1 : 0;
-            if (cur == aim) {//TODO 走到底了 如果是最终目的地的话
-                /*
-                 *TODO  1 表示找了一种方法 这个方法就是你之前的递归路径
+            if (cur == aim) {// 走到底了 如果是最终目的地的话
+                /**
+                 *  1 表示找了一种方法 这个方法就是你之前的递归路径
                  * 把当前 cur 和 rest的组合答案记录下来 表示已经算过了
                  * 相当于return 1;
                  * */
                 dp[cur][rest] = 1;
                 return dp[cur][rest];//返回
             } else {
-                /*
-                 *TODO  0 表示这个方法就是你之前的递归路径是错的
+                /**
+                 *  0 表示这个方法就是你之前的递归路径是错的
                  * 把当前 cur 和 rest的组合记录下来 表示已经算过了
                  * */
                 dp[cur][rest] = 0;
                 return dp[cur][rest];//返回
             }
         } else if (cur == 1) {
-            /*
-             *TODO  如果还有rest步要走，而当前的cur位置在1位置上，那么根据规则当前这步只能从1走向2
+            /**
+             *  如果还有rest步要走，而当前的cur位置在1位置上，那么根据规则当前这步只能从1走向2
              * 也就是递归函数的cur 传入2
              * 剩下的步数-1 也就是递归函数的rest 传入rest-1 还有rest-1步要走
              * aim最终目的地 和 N总数不变的 和 dp记录
@@ -169,8 +172,8 @@ public class Code01_RobotWalk {
             //ans = process2(2, rest - 1, aim, N, dp);
             dp[cur][rest] = process2(2, rest - 1, aim, N, dp);
         } else if (cur == N) {
-            /*
-             *TODO  如果还有rest步要走，而当前的cur位置在N位置上，那么根据规则当前这步只能从N走向N-1
+            /**
+             *  如果还有rest步要走，而当前的cur位置在N位置上，那么根据规则当前这步只能从N走向N-1
              * 也就是递归函数的cur 传入N-1
              * 剩下的步数-1 也就是递归函数的rest 传入rest-1 还有rest-1步要走
              * aim最终目的地 和 N总数不变的 和 dp记录
@@ -190,40 +193,40 @@ public class Code01_RobotWalk {
     // cur 范: 1 ~ N  那么cur的最大是N
     // rest 范：0 ~ K  那么rest的最大是K
     public static int process3(int cur, int rest, int aim, int N, int[][] dp) {
-        if (dp[cur][rest] != -1) {//TODO 计算过cur和rest的组合 这是第2次遇到 不算
+        if (dp[cur][rest] != -1) {// 计算过cur和rest的组合 这是第2次遇到 不算
             return dp[cur][rest];
         }
         // 之前没算过！
         int ans = 0;
         if (rest == 0) {
             //ans = cur == aim ? 1 : 0;
-            if (cur == aim) {//TODO 走到底了 如果是最终目的地的话
-                /*
-                 *TODO  1 表示找了一种方法 这个方法就是你之前的递归路径
+            if (cur == aim) {// 走到底了 如果是最终目的地的话
+                /**
+                 *  1 表示找了一种方法 这个方法就是你之前的递归路径
                  * 把当前 cur 和 rest的组合答案记录下来 表示已经算过了
                  * 相当于return 1;
                  * */
                 dp[cur][rest] = 1;
                 return dp[cur][rest];//返回
             } else {
-                /*
-                 *TODO  0 表示这个方法就是你之前的递归路径是错的
+                /**
+                 *  0 表示这个方法就是你之前的递归路径是错的
                  * 把当前 cur 和 rest的组合记录下来 表示已经算过了
                  * */
                 dp[cur][rest] = 0;
                 return dp[cur][rest];//返回
             }
         } else if (cur == 1) {
-            /*
-             *TODO  如果还有rest步要走，而当前的cur位置在1位置上，那么根据规则当前这步只能从1走向2
+            /**
+             *  如果还有rest步要走，而当前的cur位置在1位置上，那么根据规则当前这步只能从1走向2
              * 也就是递归函数的cur 传入2
              * 剩下的步数-1 也就是递归函数的rest 传入rest-1 还有rest-1步要走
              * aim最终目的地 和 N总数不变的 和 dp记录
              * */
             ans = process2(2, rest - 1, aim, N, dp);
         } else if (cur == N) {
-            /*
-             *TODO  如果还有rest步要走，而当前的cur位置在N位置上，那么根据规则当前这步只能从N走向N-1
+            /**
+             *  如果还有rest步要走，而当前的cur位置在N位置上，那么根据规则当前这步只能从N走向N-1
              * 也就是递归函数的cur 传入N-1
              * 剩下的步数-1 也就是递归函数的rest 传入rest-1 还有rest-1步要走
              * aim最终目的地 和 N总数不变的 和 dp记录
@@ -232,13 +235,13 @@ public class Code01_RobotWalk {
         } else {
             ans = process2(cur - 1, rest - 1, aim, N, dp) + process2(cur + 1, rest - 1, aim, N, dp);
         }
-        //TODO 最后 在记入到缓存
+        // 最后 在记入到缓存
         dp[cur][rest] = ans;
         return ans;
     }
 
     /**
-     * TODO
+     *
      * eg: M = 2 K = 5 P =3  N = 1 ~ 7
      * 对于dp表的第一列 用判断 if(rest == 0) {return cur == aim ? 1 : 0}
      *   0 1 2 3 4 5
@@ -275,11 +278,11 @@ public class Code01_RobotWalk {
              * */
             dp[1][rest] = dp[2][rest - 1];
             for (int cur = 2; cur < N; cur++) {
-                //TODO dp[cur][rest] = process2(cur - 1, rest - 1, aim, N, dp) + process2(cur + 1, rest - 1, aim, N, dp);
+                // dp[cur][rest] = process2(cur - 1, rest - 1, aim, N, dp) + process2(cur + 1, rest - 1, aim, N, dp);
                 dp[cur][rest] = dp[cur - 1][rest - 1] + dp[cur + 1][rest - 1];
             }
             /**
-             *TODO else if (cur == N) {
+             * else if (cur == N) {
              * 如果还有rest步要走，而当前的cur位置在N位置上，那么根据规则当前这步只能从N走向N-1
              * 也就是递归函数的cur 传入N-1
              * 剩下的步数-1 也就是递归函数的rest 传入rest-1 还有rest-1步要走

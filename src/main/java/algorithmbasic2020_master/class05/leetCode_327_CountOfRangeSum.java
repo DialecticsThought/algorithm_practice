@@ -1,8 +1,6 @@
 package algorithmbasic2020_master.class05;
 
-// 这道题直接在leetcode测评：
-//
-/*
+/**
 * https://leetcode.cn/problems/count-of-range-sum/
 * 给你一个整数数组nums 以及两个整数lower 和 upper 。求数组中，值位于范围 [lower, upper] （包含lower和upper）之内的 区间和的个数 。
 * 区间和S(i, j)表示在nums中，位置从i到j的元素之和，包含i和j(i ≤ j)。
@@ -15,7 +13,7 @@ package algorithmbasic2020_master.class05;
  * 输出：1
 *
 * */
-public class Code01_CountOfRangeSum {
+public class leetCode_327_CountOfRangeSum {
 
 	public static int countRangeSum(int[] nums, int lower, int upper) {
 		if (nums == null || nums.length == 0) {

@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
 // 课上没有讲这个题，这是我给同学们找的练习题
 // leetcode 743题，可以用这道题来练习Dijkstra算法
 // 测试链接 : https://leetcode.com/problems/network-delay-time
-public class Code_743_NetworkDelayTime {
+public class LeetCode_743_NetworkDelayTime {
 
 	// 方法一 : 普通堆 + 屏蔽已经计算过的点
 	public static int networkDelayTime1(int[][] times, int n, int k) {

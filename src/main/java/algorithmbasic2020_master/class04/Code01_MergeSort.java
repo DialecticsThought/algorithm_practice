@@ -14,13 +14,11 @@ public class Code01_MergeSort {
     // l...r N
     // T(N) = 2 * T(N / 2) + O(N)
     // O(N * logN)
-    public static void process(int[] arr, int L, int R) {
+    public static void process(intZ[] arr, int L, int R) {
         if (L == R) { // base case 意思就是 该问题小到什么规模 就不用划分了
             return;
         }
-        /*
-         * mid = (L + R)/2 = L + ((R - L) >> 1);
-         * */
+        // mid = (L + R)/2 = L + ((R - L) >> 1);
         int mid = L + ((R - L) >> 1);
         process(arr, L, mid);
         process(arr, mid + 1, R);
