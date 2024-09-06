@@ -2,9 +2,6 @@ package algorithmbasic2020_master.class25;
 
 import java.util.Stack;
 /**
- * @author admin
- * @version 1.0.0
- * @ClassName AllTimesMinToMax.java
  * @Description 数组（都是正数）中累积和与最小值的乘积，假设叫做指标A。给定一个数组，请返回子数组中，指标A最大的值。
  * 利用单调栈
  *
