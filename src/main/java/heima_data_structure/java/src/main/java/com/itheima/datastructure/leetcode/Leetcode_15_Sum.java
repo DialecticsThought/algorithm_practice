@@ -9,7 +9,63 @@ import java.util.List;
  * <h3>3数之和</h3>
  */
 public class Leetcode_15_Sum {
-
+    /**
+     * 套路：先固定一个数  然后再用两数之和的套路 = 这数的相反数
+     * <pre>
+     * eg:
+     * 假设数组已经排好序
+     * arr = [-4 -1 -1 0 1 2]
+     * 一开始 固定 4
+     * target=4
+     * i 从 -1 开始
+     * arr = [-4 -1 -1 0 1 2 ]
+     *            i        j
+     * 2 + [-1] = 1 != target
+     * i右移
+     * arr = [-4 -1 -1 0 1 2 ]
+     *               i     j
+     * 2 + [-1] = 1 != target
+     * i右移
+     * arr = [-4 -1 -1 0 1 2 ]
+     *                 i   j
+     * 2 + 0 = 2 != target
+     * i右移
+     * arr = [-4 -1 -1 0 1 2 ]
+     *                   i j
+     * 2 + 1 = 3 != target
+     * 到这里发现固定-4 没有解
+     * 此时 i=j-1  保证i!=j  数字要有2个
+     * 接下来 固定 -1
+     * target = 1
+     * i 从 第二个 -1 开始
+     * arr = [-4 -1 -1 0 1 2 ]
+     *               i     j
+     * 2 + [-1] = 1 = target
+     * 找到了一个解
+     * i右移 j左移
+     * arr = [-4 -1 -1 0 1 2 ]
+     *                 i j
+     * 0 + [1] = 1 = target
+     * 找到了一个解
+     * i右移 j左移
+     * 此时 i=j-1 保证i!=j  数字要有2个
+     * 接下来 固定 0 不固定-1的原因是防止找到重复的解
+     * target = 0
+     * arr = [-4 -1 -1 0 1 2 ]
+     *                   i j
+     * 2 + 1 = 3 != target
+     * 此时 i=j-1
+     * 接下来 固定 1
+     * target = -1
+     * arr = [-4 -1 -1 0 1 2 ]
+     *                     i
+     *                     j
+     * 发现 i=j 数字不够2个了
+     * </pre>
+     *
+     * @param nums
+     * @return
+     */
     static List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> result = new LinkedList<>();
