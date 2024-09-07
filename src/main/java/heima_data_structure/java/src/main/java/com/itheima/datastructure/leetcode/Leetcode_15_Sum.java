@@ -170,6 +170,6 @@ public class Leetcode_15_Sum {
         System.out.println("数据量:" + candidates.length);
         System.out.println(threeSum(candidates));
         System.out.println("耗费时间:" + (System.currentTimeMillis() - start));
-        System.out.println("递归次数:" + count);
+
     }
 }
