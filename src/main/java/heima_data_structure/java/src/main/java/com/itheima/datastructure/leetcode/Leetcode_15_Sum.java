@@ -114,12 +114,9 @@ public class Leetcode_15_Sum {
         }
     }
 
-    static int count;
-
     static public void twoSum(int i, int j, int[] numbers, int target,
                               LinkedList<Integer> stack,
                               List<List<Integer>> result) {
-        count++;
         while (i < j) {// 当 指针 i < 指针 j
             int sum = numbers[i] + numbers[j];// 求和
             if (sum < target) {// 判断求和 是否<target
