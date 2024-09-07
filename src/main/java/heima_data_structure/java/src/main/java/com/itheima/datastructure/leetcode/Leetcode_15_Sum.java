@@ -74,22 +74,42 @@ public class Leetcode_15_Sum {
         return result;
     }
 
+    /**
+     * @param n      固定的数字的个数
+     * @param i      双指针的起始点
+     * @param j      双指针的终止点
+     * @param target
+     * @param nums   数组本身
+     * @param stack  本次答案
+     * @param result 最终答案
+     */
     static void dfs(int n, int i, int j, int target, int[] nums,
                     LinkedList<Integer> stack,
                     List<List<Integer>> result) {
-        if (n == 2) {
+        // base case
+        if (n == 2) {// 只有两个数字的时候 两数之和
             // 套用两数之和求解
             twoSum(i, j, nums, target, stack, result);
             return;
         }
         for (int k = i; k < j; k++) {
-            // 检查重复
+            // 检查重复  当前的数字和上一个数字相同 就不能尝试了 会有重复解
+            // 第一个数字不需要检查 也就是index=0 所以k > i
             if (k > i && nums[k] == nums[k - 1]) {
                 continue;
             }
+            /**
+             * 假设当前固定-4 也就是0位置 初始i=1  arr[1]=-1 j=5 arr[5]=2
+             * 当前的 target=0-(-4)=4
+             * 下一次的 target-(-1)=5
+             * 做相应的递归
+             * 然后下一次 固定 -1 也就是1位置 (通过回溯)
+             */
             // 固定一个数字，再尝试 n-1 数字之和
             stack.push(nums[k]);
+            // 下次递归的时候 固定数字的个数-1， 双指针的起始点是k+1  终止点=j
             dfs(n - 1, k + 1, j, target - nums[k], nums, stack, result);
+            // 回溯
             stack.pop();
         }
     }
@@ -100,20 +120,41 @@ public class Leetcode_15_Sum {
                               LinkedList<Integer> stack,
                               List<List<Integer>> result) {
         count++;
-        while (i < j) {
-            int sum = numbers[i] + numbers[j];
-            if (sum < target) {
-                i++;
-            } else if (sum > target) {
-                j--;
+        while (i < j) {// 当 指针 i < 指针 j
+            int sum = numbers[i] + numbers[j];// 求和
+            if (sum < target) {// 判断求和 是否<target
+                i++; // i右移 因为有序数组  i右移的话会指向更大的数 让求和变大
+            } else if (sum > target) { // 判断求和 是否>target
+                j--;// j左移 因为有序数组  i左移的话会指向更小的数 让求和变小
             } else { // 找到解
+                // 因为固定的数字已经在stack里面 直接用
                 ArrayList<Integer> list = new ArrayList<>(stack);
+                // 再加上找到的两个数
                 list.add(numbers[i]);
                 list.add(numbers[j]);
+                // 放入最终结果
                 result.add(list);
                 // 继续查找其它的解
                 i++;
                 j--;
+                //
+                /**
+                 * 这是防止重复
+                 * 原始 arr = [-4 -1 -1 0 1 2 ]
+                 * 假设
+                 * 固定 index=1 arr[1]=1
+                 * 新的 arr = [-4 -1 -1 0 0 1 1 2 ]
+                 *                   i         j
+                 * 找到一组解 [-1, 2]
+                 * 现在缩小范围
+                 * 新的 arr = [-4 -1 -1 0 0 1 1 2 ]
+                 *                     i     j
+                 * 找到一组解 [0, 1]
+                 * 现在缩小范围
+                 * 新的 arr = [-4 -1 -1 0 0 1 1 2 ]
+                 *                       i j
+                 * 还是解 [0, 1] 重复了 需要跳过
+                 */
                 while (i < j && numbers[i] == numbers[i - 1]) {
                     i++;
                 }
