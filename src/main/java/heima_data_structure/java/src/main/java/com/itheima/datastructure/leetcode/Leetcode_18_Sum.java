@@ -9,7 +9,68 @@ import java.util.List;
  * <h3>4数之和</h3>
  */
 public class Leetcode_18_Sum {
-
+    /**
+     * <pre>
+     * [-2 -1 0 0 1 2]
+     * 初始target = 0
+     * 1.一开始固定 -2 target= 0 -（-2）= 2
+     * 接下来就是3数之和
+     * 1.1再固定-1 target= 2 -（-1）= 3
+     * 接下来就是2数之和
+     * 变成
+     * [-2 -1 0 0 1 2]
+     *        i     j
+     *  0 + 2 < target
+     *  i++
+     * [-2 -1 0 0 1 2]
+     *          i   j
+     *  0 + 2 < target
+     *  i++
+     * [-2 -1 0 0 1 2]
+     *            i j
+     *  1 + 2 = target
+     *  找到一个解
+     *  i++ j--
+     *  i = j   结束 返回上一层
+     *
+     * 1.2再固定0  target= 2 -（0）= 2
+     * 接下来就是2数之和
+     * 变成
+     * [-2 -1 0 0 1 2]
+     *          i   j
+     *  0 + 2 = target
+     *  找到一个解
+     *  i++ j--
+     *  i = j   结束 返回上一层
+     *  不会再固定0 因为会有重复解
+     *  不会再固定1 因为 固定了字后 只剩下1个数了
+     *
+     * 2.固定 -1 target= 0 -（-1）= 1
+     * 2.1再固定0  target= 1 -（0）= 1
+     * 接下来就是2数之和
+     * [-2 -1 0 0 1 2]
+     *          i   j
+     *  0 + 2 > target
+     *  j--
+     * [-2 -1 0 0 1 2]
+     *          i j
+     *  0 + 1 = target
+     * 找到一个解
+     * 此时 i= j - 1  结束
+     * 2.2 不会固定0 因为重复了
+     * 2.3 不会再固定1 因为 固定了字后 只剩下1个数了
+     * 3.固定 0 target= 0 -（0）= 0
+     * 3.1再固定0  target= 0 -（0）= 0
+     * [-2 -1 0 0 1 2]
+     *            i j
+     * 1 + 2 > target
+     * i= j - 1 结束
+     *
+     * </pre>
+     * @param nums
+     * @param target
+     * @return
+     */
     static List<List<Integer>> fourSum(int[] nums, int target) {
         Arrays.sort(nums);
         List<List<Integer>> result = new LinkedList<>();
