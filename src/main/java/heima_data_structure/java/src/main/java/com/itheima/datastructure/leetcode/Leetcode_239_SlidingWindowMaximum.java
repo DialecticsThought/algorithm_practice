@@ -10,6 +10,7 @@ import java.util.List;
 public class Leetcode_239_SlidingWindowMaximum {
 
     // 每次向单调递减队列加入元素，队头元素即为滑动窗口最大值
+
     static int[] maxSlidingWindow(int[] nums, int k) {
         MonotonicQueue queue = new MonotonicQueue();
         List<Integer> list = new ArrayList<>();
