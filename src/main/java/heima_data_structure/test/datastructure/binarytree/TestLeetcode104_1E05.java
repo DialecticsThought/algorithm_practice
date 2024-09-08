@@ -1,6 +1,6 @@
 package heima_data_structure.test.datastructure.binarytree;
 
-import heima_data_structure.java.src.main.java.com.itheima.datastructure.binarytree.Leetcode_104_1_E05;
+import heima_data_structure.java.src.main.java.com.itheima.datastructure.binarytree.LeetCode_104_1_E05;
 import heima_data_structure.java.src.main.java.com.itheima.datastructure.binarytree.TreeNode;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestLeetcode104_1E05 {
 
-    private final Leetcode_104_1_E05 e05 = new Leetcode_104_1_E05();
+    private final LeetCode_104_1_E05 e05 = new LeetCode_104_1_E05();
 
     @Test
     public void test1() {

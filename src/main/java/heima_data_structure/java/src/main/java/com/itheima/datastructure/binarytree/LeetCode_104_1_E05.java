@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.binary
 /**
  * 二叉树最大深度 - 使用后序遍历求解
  */
-public class Leetcode_104_1_E05 {
+public class LeetCode_104_1_E05 {
 
     /*
         思路：

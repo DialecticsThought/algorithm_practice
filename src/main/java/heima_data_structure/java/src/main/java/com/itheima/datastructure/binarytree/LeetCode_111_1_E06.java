@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.binary
 /**
  * 二叉树最小深度 - 后序遍历实现
  */
-public class Leetcode111_1_E06 {
+public class LeetCode_111_1_E06 {
 
     /*
            深度2

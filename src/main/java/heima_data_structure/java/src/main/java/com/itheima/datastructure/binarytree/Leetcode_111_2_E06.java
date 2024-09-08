@@ -4,15 +4,15 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 二叉树最大深度 - 使用层序遍历
+ * 二叉树最小深度 - 层序遍历实现
+ *
+ *
  */
-public class Leetcode104_3_E05 {
-
+public class Leetcode_111_2_E06 {
     /*
-        思路：
-        1. 使用层序遍历, 层数即最大深度
+        层序遍历，遇到的第一个叶子节点所在层就是最小深度
      */
-    public int maxDepth(TreeNode root) {
+    public int minDepth(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -21,9 +21,12 @@ public class Leetcode104_3_E05 {
         int depth = 0;
         while (!queue.isEmpty()) {
             int size = queue.size();
+            depth ++;
             for (int i = 0; i < size; i++) {
                 TreeNode poll = queue.poll();
-//                System.out.print(poll.val + "\t");
+                if (poll.left == null && poll.right == null) {
+                    return depth;
+                }
                 if (poll.left != null) {
                     queue.offer(poll.left);
                 }
@@ -31,20 +34,7 @@ public class Leetcode104_3_E05 {
                     queue.offer(poll.right);
                 }
             }
-//            System.out.println();
-            depth ++;
         }
         return depth;
-    }
-
-    public static void main(String[] args) {
-        TreeNode root = new TreeNode(
-                new TreeNode(new TreeNode(4),
-                        2,
-                        new TreeNode(new TreeNode(7), 5, null)
-                ),
-                1,
-                new TreeNode(null, 3, new TreeNode(6)));
-        new Leetcode104_3_E05().maxDepth(root);
     }
 }

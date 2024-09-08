@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * 二叉树最大深度 - 使用后序遍历(非递归)求解
  */
-public class Leetcode104_2_E05 {
+public class Leetcode_104_2_E05 {
 
     /*
         思路：
