@@ -112,12 +112,16 @@ public class Leetcode_42_TrappingRainWater {
     static int trap(int[] heights) {
         LinkedList<Data> stack = new LinkedList<>();
         int sum = 0;
+        // 遍历元素
         for (int i = 0; i < heights.length; i++) {
+            // 把当前高度和对应的索引 封装成data
             Data right = new Data(heights[i], i);
-
+            // 如果栈顶不为空 并且 栈顶的高度 <= 当前的高度 => 那么不断弹出栈顶 然后 计算次栈顶和当前元素right
             while (!stack.isEmpty()
                     && stack.peek().height < right.height) {
+                // 弹栈
                 Data pop = stack.pop();
+                // 查看 原先次栈顶 或者说 新的栈顶
                 Data left = stack.peek();
                 if (left != null) { // 计算水的容量
                     int width = right.i - left.i - 1;
