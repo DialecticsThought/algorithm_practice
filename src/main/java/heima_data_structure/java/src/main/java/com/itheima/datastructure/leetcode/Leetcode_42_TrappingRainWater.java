@@ -125,6 +125,14 @@ public class Leetcode_42_TrappingRainWater {
                 Data left = stack.peek();
                 if (left != null) { // 计算水的容量
                     int width = right.i - left.i - 1;
+                    /**
+                     * <pre>
+                     *         ██
+                     *   ██    ██
+                     *   ██ ██ ██
+                     *  math.min(2 , 3) - 1 = 1
+                     * </pre>
+                     */
                     int height = Math.min(left.height, right.height) - pop.height;
                     sum += width * height;
                 }
@@ -135,7 +143,7 @@ public class Leetcode_42_TrappingRainWater {
         return sum;
     }
 
-    static class Data{
+    static class Data {
         int height;
         int i;  // 索引
 
