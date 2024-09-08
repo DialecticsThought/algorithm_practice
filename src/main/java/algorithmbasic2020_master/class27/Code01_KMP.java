@@ -7,12 +7,12 @@ public class Code01_KMP {
      * str2 = a a b a a f
      * 先求出str2的前缀表 即next[]
      * str2 = a a b a a f  的
-     * 前缀 	   后缀
-     * a         f  	str[0]的子串的前后缀相同的长度=0
-     * aa       af		str[0~1]的子串的前后缀相同的长度=1
-     * aab     aaf	    str[0~2]的子串的前后缀相同的长度=0
-     * aaba   baaf      str[0~3]的子串的前后缀相同的长度=1
-     * aabaa  abaaf     str[0~4]的子串的前后缀相同的长度=2
+     * 前缀 	           后缀
+     * a                  f  	  str[0]的子串的前后缀相同的长度=0
+     * a a              a f		str[0~1]的子串的前后缀相同的长度=1
+     * a a b          a a f	    str[0~2]的子串的前后缀相同的长度=0
+     * a a b a      b a a f     str[0~3]的子串的前后缀相同的长度=1
+     * a a b a a  a b a a f     str[0~4]的子串的前后缀相同的长度=2
      * next[] = 0 1 0 1 2 0
      * 因为str1[5]!=str2[5]
      * 所以查看str2[0~4]的最长前后缀及其长度
