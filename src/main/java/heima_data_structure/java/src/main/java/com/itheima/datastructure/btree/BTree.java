@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.btree;
 import java.util.Arrays;
 
 /**
- * TODO  这个B树的分裂条件是 = 2 * t -1的时候就分裂 而不是超过 2 * t -1的时候分裂
+ * TODO 这里B树的分裂条件是 = 2 * t -1的时候就分裂 而不是 > 2 * t -1的时候分裂 很重要 ☆☆☆☆☆☆☆☆☆☆☆☆☆
  * B-树
  * 度degree: 树中节点孩子数
  * 阶order: 所有节点孩子数最大值
