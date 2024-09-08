@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
 /**
  * 有序链表去重
  */
-public class E04Leetcode83 {
+public class Leetcode_83_E04 {
 
     // 方法1
     public ListNode deleteDuplicates1(ListNode head) {
@@ -42,6 +42,6 @@ public class E04Leetcode83 {
     public static void main(String[] args) {
         ListNode head = ListNode.of(1, 1, 2, 3, 3);
         System.out.println(head);
-        System.out.println(new E04Leetcode83().deleteDuplicates(head));
+        System.out.println(new Leetcode_83_E04().deleteDuplicates(head));
     }
 }

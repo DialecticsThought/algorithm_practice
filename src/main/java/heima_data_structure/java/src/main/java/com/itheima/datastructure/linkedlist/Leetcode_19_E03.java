@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
 /**
  * 删除倒数节点
  */
-public class E03Leetcode19 {
+public class Leetcode_19_E03 {
     /*
     recursion(ListNode p=1, int n=2) {
         recursion(ListNode p=2, int n=2) {
@@ -84,7 +84,7 @@ public class E03Leetcode19 {
         ListNode head = ListNode.of(1, 2, 3, 4, 5);
 //        ListNode head = ListNode.of(1,2);
         System.out.println(head);
-        System.out.println(new E03Leetcode19()
+        System.out.println(new Leetcode_19_E03()
                 .removeNthFromEnd(head, 5));
     }
 }

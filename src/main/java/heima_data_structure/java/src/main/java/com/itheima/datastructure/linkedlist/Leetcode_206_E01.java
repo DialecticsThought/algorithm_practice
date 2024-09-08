@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
 /**
  * 反转链表
  */
-public class E01Leetcode206 {
+public class Leetcode_206_E01 {
     // 方法1
     public ListNode reverseList1(ListNode o1) {
         ListNode n1 = null;
@@ -100,7 +100,7 @@ public class E01Leetcode206 {
         ListNode o2 = new ListNode(2, o3);
         ListNode o1 = new ListNode(1, o2);
         System.out.println(o1);
-        ListNode n1 = new E01Leetcode206().reverseList1(o1);
+        ListNode n1 = new Leetcode_206_E01().reverseList1(o1);
         System.out.println(n1);
     }
 

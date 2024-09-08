@@ -20,11 +20,13 @@ public class MonotonicQueue {
      * 比较 队尾 和 3
      * 发现 队尾 > 3
      * 加入 3
+     * 最后变成 7 6 5 3
      */
     private LinkedList<Integer> deque = new LinkedList<>();
 
     /**
      * 获取队列头部元素 但是不移除
+     *
      * @return
      */
     public Integer peek() {
@@ -40,6 +42,7 @@ public class MonotonicQueue {
 
     /**
      * 向队列尾部添加
+     *
      * @param t
      */
     public void offer(Integer t) {

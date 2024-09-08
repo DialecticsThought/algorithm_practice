@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
 /**
  * 根据值删除节点
  */
-public class E02Leetcode203 {
+public class Leetcode_203_E02 {
     /**
      * 方法1
      *
@@ -50,7 +50,7 @@ public class E02Leetcode203 {
         ListNode head = ListNode.of(1, 2, 6, 3, 6);
 //        ListNode head = ListNode.of(7, 7, 7, 7);
         System.out.println(head);
-        System.out.println(new E02Leetcode203()
+        System.out.println(new Leetcode_203_E02()
                 .removeElements(head, 6));
     }
 }
