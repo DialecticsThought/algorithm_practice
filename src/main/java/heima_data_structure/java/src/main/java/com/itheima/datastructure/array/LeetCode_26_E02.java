@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * 删除有序数组的重复项（题目中已说明 nums.length >= 1）
  */
-public class Leetcode_26_E02 {
+public class LeetCode_26_E02 {
 
     /*              p1
                                    p2
@@ -26,7 +26,7 @@ public class Leetcode_26_E02 {
 
     public static void main(String[] args) {
         int[] nums = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
-        int len = new Leetcode_26_E02().removeDuplicates(nums);
+        int len = new LeetCode_26_E02().removeDuplicates(nums);
         System.out.println(len == 5);
         System.out.println(Arrays.equals(new int[]{0, 1, 2, 3, 4}, 0, len, nums, 0, len));
     }

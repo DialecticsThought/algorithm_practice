@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * 求范围和
  */
-public class Leetcode_938_E05 {
+public class LeetCode_938_E05 {
     // 解法2. 上下限递归 0ms
     public int rangeSumBST(TreeNode node, int low, int high) {
         if (node == null) {
@@ -58,7 +58,7 @@ public class Leetcode_938_E05 {
         TreeNode n2 = new TreeNode(15, null, new TreeNode(18));
         TreeNode root = new TreeNode(10, n1, n2);
 
-        int sum = new Leetcode_938_E05().rangeSumBST(root, 7, 15);
+        int sum = new LeetCode_938_E05().rangeSumBST(root, 7, 15);
         System.out.println(sum); // 应为 32
     }
 }

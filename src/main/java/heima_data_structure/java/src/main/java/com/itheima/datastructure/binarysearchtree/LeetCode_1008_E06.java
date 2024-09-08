@@ -9,7 +9,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.binary
  *     <li>preorder 没有重复值</li>
  * </ol>
  */
-public class Leetcode_1008_E06 {
+public class LeetCode_1008_E06 {
 
     public TreeNode bstFromPreorder(int[] preorder) {
         TreeNode root = insert(null, preorder[0]);
@@ -39,7 +39,7 @@ public class Leetcode_1008_E06 {
              / \   \
             1   7  12
          */
-        TreeNode t1 = new Leetcode_1008_E06().bstFromPreorder(new int[]{8, 5, 1, 7, 10, 12});
+        TreeNode t1 = new LeetCode_1008_E06().bstFromPreorder(new int[]{8, 5, 1, 7, 10, 12});
 //        TreeNode t1 = new E06Leetcode1008().bstFromPreorder(new int[]{8, 5, 7});
         TreeNode t2 = new TreeNode(8, new TreeNode(5, new TreeNode(1), new TreeNode(7)), new TreeNode(10, null, new TreeNode(12)));
         System.out.println(isSameTree(t1, t2));

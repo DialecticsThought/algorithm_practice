@@ -9,7 +9,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.binary
  *     <li>p 和 q 都存在</li>
  * </ol>
  */
-public class Leetcode_235_E07 {
+public class LeetCode_235_E07 {
     /*
             __ 6 __
            /       \
@@ -39,9 +39,9 @@ public class Leetcode_235_E07 {
                 new TreeNode(2, new TreeNode(0), new TreeNode(4, new TreeNode(3), new TreeNode(5))),
                 new TreeNode(8, new TreeNode(7), new TreeNode(9)));
 
-        TreeNode t1 = new Leetcode_235_E07().lowestCommonAncestor(root, new TreeNode(2), new TreeNode(8));
+        TreeNode t1 = new LeetCode_235_E07().lowestCommonAncestor(root, new TreeNode(2), new TreeNode(8));
         System.out.println(t1.val); // 应为 6
-        TreeNode t2 = new Leetcode_235_E07().lowestCommonAncestor(root, new TreeNode(4), new TreeNode(5));
+        TreeNode t2 = new LeetCode_235_E07().lowestCommonAncestor(root, new TreeNode(4), new TreeNode(5));
         System.out.println(t2.val); // 应为 4
     }
 }

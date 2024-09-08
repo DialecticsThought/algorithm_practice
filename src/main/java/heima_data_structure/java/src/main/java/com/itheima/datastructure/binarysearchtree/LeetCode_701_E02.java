@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.binary
 /**
  * 新增节点 (题目前提：val 一定与树中节点不同)
  */
-public class Leetcode_701_E02 {
+public class LeetCode_701_E02 {
 
     /*
             val=1
@@ -28,6 +28,6 @@ public class Leetcode_701_E02 {
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(5, new TreeNode(2, null, new TreeNode(3)), new TreeNode(6));
-        new Leetcode_701_E02().insertIntoBST(root, 1);
+        new LeetCode_701_E02().insertIntoBST(root, 1);
     }
 }

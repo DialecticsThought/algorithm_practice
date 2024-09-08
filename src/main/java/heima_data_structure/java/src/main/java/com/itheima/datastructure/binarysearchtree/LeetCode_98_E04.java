@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * 判断是否为合法的二叉搜索树
  */
-public class Leetcode_98_E04 {
+public class LeetCode_98_E04 {
     // 解法1. 中序遍历非递归实现 1ms
     public boolean isValidBST1(TreeNode node) {
         TreeNode p = node;
@@ -106,7 +106,7 @@ public class Leetcode_98_E04 {
             1   3
         */
         TreeNode root1 = new TreeNode(4, new TreeNode(2, new TreeNode(1), new TreeNode(3)), new TreeNode(6));
-        System.out.println(new Leetcode_98_E04().isValidBST(root1));
+        System.out.println(new LeetCode_98_E04().isValidBST(root1));
 //        System.out.println("---------------");
         /*
                 4
@@ -116,7 +116,7 @@ public class Leetcode_98_E04 {
                 3   7
          */
         TreeNode root2 = new TreeNode(4, new TreeNode(2), new TreeNode(6, new TreeNode(3), new TreeNode(7)));
-        System.out.println(new Leetcode_98_E04().isValidBST(root2));
+        System.out.println(new LeetCode_98_E04().isValidBST(root2));
 //        System.out.println("---------------");
 
         /*
@@ -125,7 +125,7 @@ public class Leetcode_98_E04 {
              1
          */
         TreeNode root3 = new TreeNode(1, new TreeNode(1), null);
-        System.out.println(new Leetcode_98_E04().isValidBST(root3));
+        System.out.println(new LeetCode_98_E04().isValidBST(root3));
 //        System.out.println("---------------");
 
         /*
@@ -136,6 +136,6 @@ public class Leetcode_98_E04 {
               5
          */
         TreeNode root4 = new TreeNode(3, null, new TreeNode(4, new TreeNode(5), null));
-        System.out.println(new Leetcode_98_E04().isValidBST(root4));
+        System.out.println(new LeetCode_98_E04().isValidBST(root4));
     }
 }
