@@ -235,7 +235,7 @@ public class Leetcode_28_KMP_StrStr {
      * i=1 j=0
      * 查看后缀是 1~i  前缀是 0~j
      * 上面代表前缀 下面代表后缀
-     *
+     * 一开始 特例 ： 就一个字符 没有 前后缀
      *    a a a a b
      *    j
      *  a a a a b
@@ -292,6 +292,7 @@ public class Leetcode_28_KMP_StrStr {
      * </pre>
      *
      * <pre>
+     * 遇到了相同字符的case:
      *   a a a c a a a a a c
      *   j
      * a a a c a a a a a c
@@ -304,6 +305,46 @@ public class Leetcode_28_KMP_StrStr {
      *     j
      * a a a c a a a a a c
      *     i
+     * 遇到了相同字符 也就是 [i]==[j]  意味着找到了共同的前后缀 把共同前后缀的长度记录到数组中
+     * 当前 i=2 那么把共同前后缀的长度 2 记录到lps[i]中
+     * 公共前后缀的长度 和 j 的关系 ==> 公共前后缀的长度 = j + 1
+     * 最后 i++ j++
+     * ......
+     * </pre>
+     *
+     * <pre>
+     * 1.遇到了不相同字符的case:
+     *       a a a c a a a a a c
+     *       j
+     * a a a c a a a a a c
+     *       i
+     * 发现 j = 0 前面没公共部分
+     * 所以 公共前后缀长度 = 0  lps[i] = 0
+     * 最后 j不变 i++
+     * 2.遇到了不相同字符的case:
+     *         a a a c a a a a a c
+     *               j
+     * a a a c a a a a a c
+     *               i
+     * 发现 前面有匹配过的公共部分
+     * 需要让 j 掉头回去 向前找
+     * 但是 之前共同的字符 不需要重新对比一遍
+     * 这里比对的是
+     *         a a a c a a a a a c
+     *         _ _   j
+     *      找 "a a a" 的最长前缀  "a a"
+     * a a a c a a a a a c
+     *           _ _ i
+     *      找 "a a a" 的最长后缀  "a a"
+     * 因为计算过 所以 没有必要重新比对
+     * 直接 j-- 再重新和i比较即可
+     * 也就是
+     *           a a a c a a a a a c
+     *               j
+     * a a a c a a a a a c
+     *               i
+     * 这里用到的是 当使用了 前3个字符 这里是 "a a a"的时候 应该跳过的字符个数 直接看 lps[2]即可
+     * lps[2] 中的 2 是因为 j 原来 = 3 , j-- 之后 = 2
      * </pre>
      */
     static int[] lps(char[] pattern) {
