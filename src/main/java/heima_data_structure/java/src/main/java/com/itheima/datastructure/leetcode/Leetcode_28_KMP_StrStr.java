@@ -383,7 +383,8 @@ public class Leetcode_28_KMP_StrStr {
      * a a a c a a a a a c
      *               i
      * 这里用到的是 当使用了 前3个字符 这里是 "a a a"的时候 应该跳过的字符个数 直接看 lps[2]即可
-     * lps[2] 中的 2 是因为 j 原来 = 3 , j 之后 = 2
+     * lps[2] 中的 索引 2 是因为 j 原来 = 3 , j -- = 2
+     * lps[2]= 2 说明 j需要下次跳到 2 索引
      * </pre>
      */
     static int[] lps(char[] pattern) {
@@ -393,7 +394,8 @@ public class Leetcode_28_KMP_StrStr {
         int i = 1;
         int j = 0;
         while (i < pattern.length) {
-            if (pattern[i] == pattern[j]) {
+            // i 处的元素 和 j 处的元素 比较
+            if (pattern[i] == pattern[j]) {// 遇到相同字符的处理逻辑
                 lps[i] = j + 1;
                 i++;
                 j++;
