@@ -359,7 +359,7 @@ public class Leetcode_28_KMP_StrStr {
      *       i
      * 发现 j = 0 前面没公共部分
      * 所以 公共前后缀长度 = 0  lps[i] = 0
-     * 最后 j不变 i++
+     * 最后 j不变 i++,因为要让 i++之后的字符 与j的字符比较
      * 2.遇到了不相同字符的case:
      *         a a a c a a a a a c
      *               j
@@ -376,19 +376,20 @@ public class Leetcode_28_KMP_StrStr {
      *           _ _ i
      *      找 "a a a" 的最长后缀  "a a"
      * 因为计算过 所以 没有必要重新比对
-     * 直接 j-- 再重新和i比较即可
+     * 直接 j调回去 再重新和i比较即可
      * 也就是
      *           a a a c a a a a a c
      *               j
      * a a a c a a a a a c
      *               i
      * 这里用到的是 当使用了 前3个字符 这里是 "a a a"的时候 应该跳过的字符个数 直接看 lps[2]即可
-     * lps[2] 中的 2 是因为 j 原来 = 3 , j-- 之后 = 2
+     * lps[2] 中的 2 是因为 j 原来 = 3 , j 之后 = 2
      * </pre>
      */
     static int[] lps(char[] pattern) {
 //        return new int[]{0, 0, 1, 2, 3, 0, 1};
         int[] lps = new int[pattern.length];
+        // 两个指针初始状态
         int i = 1;
         int j = 0;
         while (i < pattern.length) {
