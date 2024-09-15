@@ -6,6 +6,21 @@ public class BPTree {
 
     }
 
+    static final class LeafNode extends Node {
+        Entry[] entries;
+        int size;
+
+        public LeafNode(int m) {
+            entries = new Entry[m];
+        }
+
+        public void insert(Entry entry, int index) {
+            System.arraycopy(entries, index, entries, index + 1, size - index);
+            entries[index] = entry;
+            size++;
+        }
+    }
+
     static final class InternalNode extends Node {
         int[] keys;
         Node[] children;
@@ -28,20 +43,7 @@ public class BPTree {
         }
     }
 
-    static final class LeafNode extends Node {
-        Entry[] entries;
-        int size;
 
-        public LeafNode(int m) {
-            entries = new Entry[m];
-        }
-
-        public void insert(Entry entry, int index) {
-            System.arraycopy(entries, index, entries, index + 1, size - index);
-            entries[index] = entry;
-            size++;
-        }
-    }
 
     private LeafNode findNode(InternalNode node, int key) {
         int i = 0;

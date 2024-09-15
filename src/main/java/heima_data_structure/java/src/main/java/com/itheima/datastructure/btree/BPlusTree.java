@@ -55,7 +55,7 @@ public class BPlusTree {
     /**
      * 按照以下步骤在 m 阶的 B+ 树中搜索数据。设要搜索的数据为 k。
      * 1.Start from the root node. Compare k with the keys at the root node [k1, k2, k3,......km - 1].
-     * 从根节点开始。将 k 与根节点 [k1， k2， k3,...... 处的键进行比较公里 - 1]。
+     * 从根节点开始。将 k 与根节点 [k1， k2， k3,...... 处的键进行比较 - 1]。
      * 2.If k < k1, go to the left child of the root node.
      * 如果 k < k1，则转到根节点的左侧子节点。
      * 3.否则，如果 k == k1，则比较 k2。如果 k < k 2 ，k 位于 k1 和 k2 之间。因此，在 k2 的左侧子项中搜索。
