@@ -195,16 +195,21 @@ public class Leetcode_005_LongestPalindrome {
     }
 
     static String longestPalindrome(String s) {
+        // 防止 如果之前有执行过该方法 left right 不为空 的情况
         left = 0;
         right = 0;
         char[] chars = s.toCharArray();
+        // chars.length - 1 是因为针对 两个字符作为中心点的情况, j不超过字符数组范围
         for (int i = 0; i < chars.length - 1; i++) {
-            extend(chars, i, i); // 一个字符作为中心点
-            extend(chars, i, i + 1); // 两个字符作为中心点
+            // 一个字符作为中心点
+            extend(chars, i, i);
+            // 两个字符作为中心点
+            extend(chars, i, i + 1);
         }
         return new String(chars, left, right - left + 1);
     }
 
+    // 用来保存当前最大回文字符的左边界 右边界
     static int left; // i
     static int right; // j
 
@@ -216,7 +221,19 @@ public class Leetcode_005_LongestPalindrome {
             i--; // -1
             j++; // 4
         }
-        // 退出循环时，i和j指向的不是回文，需要还原
+        /**
+         * 退出循环时，i和j指向的不是回文，需要还原
+         * <pre>
+         * eg:
+         * 假设当前是
+         *  b c c b c b a b c b a f a
+         *  i
+         *        j
+         * 因为 [i] == [j] 那么还是会进入循环
+         * 但是 i-- j++ 之后 i超出了数组范围
+         * 所以需要还原
+         * </pre>
+         */
         i++;
         j--;
         if (j - i > right - left) {
