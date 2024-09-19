@@ -108,11 +108,15 @@ public class LCA {
         Node left = lca(root.left, p, q);
 
         Node right = lca(root.right, p, q);
-
+        // 左右子树都返回非空
+        // 这个情况 当前节点（也就是 root）就是 LCA
         if (left != null && right != null) {
             return root;
         }
-
+        // 只有一侧返回非空（即 left 或 right 有一个为 null，另一个为非 null）
+        // 在这种情况下
+        // 可能返回 p 或者 q 在 当前子树中 但还不能确定 LCA，所以我们将找到的 p 或 q 节点继续返回
+        // 也有可能是 之前的递归调用已经找到了 p 和 q 的 LCA，我们直接向上传递这个 LCA
         return left != null ? left : right;
     }
 }
