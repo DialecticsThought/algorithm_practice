@@ -219,6 +219,7 @@ public class Leetcode_76_MinWindow {
         int pass = 0;
         while (j < source.length) {
             char right = source[j];
+            // 找到 对应字符串的<k,v>, v++
             Integer c = windowCountMap.compute(right, (k, v) -> v == null ? 1 : v + 1);
             if (c.equals(targetCountMap.get(right))) {
                 pass++;
