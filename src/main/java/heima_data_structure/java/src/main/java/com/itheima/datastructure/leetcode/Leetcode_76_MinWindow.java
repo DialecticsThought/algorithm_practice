@@ -2,6 +2,15 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetco
 
 import java.util.HashMap;
 
+/**
+ * <pre>
+ *  TODO
+ *   统计目标串需要各种字符个数，统计原始串 i~j 范围各种字符个数
+ *   如果原始串 i~j 范围内不满足条件，j++ 扩大范围，直到满足条件 j 停下
+ *   一旦满足条件 i++ 缩小范围，直到再次不满足条件
+ *   重复 2. 3. 两步直至 j 到达原始串末尾
+ * </pre>
+ */
 public class Leetcode_76_MinWindow {
     public static void main(String[] args) {
 //        System.out.println(minWindow("ADOBECODEBANC", "ABC")); // BANC
