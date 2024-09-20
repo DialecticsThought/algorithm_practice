@@ -12,6 +12,189 @@ public class Leetcode_76_MinWindow {
 
     }
 
+    /**
+     * <pre>
+     *  t = "a b c"
+     *  s = "a d o b e c o d e b a n c"
+     *  初始情况：
+     *  记录t的map:
+     *   a b c
+     *   1 1 1
+     *  初始指针i=0,j=0
+     *   a d o b e c o d e b a n c
+     *   i
+     *   j
+     *   记录s的map：
+     *   当前状态
+     *   a
+     *   1
+     *  开始
+     *  1.j++
+     *   a d o b e c o d e b a n c
+     *   i
+     *     j
+     *   记录s的map
+     *   a d
+     *   1 1
+     *  2.j++
+     *   a d o b e c o d e b a n c
+     *   i
+     *       j
+     *   记录s的map
+     *   a d o
+     *   1 1 1
+     *  3.j++
+     *   a d o b e c o d e b a n c
+     *   i
+     *         j
+     *   记录s的map
+     *   a d o b
+     *   1 1 1 1
+     *  4.j++
+     *   a d o b e c o d e b a n c
+     *   i
+     *           j
+     *   记录s的map
+     *   a d o b e
+     *   1 1 1 1 1
+     *  5.j++
+     *   a d o b e c o d e b a n c
+     *   i
+     *             j
+     *   记录s的map
+     *   a d o b e c
+     *   1 1 1 1 1 1
+     *   找到目标字符串 覆盖了 a b c
+     *   当前是扩大j 找到了目标字符串
+     *   现在要找最小覆盖子串 ，所以需要缩小i
+     *  6.i--
+     *   a d o b e c o d e b a n c
+     *     i
+     *             j
+     *   记录s的map
+     *   a d o b e c
+     *   0 1 1 1 1 1
+     *   此时不能覆盖了 a b c，继续j++
+     *  7.j++
+     *    a d o b e c o d e b a n c
+     *      i
+     *                j
+     *   记录s的map
+     *   a d o b e c
+     *   0 1 2 1 1 1
+     *  8.j++
+     *    a d o b e c o d e b a n c
+     *      i
+     *                  j
+     *   记录s的map
+     *   a d o b e c
+     *   0 2 2 1 1 1
+     *  9.j++
+     *    a d o b e c o d e b a n c
+     *      i
+     *                    j
+     *   记录s的map
+     *   a d o b e c
+     *   0 2 2 1 2 1
+     *  10.j++
+     *    a d o b e c o d e b a n c
+     *      i
+     *                      j
+     *   记录s的map
+     *   a d o b e c
+     *   0 2 2 2 2 1
+     *  10.j++
+     *    a d o b e c o d e b a n c
+     *      i
+     *                        j
+     *   记录s的map
+     *   a d o b e c
+     *   1 2 2 2 2 1
+     *   找到目标字符串 覆盖了 a b c
+     *   当前是扩大j 找到了目标字符串
+     *   现在要找最小覆盖子串 ，所以需要缩小i
+     *  11.i--
+     *    a d o b e c o d e b a n c
+     *        i
+     *                        j
+     *   记录s的map
+     *   a d o b e c
+     *   1 1 2 2 2 1
+     *  12.i--
+     *    a d o b e c o d e b a n c
+     *          i
+     *                        j
+     *   记录s的map
+     *   a d o b e c
+     *   1 1 1 2 2 1
+     *  13.i--
+     *    a d o b e c o d e b a n c
+     *            i
+     *                        j
+     *   记录s的map
+     *   a d o b e c
+     *   1 1 1 1 1 1
+     *  14.i--
+     *    a d o b e c o d e b a n c
+     *              i
+     *                        j
+     *   记录s的map
+     *   a d o b e c
+     *   1 1 2 1 1 1
+     *  15.i--
+     *    a d o b e c o d e b a n c
+     *                i
+     *                        j
+     *   记录s的map
+     *   a d o b e c
+     *   1 1 2 1 1 0
+     *   此时不能覆盖了 a b c，继续j++
+     *  16.j++
+     *    a d o b e c o d e b a n c
+     *                i
+     *                          j
+     *   记录s的map
+     *   a d o b e c n
+     *   1 1 2 1 1 0 1
+     *   此时不能覆盖了 a b c，继续j++
+     *  17.j++
+     *    a d o b e c o d e b a n c
+     *                i
+     *                           j
+     *   记录s的map
+     *   a d o b e c n
+     *   1 1 2 1 1 1 1
+     *   找到目标字符串 覆盖了 a b c
+     *   当前是扩大j 找到了目标字符串
+     *   现在要找最小覆盖子串 ，所以需要缩小i
+     *  18.i--
+     *    a d o b e c o d e b a n c
+     *                  i
+     *                           j
+     *   记录s的map
+     *   a d o b e c n
+     *   1 1 1 1 1 1 1
+     *  19.i--
+     *    a d o b e c o d e b a n c
+     *                    i
+     *                           j
+     *   记录s的map
+     *   a d o b e c n
+     *   1 0 1 1 1 1 1
+     *  19.i--
+     *    a d o b e c o d e b a n c
+     *                      i
+     *                           j
+     *   记录s的map
+     *   a d o b e c n
+     *   1 0 1 1 0 1 1
+     *   到这里 找到了最小覆盖子传
+     * </pre>
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     static String minWindow(String s, String t) {
         char[] source = s.toCharArray();
         char[] target = t.toCharArray();
@@ -49,6 +232,6 @@ public class Leetcode_76_MinWindow {
             }
             j++;
         }
-        return answer.count != Integer.MAX_VALUE ? s.substring(answer.i, answer.j+1) : "";
+        return answer.count != Integer.MAX_VALUE ? s.substring(answer.i, answer.j + 1) : "";
     }
 }

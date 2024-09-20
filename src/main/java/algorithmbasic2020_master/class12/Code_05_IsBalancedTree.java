@@ -1,4 +1,4 @@
-package other.advance.advanceStudy1;
+package algorithmbasic2020_master.class12;
 
 public class Code_05_IsBalancedTree {
 
