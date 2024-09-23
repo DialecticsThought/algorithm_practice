@@ -8,13 +8,26 @@ import java.util.Arrays;
  * str = ababbc  要求 k = 2 也就是切割出的子串 每一个字符最少出现2次
  * 如果对str做切分
  *      做出 ababb | c , c这个子串是不可行的, ababb是可行的
+ *
  * str = ababbc  要求 k = 3 也就是切割出的子串 每一个字符最少出现3次
  * 如果对str做切分
  *      做出 ababb | c , c这个子串是不可行的, ababb也是不可行的
  *          ababb中 a出现的次数是2 b出现的次数是3 因为a所以不满足
  *      做出 a | babb | c , c这个子串是不可行的,  a这个子串是不可行的 , babb也是不可行的
  *          babb中 a出现的次数是1 b出现的次数是3 因为a所以不满足
+ *
+ * str = dddxaabaaabaacciiiiefbff  k = 3
+ * 第1步 把 出现次数<k的字符 或者 整个子串长度 < k 的子串 剔除掉
+ *      变成 ddd aabaaabaa iiii fbff  这3个子串
+ * 第2步 把  第1步生成的子串中 出现次数<k的字符 或者 整个子串长度 < k 的子串 剔除掉
+ *      变成 ddd aa aaa aa iiii f ff  这7个子串
+ * 第3步 把  第2步生成的子串中 出现次数<k的字符 或者 整个子串长度 < k 的子串 剔除掉
+ *      变成 ddd  aaa  iiii  这3个子串
  * </pre>
+ * 统计字符串中每个字符的出现次数，移除哪些出现次数 < k 的字符
+ * 剩余的子串，递归做此处理，直至
+ *    - 整个子串长度 < k (排除)
+ *    - 子串中没有出现次数 < k 的字符
  */
 public class LeetCode_395_LongestSubstring {
 
@@ -55,14 +68,5 @@ public class LeetCode_395_LongestSubstring {
         System.out.println(longestSubstring("dddxaabaaabaacciiiiefbff", 3));
 //        System.out.println(longestSubstring("ababbc", 3)); // ababb
 //        System.out.println(longestSubstring("ababbc", 2)); // ababb
-        /*
-            ddd aabaaabaa iiii fbff
-                aa aaa aa      f ff
-
-            统计字符串中每个字符的出现次数，移除哪些出现次数 < k 的字符
-            剩余的子串，递归做此处理，直至
-                 - 整个子串长度 < k (排除)
-                 - 子串中没有出现次数 < k 的字符
-         */
     }
 }
