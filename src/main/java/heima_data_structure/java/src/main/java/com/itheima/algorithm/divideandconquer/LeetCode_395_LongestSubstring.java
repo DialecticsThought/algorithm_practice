@@ -54,12 +54,24 @@ public class LeetCode_395_LongestSubstring {
             int count = counts[c - 'a'];
             // 满足  count > 0 && count < k 条件 就要切割成2个子串
             if (count > 0 && count < k) {
+                /**
+                 * eg:
+                 * str = aaaccbbb k=3
+                 * 中间的c只出现2次
+                 * 那么切割 可以切成 aaa 和 bbb
+                 * 需要 i和j两个索引
+                 */
                 int j = i + 1;
+                // chars[j] 得到 j索引对应的字符
+                // chars[j] - 'a' 就是counts数组中 chars[j]字符对应的索引位置
+                // 如果  chars[j] 出现的次数 < k 那么说明 需要删除 chars[j]
+                // j++ 继续判断下一个字符
                 while(j < s.length() && counts[chars[j] - 'a'] < k) {
                     j++;
                 }
-                // 切割成 0 ~ i 和  i+1 ~ str.length
+                // 切割成 0 ~ i 和  j ~ str.length
                 System.out.println(s.substring(0, i) + "\t" + s.substring(j));
+
                 return Integer.max(
                         longestSubstring(s.substring(0, i), k),
                         longestSubstring(s.substring(j), k)
