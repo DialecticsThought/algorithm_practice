@@ -42,13 +42,13 @@ public class LeetCode_69_Sqrt {
 
     static int mySqrt(int x) {
         int i = 1, j = x;
-        int r = 0;
+        int r = 0;// 用来记录方法执行期间找到的数
         while (i <= j) {
+            // 无符号左移>>> 相比与直接/2 可以防止溢出
             int m = (i + j) >>> 1;
-//            int mm = m * m;
-            if (m <= x / m) {
+            if (m <= x / m) {//不用 m * m <= x是因为防止溢出
                 i = m + 1;
-                r = m;
+                r = m;//更新 记录
             } else {
                 j = m - 1;
             }
