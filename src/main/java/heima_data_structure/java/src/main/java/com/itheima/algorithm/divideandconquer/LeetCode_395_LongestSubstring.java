@@ -4,6 +4,17 @@ import java.util.Arrays;
 
 /**
  * <h3>至少k个字符的最长子串</h3>
+ * <pre>
+ * str = ababbc  要求 k = 2 也就是切割出的子串 每一个字符最少出现2次
+ * 如果对str做切分
+ *      做出 ababb | c , c这个子串是不可行的, ababb是可行的
+ * str = ababbc  要求 k = 3 也就是切割出的子串 每一个字符最少出现3次
+ * 如果对str做切分
+ *      做出 ababb | c , c这个子串是不可行的, ababb也是不可行的
+ *          ababb中 a出现的次数是2 b出现的次数是3 因为a所以不满足
+ *      做出 a | babb | c , c这个子串是不可行的,  a这个子串是不可行的 , babb也是不可行的
+ *          babb中 a出现的次数是1 b出现的次数是3 因为a所以不满足
+ * </pre>
  */
 public class LeetCode_395_LongestSubstring {
 

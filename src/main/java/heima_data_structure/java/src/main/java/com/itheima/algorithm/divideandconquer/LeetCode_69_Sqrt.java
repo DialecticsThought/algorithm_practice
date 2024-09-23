@@ -42,7 +42,7 @@ public class LeetCode_69_Sqrt {
 
     static int mySqrt(int x) {
         int i = 1, j = x;
-        int r = 0;// 用来记录方法执行期间找到的数
+        int r = 0;// 用来记录方法执行期间找到的数 最后更新得到的r就是最终解
         while (i <= j) {
             // 无符号左移>>> 相比与直接/2 可以防止溢出
             int m = (i + j) >>> 1;
