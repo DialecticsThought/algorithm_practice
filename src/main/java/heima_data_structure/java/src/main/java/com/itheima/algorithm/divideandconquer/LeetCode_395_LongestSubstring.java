@@ -26,13 +26,14 @@ import java.util.Arrays;
  * </pre>
  * 统计字符串中每个字符的出现次数，移除哪些出现次数 < k 的字符
  * 剩余的子串，递归做此处理，直至
- *    - 整个子串长度 < k (排除)
- *    - 子串中没有出现次数 < k 的字符
+ * - 整个子串长度 < k (排除)
+ * - 子串中没有出现次数 < k 的字符
  */
 public class LeetCode_395_LongestSubstring {
 
     static int longestSubstring(String s, int k) {
-        // base case 子串长度 < k 子串落选
+        // base case1
+        // if 子串长度 < k,那么 子串落选
         // 方法一开始 或者 递归进入该方法一开始 会判断
         if (s.length() < k) {
             return 0;
@@ -66,19 +67,21 @@ public class LeetCode_395_LongestSubstring {
                 // chars[j] - 'a' 就是counts数组中 chars[j]字符对应的索引位置
                 // 如果  chars[j] 出现的次数 < k 那么说明 需要删除 chars[j]
                 // j++ 继续判断下一个字符
-                while(j < s.length() && counts[chars[j] - 'a'] < k) {
+                while (j < s.length() && counts[chars[j] - 'a'] < k) {
                     j++;
                 }
                 // 切割成 0 ~ i 和  j ~ str.length
                 System.out.println(s.substring(0, i) + "\t" + s.substring(j));
-
-                return Integer.max(
-                        longestSubstring(s.substring(0, i), k),
-                        longestSubstring(s.substring(j), k)
-                );
+                // 继续对 切割 0 ~ i得到的子串 做递归
+                int case1 = longestSubstring(s.substring(0, i), k);
+                // 继续对 切割 j ~ str.length得到的子串 做递归
+                int case2 = longestSubstring(s.substring(j), k);
+                // 返回
+                return Integer.max(case1, case2);
             }
         }
-        // 子串入选情况
+        // base case2
+        // 执行到这里 就说明  子串的长度就是需要返回的长度
         return s.length();
     }
 
