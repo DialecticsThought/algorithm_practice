@@ -31,26 +31,34 @@ import java.util.Arrays;
  */
 public class LeetCode_395_LongestSubstring {
 
-    // s.length() < k  "a" 2
     static int longestSubstring(String s, int k) {
-        // 子串落选情况
+        // base case 子串长度 < k 子串落选
+        // 方法一开始 或者 递归进入该方法一开始 会判断
         if (s.length() < k) {
             return 0;
         }
-        int[] counts = new int[26]; // 索引对应字符 值用来存储该字符出现了几次
+        // 索引对应字符 值用来存储该字符出现了几次
+        int[] counts = new int[26];
         char[] chars = s.toCharArray();
-        for (char c : chars) { // 'a' -> 0  'b' -> 1 ....
+        // 'a' -> 0 索引 'b' -> 1 索引 ....
+        for (char c : chars) {
             counts[c - 'a']++;
         }
+        // 输出统计
         System.out.println(Arrays.toString(counts));
+        // 遍历 字符串的所有字符
         for (int i = 0; i < chars.length; i++) {
+            // 得到 当前遍历到的字符
             char c = chars[i];
-            int count = counts[c - 'a']; // i字符出现次数
+            // 字符[i]出现的次数
+            int count = counts[c - 'a'];
+            // 满足  count > 0 && count < k 条件 就要切割成2个子串
             if (count > 0 && count < k) {
                 int j = i + 1;
                 while(j < s.length() && counts[chars[j] - 'a'] < k) {
                     j++;
                 }
+                // 切割成 0 ~ i 和  i+1 ~ str.length
                 System.out.println(s.substring(0, i) + "\t" + s.substring(j));
                 return Integer.max(
                         longestSubstring(s.substring(0, i), k),
