@@ -187,7 +187,7 @@ public class Leetcode_15_Sum {
                  * 这是防止重复
                  * 原始 arr = [-4 -1 -1 0 1 2 ]
                  * 假设
-                 * 固定 index=1 arr[1]=1
+                 * 固定 index = 1 target = 1
                  * 新的 arr = [-4 -1 -1 0 0 1 1 2 ]
                  *                   i         j
                  * 找到一组解 [-1, 2]
