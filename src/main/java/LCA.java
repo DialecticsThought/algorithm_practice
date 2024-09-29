@@ -117,6 +117,7 @@ public class LCA {
         // 在这种情况下
         // 可能返回 p 或者 q 在 当前子树中 但还不能确定 LCA，所以我们将找到的 p 或 q 节点继续返回
         // 也有可能是 之前的递归调用已经找到了 p 和 q 的 LCA，我们直接向上传递这个 LCA
+        // 如果之前已经找到了 p 和 q 的 LCA 说明，递归的子方法执行过 if (left != null && right != null){ return root;}这段逻辑
         return left != null ? left : right;
     }
 }
