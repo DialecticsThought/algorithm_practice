@@ -224,6 +224,7 @@ package heima_data_structure.java.src.main.java.com.itheima.algorithm.dynamicpro
  *     c(0)表示 之后的还没出栈的0个元素的排列组合
  *     c(3)表示 之前的已经出栈的3个元素的排列组合
  * </pre>
+
  */
 public class LeetCode_096_Catalan {
     public static void main(String[] args) {
