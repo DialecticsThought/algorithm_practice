@@ -11,6 +11,7 @@ import java.util.List;
 public class LeetCode_22 {
     /**
      * <pre>
+     *   catalan数 ☆☆☆☆☆☆☆☆☆☆☆☆☆
      *     数字 n 代表 生成括号的对数 请设计一个函数 用于能欧生成所有可能的并且有效的括号组合
      *     有效括号 ()
      *     无效括号 )(
@@ -106,13 +107,18 @@ public class LeetCode_22 {
      */
     public List<String> generateParenthesis(int n) {
         ArrayList<String>[] dp = new ArrayList[n + 1];
-        dp[0] = new ArrayList<>(List.of("")); // ""
-        dp[1] = new ArrayList<>(List.of("()")); // ()
-//        dp[2] = ()(), (())
-//        dp[3] = ()()(), ()(()), (())(), (()()), ((()))
+        dp[0] = new ArrayList<>(List.of("")); // ""  0 个括号对
+        dp[1] = new ArrayList<>(List.of("()")); // () 1 个括号对
+        // dp[2] = ()(), (())
+        // dp[3] = ()()(), ()(()), (())(), (()()), ((()))
+        // 外层循环 j 负责逐步计算每个卡特兰数 dp[j]
+        // 外层循环是因为要求 dp[j] j的范围: 2 -> n， 最终要得到dp[n]
         for (int j = 2; j < n + 1; j++) {
             dp[j] = new ArrayList<>();
-            for (int i = 0; i < j; i++) { // 第j个卡特兰数的拆分
+            // 内层循环 i 负责将当前 j 拆分成左右两部分 dp[i] * dp[j-1-i]，通过所有的组合来求得当前 j 的卡特兰数
+            // 第j个卡特兰数的拆分 ，用dp[i] * dp[j-1-i] 来拆分 j
+            // i的范围: 0 -> j-1
+            for (int i = 0; i < j; i++) {
                 // i 对应的集合是内层要嵌套的括号, j - 1 - i 对应的集合是平级要拼接的括号
                 System.out.printf("(%d,%d)\t", i, j - 1 - i);
 //                dp[j] += dp[i] * dp[j - 1 - i];
