@@ -114,10 +114,12 @@ public class LeetCode_22 {
         // 外层循环 j 负责逐步计算每个卡特兰数 dp[j]
         // 外层循环是因为要求 dp[j] j的范围: 2 -> n， 最终要得到dp[n]
         for (int j = 2; j < n + 1; j++) {
-            dp[j] = new ArrayList<>();
             // 内层循环 i 负责将当前 j 拆分成左右两部分 dp[i] * dp[j-1-i]，通过所有的组合来求得当前 j 的卡特兰数
             // 第j个卡特兰数的拆分 ，用dp[i] * dp[j-1-i] 来拆分 j
             // i的范围: 0 -> j-1
+            // 初始化 dp [j]
+            dp[j] = new ArrayList<>();
+
             for (int i = 0; i < j; i++) {
                 // i 对应的集合是内层要嵌套的括号, j - 1 - i 对应的集合是平级要拼接的括号
                 System.out.printf("(%d,%d)\t", i, j - 1 - i);
