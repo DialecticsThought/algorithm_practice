@@ -71,8 +71,8 @@ public class Code_72_EditDistance {
      *      如果 word1[i-1] == word2[j-1]：两个字符相同，不需要任何操作，我们只需处理剩下的部分，即 minDistance(i-1, j-1)。
      *      如果 word1[i-1] != word2[j-1]：有三种操作可以考虑：
      *          插入：在 word1 的当前字符前插入 word2[j-1]，然后处理 minDistance(i, j-1)。
-     *          删除：删除 word1[i-1]，然后处理 minDistance(i-1, j)。
-     *          替换：将 word1[i-1] 替换为 word2[j-1]，然后处理 minDistance(i-1, j-1)。
+     *          删除：删除 字符 word1[i-1]，然后处理 minDistance(i-1, j)。
+     *          替换：将 字符 word1[i-1] 替换为 字符 word2[j-1]，然后处理 minDistance(i-1, j-1)。
      * 我们取这三种操作中的最小值，并加上一步操作数。
      * </pre>
      *
