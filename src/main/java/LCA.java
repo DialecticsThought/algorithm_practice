@@ -62,23 +62,23 @@ public class LCA {
      *      左子树返回 null，右子树返回 2，因此返回右子树的结果，即 2。
      * 7.回溯到根节点 3：
      *      左子树返回 2，右子树返回 null，因此最终返回 2 作为 7 和 8 的最近公共祖先
-     * lowestCommonAncestor(3, 7, 8)
-     * ├── lowestCommonAncestor(5, 7, 8)
-     * │   ├── lowestCommonAncestor(6, 7, 8)
-     * │   │   ├── lowestCommonAncestor(null, 7, 8) -> null
-     * │   │   └── lowestCommonAncestor(null, 7, 8) -> null
+     * lca(3, 7, 8)
+     * ├── lca(5, 7, 8)
+     * │   ├── lca(6, 7, 8)
+     * │   │   ├── lca(null, 7, 8) -> null
+     * │   │   └── lca(null, 7, 8) -> null
      * │   │   └── return null
-     * │   └── lowestCommonAncestor(2, 7, 8)
-     * │       ├── lowestCommonAncestor(7, 7, 8) -> 7
-     * │       └── lowestCommonAncestor(4, 7, 8)
-     * │           ├── lowestCommonAncestor(8, 7, 8) -> 8
-     * │           └── lowestCommonAncestor(null, 7, 8) -> null
+     * │   └── lca(2, 7, 8)
+     * │       ├── lca(7, 7, 8) -> 7
+     * │       └── lca(4, 7, 8)
+     * │           ├── lca(8, 7, 8) -> 8
+     * │           └── lca(null, 7, 8) -> null
      * │           └── return 8
      * │       └── since left=7 and right=8, return 2
      * │   └── return 2
-     * ├── lowestCommonAncestor(1, 7, 8)
-     * │   ├── lowestCommonAncestor(null, 7, 8) -> null
-     * │   └── lowestCommonAncestor(null, 7, 8) -> null
+     * ├── lca(1, 7, 8)
+     * │   ├── lca(null, 7, 8) -> null
+     * │   └── lca(null, 7, 8) -> null
      * │   └── return null
      * └── since left=2 and right=null, return 2
      * </pre>
