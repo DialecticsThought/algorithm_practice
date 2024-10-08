@@ -200,7 +200,7 @@ public class LeetCode_146_LRUCache {
                 nodeList.moveNodeToTail(node);
             } else { // 新增！
                 //创建一个新节点
-                Node<K, V> newNode = new Node<K, V>(key, value);
+                Node<K, V> newNode = new Node<>(key, value);
                 keyNodeMap.put(key, newNode);//放入到map
                 nodeList.addNode(newNode);
                 if (keyNodeMap.size() == capacity + 1) {//容量超过了 就是LRU
