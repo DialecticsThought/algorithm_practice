@@ -157,9 +157,6 @@ public class LeetCode_22 {
                  */
                 for (String k1 : dp[i]) {
                     for (String k2 : dp[j - 1 - i]) {
-                        // ()()()
-                        // ()(())
-                        // (())()
                         dp[j].add("(" + k1 + ")" + k2);
                     }
                 }

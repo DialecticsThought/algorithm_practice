@@ -92,7 +92,7 @@ public class LeetCode_146_LRUCache {
     public static class Node<K, V> {
         public K key;
         public V value;
-        public Node<K, V> pre;//上一个节点
+        public Node<K, V> prev;//上一个节点
         public Node<K, V> next;//下一个节点
 
         public Node(K key, V value) {
@@ -122,14 +122,13 @@ public class LeetCode_146_LRUCache {
                 tail = newNode;
             } else {//双向链表里面有节点
                 tail.next = newNode;
-                newNode.pre = tail;
+                newNode.prev = tail;
                 tail = newNode;
             }
         }
 
         /**
-         * TODO
-         * node 入参，一定保证！node在双向链表里！
+         * node 入参，一定保证 node在双向链表里！
          * node原始的位置，左右重新连好，然后把node分离出来
          * 挂到整个链表的尾巴上
          */
@@ -137,15 +136,33 @@ public class LeetCode_146_LRUCache {
             if (tail == node) {
                 return;
             }
-            if (head == node) {//当前node是老的头部
-                head = node.next;
-                head.pre = null;
-            } else {//当前node是中间一个节点（也就是非头结点）
-                node.pre.next = node.next;
-                node.next.pre = node.pre;
+            if (head == node) {// 当前node是原始双向链表的头部
+                head = node.next;// head 指针指向 原始 head指向的节点的下一个
+                head.prev = null; // 新的head 指针指向的节点 的前驱节点是null
+            } else {// 当前node是原始双向链表的中间一个节点（也就是非头结点）
+                /**
+                 * <pre>
+                 * 针对双向链表中，把b移到后面
+                 * 原始链表:
+                 * a <-> b <-> c .....
+                 * node指针指向b
+                 * a <-> b <-> c .....
+                 *       ↑
+                 *      node
+                 * node指针指向的节点的前驱节点的next指针 指向 node指针指向的节点的后驱节点
+                 * node指针指向的节点的后驱节点的prev指针 指向 node指针指向的节点的前驱节点
+                 *     node
+                 *       ↓
+                 * a     b     c .....
+                 * ↕           ↕
+                 * ↕ <-------> ↕
+                 * </pre>
+                 */
+                node.prev.next = node.next;
+                node.next.prev = node.prev;
             }
-            node.pre = tail;//新的最后一个节点 的pre指向之前的最后一个节点
-            node.next = null;
+            node.prev = tail;//新的最后一个节点 的pre指向之前的最后一个节点
+            node.next = null;// 因为最后一个
             tail.next = node;
             tail = node;
         }
@@ -155,13 +172,13 @@ public class LeetCode_146_LRUCache {
                 return null;
             }
             Node<K, V> res = head;
-            if (head == tail) {//就一个节点
+            if (head == tail) {// 就一个节点
                 head = null;
                 tail = null;
-            } else {//不只有一个节点
-                head = res.next;//head指针 移到要删除的节点的下一个节点上
-                res.next = null;//断掉要删节点的联系
-                head.pre = null;
+            } else {// 不只有一个节点
+                head = res.next;// head指针 移到要删除的节点的下一个节点上
+                res.next = null;// 断掉要删节点的联系
+                head.prev = null;
             }
             return res;
         }
@@ -189,19 +206,20 @@ public class LeetCode_146_LRUCache {
         }
 
         /**
-         * TODO
          * set(Key, Value)
          * 新增  更新value的操作
          */
         public void set(K key, V value) {
-            if (keyNodeMap.containsKey(key)) {
+            if (keyNodeMap.containsKey(key)) {// key存在 ，说明是更新
                 Node<K, V> node = keyNodeMap.get(key);
                 node.value = value;
+                // 让原始节点更新之后放入双向链表的链尾
                 nodeList.moveNodeToTail(node);
-            } else { // 新增！
+            } else { // 新增
                 //创建一个新节点
                 Node<K, V> newNode = new Node<>(key, value);
                 keyNodeMap.put(key, newNode);//放入到map
+                // 放入双向链表的链尾
                 nodeList.addNode(newNode);
                 if (keyNodeMap.size() == capacity + 1) {//容量超过了 就是LRU
                     removeMostUnusedCache();
