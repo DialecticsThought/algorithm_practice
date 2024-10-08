@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 
 /**
- *
- *   TODO
+ * <pre>
+ *  TODO
  *   本题测试链接 : https://leetcode.com/problems/lfu-cache/
  *   提交时把类名和构造方法名改为 : LFUCache
  *   缓存三条信息
@@ -35,6 +35,7 @@ import java.util.HashMap;
  *   D,6	 1		5
  *   找到词频最低，相同的频率，哪个时间最早，哪一个最被优先删去
  *   被删除节点如果之后再选入cache的话 重新开始计数
+ * </pre>
  * <pre>
  * TODO
  *   prerequisite:
@@ -103,7 +104,7 @@ import java.util.HashMap;
  *   这种情况 删去缓存一定是 最前面的桶的最前面的一条INFO ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
  *   hashmap1：<A,<<A,5>,3>> <B,<<B,70>,2>> <C,<<C,50>,1>>
  *   hashmap2: <<<A,5>,3>,桶3的地址> <<<B,70>,2>,桶2的地址>  <<<C,50>,1>,桶1的地址>
- *   </pre>
+ *  </pre>
  */
 public class LeetCode_460_LFUCache {
 
