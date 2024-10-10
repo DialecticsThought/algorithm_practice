@@ -50,7 +50,7 @@ public class BlockingQueue {
                 endIndex = 0;
             }
             // 退出区
-            notifyAll();
+            notEmpty.signalAll();
             // 剩余区 这里没有自己的事情
         } catch (Exception e) {
             System.out.println(e);
@@ -75,7 +75,7 @@ public class BlockingQueue {
                 startIndex = 0;
             }
             // 退出区
-            notifyAll();
+            notFull.signalAll();
             // 剩余区 这里没有自己的事情
             return element;
         } catch (Exception e) {

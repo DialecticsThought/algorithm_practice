@@ -63,7 +63,8 @@ public class Code_72_EditDistance {
     /**
      * <pre>
      * 赝本对应模型，需要对2个数组的最后一个位置做操作
-     * 我们定义一个递归函数 minDistance(i, j)，表示将 word1[0:i-1] 转换成 word2[0:j-1] 所需要的最少操作数。我们从这两个字符串的末尾开始向前递归处理：
+     * 我们定义一个递归函数 minDistance(i, j)，
+     *      表示将 word1[0 ~ i-1] 转换成 word2[0 ~ j-1] 所需要的最少操作数。我们从这两个字符串的末尾开始向前递归处理：
      * 基本情况：
      * 如果 i == 0，即 word1 是空字符串，则只能通过插入 j 个字符来匹配 word2，操作数为 j。
      * 如果 j == 0，即 word2 是空字符串，则只能通过删除 i 个字符来匹配 word1，操作数为 i。
@@ -84,7 +85,9 @@ public class Code_72_EditDistance {
      */
     public static int minDistance(String word1, String word2, int i, int j) {
         // 基本情况
+        // word1 是空字符串，则只能通过插入 j 个字符来匹配 word2，操作数为 j
         if (i == 0) return j;
+        // word2 是空字符串，则只能通过删除 i 个字符来匹配 word1，操作数为 i
         if (j == 0) return i;
 
         // 如果最后一个字符相同，跳过它们
