@@ -90,8 +90,17 @@ public class TravellingSalesmanProblem {
      *                                      => g[1][2] + d(2,空)
      *                      => g[3][2] + d(2,1)
      *                                      => g[2][1] + d(1,空)
+     * ==> 问题 被拆分成 距离 + 子问题
+     * 设 出发城市 = i , 剩余城市集合 = j , 遍历 j 时的变量 k （剩余的某一个城市)
+     * 问题 就是 d(出发城市, 剩余城市集合)
+     * 那么 d(i, j) => min(
+     *                  遍历 j 时的变量 k
+     *                  g[i][k] + d(k, j去掉k)
+     *                  g[i][k] + d(k, j去掉k)
+     *                  g[i][k] + d(k, j去掉k)
+     *                  )
+     * 子问题的特殊情况(base case) d(k,空) => 从k回到起点 => g[k][i]
      * </pre>
-
      * g[2][0]
      *
      * g[3][0]
@@ -120,17 +129,6 @@ public class TravellingSalesmanProblem {
      * 110 2和3   6
      * 111 1和2和3 7
      * <p>
-     * 出发城市 i
-     * 剩余城市集合 j
-     * 遍历 j 时的变量 k （剩余的某一个城市)
-     * d(i, j) => min(
-     * g[i][k] + d(k, j去掉k)
-     * g[i][k] + d(k, j去掉k)
-     * g[i][k] + d(k, j去掉k)
-     * )
-     * d(k,空) => 从k回到起点 => g[k][i]
-     * <p>
-     * <p>
      * d(0,1|2) => g[0][1] + d(1,2)
      * => g[0][2] + d(2,1)
      * d(1,1|2)
@@ -138,8 +136,6 @@ public class TravellingSalesmanProblem {
      * d(3,1|2) => g[3][1] + d(1,2)
      * => g[3][2] + d(2,1)
      */
-
-
     public static void main(String[] args) {
         int[][] graph = {
                 {0, 1, 2, 3},
