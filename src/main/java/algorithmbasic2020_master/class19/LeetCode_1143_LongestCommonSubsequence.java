@@ -7,7 +7,7 @@ package algorithmbasic2020_master.class19;
  * <pre>
  * TODO
  * 1.定义子问题
- *      对于字符串 text1 和 text2，我们定义一个递归函数 lcs(i, j) 来表示 text1[0:i-1] 和 text2[0:j-1] 的最长公共子序列的长度。
+ *      对于字符串 text1 和 text2，我们定义一个递归函数 lcs(i, j) 来表示 text1[0 ~ i-1] 和 text2[0 ~ j-1] 的最长公共子序列的长度。
  * 2.考虑所有选择
  * 如果 text1[i-1] == text2[j-1]，
  *      那么这个字符属于最长公共子序列的一部分，我们可以将问题缩小为 lcs(i-1, j-1) + 1。
@@ -49,7 +49,7 @@ package algorithmbasic2020_master.class19;
  * 对于dp[0][4] 也就是str1 = a str2 = 12dea
  * </pre>
  * TODO
- *     str1[0...i]和str2[0...j]，这个范围上最长公共子序列长度是多少？
+ *     str1[0~i]和str2[0~j]，这个范围上最长公共子序列长度是多少？
  *     可能性分类:
  *     a) 最长公共子序列，一定不以str1[i]字符结尾、也一定不以str2[j]字符结尾
  *     b) 最长公共子序列，可能以str1[i]字符结尾、但是一定不以str2[j]字符结尾
