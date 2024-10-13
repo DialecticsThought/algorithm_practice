@@ -114,7 +114,7 @@ public class Leetcode_42_TrappingRainWater {
         int sum = 0;
         // 遍历元素
         for (int i = 0; i < heights.length; i++) {
-            // 把当前高度和对应的索引 封装成data
+            // 把遍历到的当前高度和对应的索引 封装成data
             Data right = new Data(heights[i], i);
             // 如果栈顶不为空 并且 栈顶的高度 <= 当前的高度 => 那么不断弹出栈顶 然后 计算次栈顶和当前元素right
             while (!stack.isEmpty()
@@ -124,6 +124,7 @@ public class Leetcode_42_TrappingRainWater {
                 // 查看 原先次栈顶 或者说 新的栈顶
                 Data left = stack.peek();
                 if (left != null) { // 计算水的容量
+                    // 新的栈顶元素 和 弹栈的元素 的 对应索引 相减， 再- 1
                     int width = right.i - left.i - 1;
                     /**
                      * <pre>
