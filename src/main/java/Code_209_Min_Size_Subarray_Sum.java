@@ -5,12 +5,10 @@
  * 假设我们有一个目标值 target = 15，数组为 nums = [2, 3, 1, 2, 4, 3, 6, 7]。
  * 目标：
  * 找到一个连续的子数组，使其和大于或等于 15，并返回这个子数组的最小长度。
- * <p>
  * 初始状态：
  * left = 0
  * currentSum = 0
  * minLength = Integer.MAX_VALUE
- * <p>
  * 右指针开始扩展窗口：
  * right = 0: currentSum = 2（2加入窗口），currentSum < 15，继续扩展。
  * right = 1: currentSum = 5（3加入窗口），currentSum < 15，继续扩展。

@@ -222,6 +222,7 @@ public class TravellingSalesmanProblem {
     }
 
     /**
+     * <pre>
      * 对于城市1而言，是第1位
      * 那么推得 城市n是集合这个二进制数中的第n位的1 => 1 << (n - 1) =>相当于1向左移动n-1位
      * 已知集合二进制二进制位 = set
@@ -265,6 +266,7 @@ public class TravellingSalesmanProblem {
      *      ----
      *      000
      * false => true => 城市4不存在
+     * </pre>
      */
     static boolean contains(int set, int city) {
         return (set >> (city - 1) & 1) == 1;
@@ -282,8 +284,8 @@ public class TravellingSalesmanProblem {
      *      001 ^
      *      ----
      *      110   => 2|3
-     * <p>
-     * [1|2|3]D = exclude 1 => 2|3
+     * eg:
+     * [1|2|3]D = exclude 2 => 1|3
      * [1|2|3]D = [001|010|100]B => 001 & 010 & 100 = 111
      *      111
      *      010 ^
