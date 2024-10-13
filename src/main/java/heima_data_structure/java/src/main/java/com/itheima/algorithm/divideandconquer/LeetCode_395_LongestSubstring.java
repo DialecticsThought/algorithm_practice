@@ -145,6 +145,7 @@ public class LeetCode_395_LongestSubstring {
         // 遍历 字符串的所有字符
         for (int i = 0; i < chars.length; i++) {
             // 得到 当前遍历到的字符
+            // TODO 这一步 说明，如果要切割，那么切割的字符一定是第一次遍历到的
             char c = chars[i];
             // 字符[i]出现的次数
             int count = counts[c - 'a'];
