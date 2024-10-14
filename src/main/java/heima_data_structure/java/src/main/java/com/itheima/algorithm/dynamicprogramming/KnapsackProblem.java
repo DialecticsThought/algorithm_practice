@@ -100,10 +100,6 @@ public class KnapsackProblem {
         return Math.max(case1, case2);
     }
 
-
-
-
-
     static int select(Item[] items, int total) {
         int[] dp = new int[total + 1];
         for (Item item : items) {
