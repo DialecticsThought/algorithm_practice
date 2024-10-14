@@ -98,7 +98,16 @@ public class KnapsackProblemComplete {
         }
     }
 
-
+    /**
+     * 以从左到右的尝试模型思考,按照物品的顺序从左到右进行选择
+     * 核心思想仍然是，递归过程通过逐步选择每个物品，依次从左到右递推下去
+     *
+     * 对于每个物品，我们都有两种选择——选择该物品 或 不选择该物品。这两个选择的分支会递归地尝试不同的组合，从而找到最大值
+     * @param items
+     * @param currentIndex
+     * @param capacity
+     * @return
+     */
     static int recursion2(Item[] items, int currentIndex, int capacity) {
         // base case 1: 背包容量为 0 或者没有更多物品可以选择时
         if (capacity <= 0 || currentIndex >= items.length) {
@@ -111,33 +120,46 @@ public class KnapsackProblemComplete {
         // 选择2：选择当前物品（前提是背包还有足够容量）
         int case2 = 0;
         if (items[currentIndex].weight <= capacity) {
-            // 选择当前物品后，继续尝试选择当前物品（完全背包问题）
+            // 选择当前物品后，继续尝试选择当前物品（完全背包问题） 因为允许多次选择同一个物品
+            // TODO 这里 和 0-1背包问题不同的是   currentIndex没有 + 1 因为每个物品只能选择一次，选择后跳到下一个物品
             case2 = items[currentIndex].value + recursion2(items, currentIndex, capacity - items[currentIndex].weight);
         }
-
         // 返回两种选择中的最大值
         return Math.max(case1, case2);
     }
 
-
-    static int recursion1(KnapsackProblem.Item[] items, int capacity) {
+    /**
+     * 以从左到右的尝试模型思考,按照物品的顺序从左到右进行选择。
+     * 虽然使用了 for 循环遍历物品，但递归尝试的顺序是从左到右推进的。
+     *
+     * 对于每个物品，我们都有两种选择——选择该物品 或 不选择该物品。这两个选择的分支会递归地尝试不同的组合，从而找到最大值
+     *
+     * TODO for循环体现了:
+     *  1.递归选择当前物品（currentIndex）后，还可以回头选择之前的物品（即 0 到 currentIndex - 1）
+     *  2.但是for循环遍历确保了物品是从左到右顺序递归选择，虽然可以选择每个物品多次，但整体的递归流向依然是从左到右
+     * @param items
+     * @param capacity
+     * @return
+     */
+    static int recursionWithFor(Item[] items, int capacity) {
         // base case 1: 背包容量为 0
         if (capacity <= 0) {
             return 0;
         }
+
         int maxValue = 0;
 
-        for (KnapsackProblem.Item item : items) {
+        for (Item item : items) {
             // 选择1：不选择当前遍历到的物品，但是什么都不做，for循环会自动遍历到下一个物品做选择，隐含于不进行递归选择的情况
             // .....
             // 选择2：选择当前遍历到的物品（前提是背包还有足够容量）
             if (item.weight <= capacity) {
-                int case2 = item.value + recursion1(items, capacity - item.weight);
+                int case2 = item.value + recursionWithFor(items, capacity - item.weight);
                 // 返回两种选择中的最大值
                 maxValue = Math.max(maxValue, case2);
             }
         }
-
         return maxValue;
     }
+
 }
