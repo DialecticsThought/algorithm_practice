@@ -50,20 +50,20 @@ public class LeetCode_322_ChangeMakingProblem {
         // base case 1 如果金额刚好为 0，则表示成功凑出，不需要更多硬币
         // TODO  返回 1，这会错误地表示已经用了一种方法凑出金额，但实际问题要求的是最少硬币数量
         if (amount == 0) {
-            return 1;
+            return 0;
         }
         // base case 2 如果金额为负，表示这种组合不可能，返回一个不可能的大值
         if (amount < 0) {
-            return 0;
+            return Integer.MAX_VALUE;
         }
         // base case3 如果没有更多的硬币可以选择，且金额大于 0，表示不可能凑出该金额
         if (currentIndex == coins.length) {
-            return 0;
+            return Integer.MAX_VALUE;
         }
         // 选择1，不选择当前的硬币,继续下一轮选择
         int case1 = recursion(coins, currentIndex + 1, amount);
         // 选择2，选择当前的硬币,并继续下一轮选择
-        int case2 = recursion(coins, currentIndex + 1, amount - coins[currentIndex]);
+        int case2 = recursion(coins, currentIndex , amount - coins[currentIndex]);
 
         if (case2 != Integer.MAX_VALUE) {
             case2 += 1; // 表示选择了当前硬币

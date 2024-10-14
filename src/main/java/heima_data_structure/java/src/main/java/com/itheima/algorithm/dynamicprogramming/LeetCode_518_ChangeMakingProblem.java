@@ -52,6 +52,27 @@ public class LeetCode_518_ChangeMakingProblem {
         return dp[coins.length - 1][amount];
     }
 
+    public int recursion(int[] coins, int currentIndex, int amount) {
+        // base case 1 如果金额刚好为 0，则表示找到了一种有效的组合
+        if (amount == 0) {
+            return 1;
+        }
+        // base case 2 如果金额为负，表示这种组合不可能，返回一个不可能的大值
+        if (amount < 0) {
+            return 0;
+        }
+        // base case3 如果没有更多的硬币可以选择，且金额大于 0，表示不可能凑出该金额
+        if (currentIndex == coins.length) {
+            return 0;
+        }
+        // 选择1，不选择当前的硬币,继续下一轮选择
+        int case1 = recursion(coins, currentIndex + 1, amount);
+        // 选择2，选择当前的硬币,并继续下一轮选择
+        int case2 = recursion(coins, currentIndex, amount - coins[currentIndex]);
+
+        return case1 + case2;
+    }
+
     public static void main(String[] args) {
         LeetCode_518_ChangeMakingProblem leetcode = new LeetCode_518_ChangeMakingProblem();
 //        int count = leetcode.change(new int[]{1, 2, 5}, 5);
