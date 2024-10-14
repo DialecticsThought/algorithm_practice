@@ -44,6 +44,24 @@ public class BPTree {
     }
 
 
+    int internalOrder;
+
+    int leafOrder;
+
+    InternalNode root;
+
+    LeafNode first;
+
+    static class Entry {
+        int key;
+        Object value;
+
+        public Entry(int key, Object value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
 
     private LeafNode findNode(InternalNode node, int key) {
         int i = 0;
@@ -108,20 +126,5 @@ public class BPTree {
 
     static int getMid(int m) {
         return (int) Math.ceil((m + 1) / 2.0) - 1;
-    }
-
-    int internalOrder;
-    int leafOrder;
-    InternalNode root;
-    LeafNode first;
-
-    static class Entry {
-        int key;
-        Object value;
-
-        public Entry(int key, Object value) {
-            this.key = key;
-            this.value = value;
-        }
     }
 }

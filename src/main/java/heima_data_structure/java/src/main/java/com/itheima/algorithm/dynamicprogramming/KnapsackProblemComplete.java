@@ -97,4 +97,47 @@ public class KnapsackProblemComplete {
             System.out.printf(("%5d ".repeat(d.length)) + "%n", array);
         }
     }
+
+
+    static int recursion2(Item[] items, int currentIndex, int capacity) {
+        // base case 1: 背包容量为 0 或者没有更多物品可以选择时
+        if (capacity <= 0 || currentIndex >= items.length) {
+            return 0;
+        }
+
+        // 选择1：不选择当前物品，递归处理下一个物品
+        int case1 = recursion2(items, currentIndex + 1, capacity);
+
+        // 选择2：选择当前物品（前提是背包还有足够容量）
+        int case2 = 0;
+        if (items[currentIndex].weight <= capacity) {
+            // 选择当前物品后，继续尝试选择当前物品（完全背包问题）
+            case2 = items[currentIndex].value + recursion2(items, currentIndex, capacity - items[currentIndex].weight);
+        }
+
+        // 返回两种选择中的最大值
+        return Math.max(case1, case2);
+    }
+
+
+    static int recursion1(KnapsackProblem.Item[] items, int capacity) {
+        // base case 1: 背包容量为 0
+        if (capacity <= 0) {
+            return 0;
+        }
+        int maxValue = 0;
+
+        for (KnapsackProblem.Item item : items) {
+            // 选择1：不选择当前遍历到的物品，但是什么都不做，for循环会自动遍历到下一个物品做选择，隐含于不进行递归选择的情况
+            // .....
+            // 选择2：选择当前遍历到的物品（前提是背包还有足够容量）
+            if (item.weight <= capacity) {
+                int case2 = item.value + recursion1(items, capacity - item.weight);
+                // 返回两种选择中的最大值
+                maxValue = Math.max(maxValue, case2);
+            }
+        }
+
+        return maxValue;
+    }
 }
