@@ -48,6 +48,7 @@ public class LeetCode_322_ChangeMakingProblem {
 
     public int recursion(int[] coins, int currentIndex, int amount) {
         // base case 1 如果金额刚好为 0，则表示成功凑出，不需要更多硬币
+        // 表示此路径不可能凑成目标金额，因此返回 0
         // TODO  返回 1，这会错误地表示已经用了一种方法凑出金额，但实际问题要求的是最少硬币数量
         if (amount == 0) {
             return 0;
