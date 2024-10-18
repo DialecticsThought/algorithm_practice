@@ -359,7 +359,7 @@ public class Leetcode_28_KMP_StrStr {
      *       i
      * 发现 j = 0 前面没公共部分
      * 所以 公共前后缀长度 = 0  lps[i] = 0
-     * 最后 j不变 i++,因为要让 i++之后的字符 与j的字符比较
+     * 最后 j不变, i++,因为要让 i++之后的字符 与j的字符比较
      * 2.遇到了不相同字符的case:
      *         a a a c a a a a a c
      *               j
