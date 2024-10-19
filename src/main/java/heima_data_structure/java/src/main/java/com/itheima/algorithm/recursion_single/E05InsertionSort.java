@@ -30,7 +30,8 @@ public class E05InsertionSort {
      * 2.从low-1开始向前遍历，设 i = low - 1
      *  arr[i]和tmp比较
      *    if arr[i] > tmp
-     *          把 arr[i] 放入到tmp对应的位置
+     *          1.把 arr[i] 放入到i+1对应的位置
+     *          2.i++
      *    if arr[i] < tmp
      *          把 tmp 放入到i+1的位置
      * </pre>
@@ -67,12 +68,58 @@ public class E05InsertionSort {
         insertion(a, low + 1);
     }
 
-    // 另一种插入排序的实现,缺点: 赋值次数较多
+    /**
+     * 另一种插入排序的实现,缺点: 赋值次数较多 => 类似于冒泡
+     * <pre>
+     * eg:
+     * 2 4 5 10 7 1
+     *     ↓
+     * [2 4 5 10] [7 1]
+     *             ↑
+     *            low
+     * arr = 2 4 5 10 7 1
+     *       1 2 3 4  5 6
+     * 1.现在将arr[5]插入到已经排序的区域0 ~ 5 - 1 中
+     *  1.1.从low-1开始向前遍历，设 i = low - 1
+     *      arr[5-1] > arr[5] <=> 10 和 7
+     *          => 交换 10 和 7 的位置 即 2 4 5 7 10 1
+     *          => i--
+     *      arr[4-1] < arr[4]
+     *          => 结束
+     *  1.2. 将arr[5+1]插入到已经排序的区域0 ~ 5 中
+     * 2.将arr[5+1]插入到已经排序的区域0 ~ 5 中
+     *  2.1.从low-1开始向前遍历，设 i = low - 1
+     *      arr[6-1] > arr[6] <=> 10 和 1
+     *          => 交换 7 和 1 的位置 即 2 4 5 1 7 10
+     *          => i--
+     *      arr[5-1] > arr[5] <=> 5 和 1
+     *          => 交换 5 和 1 的位置 即 2 4 1 5 7 10
+     *          => i--
+     *      arr[4-1] > arr[4] <=> 4 和 1
+     *          => 交换 4 和 1 的位置 即 2 4 1 5 7 10
+     *          => i--
+     *  2.2. 将arr[5+1]插入到已经排序的区域0 ~ 5 中
+     *
+     * 现在将arr[low]插入到已经排序的区域0 ~ low - 1 中
+     * 没有用一个tmp去接收arr[low] ☆☆☆☆☆☆☆☆☆☆☆☆
+     * 1.从low-1开始向前遍历，设 i = low - 1
+     *  arr[i]和arr[i-1]比较
+     *    if arr[i] > arr[i+1]
+     *          1.把 arr[i] 与arr[i+1]交换位置
+     *          2.i--
+     *          3.结束
+     *    if arr[i] < arr[i+1]
+     *          结束
+     * 2.将arr[low+1]插入到已经排序的区域0 ~ low 中
+     * </pre>
+     * @param a
+     * @param low
+     */
     private static void insertion2(int[] a, int low) {
         if (low == a.length) {
             return;
         }
-
+        // 没有 临时变量tmp
         int i = low - 1;
         while (i >= 0 && a[i] > a[i + 1]) {
             int t = a[i];
