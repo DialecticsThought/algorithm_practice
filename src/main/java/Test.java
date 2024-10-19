@@ -8,9 +8,9 @@ public class Test {
         int[] lps = new int[arr.length];
         int i = 0;
         int j = 1;
-        while (j < arr.length) {
+        while (i < arr.length) {
             if (arr[i] == arr[j]) {
-                lps[i] = j + 1;
+                lps[i] = j;
                 i++;
                 j++;
             } else if (j == 0) {
@@ -22,4 +22,6 @@ public class Test {
 
         return lps;
     }
+
+
 }

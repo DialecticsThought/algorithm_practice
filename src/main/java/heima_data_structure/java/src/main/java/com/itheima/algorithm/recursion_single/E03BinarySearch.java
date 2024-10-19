@@ -32,4 +32,25 @@ public class E03BinarySearch {
             return m;
         }
     }
+
+    public static int binarySearch(int[] arr, int target, int i, int j) {
+        // base case
+        if (i == j) {
+            if (arr[i] == target) {
+                return i;
+            } else {
+                return -1;
+            }
+        }
+        // 得到中间索引
+        int midIndex = (i + j) / 2;
+
+        if (arr[midIndex] < target) {
+            return binarySearch(arr, target, midIndex + 1, j);
+        } else if (arr[midIndex] > target) {
+            return binarySearch(arr, target, i, midIndex - 1);
+        } else {
+            return midIndex;
+        }
+    }
 }
