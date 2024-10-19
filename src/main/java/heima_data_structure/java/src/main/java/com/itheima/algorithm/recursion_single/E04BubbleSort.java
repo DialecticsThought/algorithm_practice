@@ -39,6 +39,7 @@ public class E04BubbleSort {
 
             // 如果 新的i对应的值 > 新的i+1对应的值
             if (a[i] > a[i + 1]) {
+                // 交换
                 int t = a[i];
                 a[i] = a[i + 1];
                 a[i + 1] = t;
@@ -46,7 +47,7 @@ public class E04BubbleSort {
                 x = i;
             }
             // 如果 新的i对应的值 <= 新的i+1对应的值
-            // 那么 x 不更新 还是上一轮更新到的值
+            // 那么 x 不更新 还是上一轮最后一次交换更新到的值
         }
         // 对[0 ~ j-1]执行相同的操作
         bubble(a, x);
