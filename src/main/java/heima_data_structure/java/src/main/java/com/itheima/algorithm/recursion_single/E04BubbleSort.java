@@ -35,6 +35,9 @@ public class E04BubbleSort {
         int x = 0;
         // 在范围 [0 ~ j] 内冒泡最大元素到最右侧位置 j
         for (int i = 0; i < j; i++) {
+            // 此时遍历到新的i
+
+            // 如果 新的i对应的值 > 新的i+1对应的值
             if (a[i] > a[i + 1]) {
                 int t = a[i];
                 a[i] = a[i + 1];
@@ -42,6 +45,8 @@ public class E04BubbleSort {
                 // 更新 下一个右边界的值
                 x = i;
             }
+            // 如果 新的i对应的值 <= 新的i+1对应的值
+            // 那么 x 不更新 还是上一轮更新到的值
         }
         // 对[0 ~ j-1]执行相同的操作
         bubble(a, x);
