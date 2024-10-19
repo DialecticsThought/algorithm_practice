@@ -15,29 +15,54 @@ public class E05InsertionSort {
     }
 
     /**
-     * <h3>递归函数 将 low 位置的元素插入至 [0..low-1] 的已排序区域</h3>
+     * 递归函数
+     * 将数组分成 0 ~ low - 1 和 low ~ arr.length 两个区域
+     * 将 low 位置的元素插入至 0 ~ low - 1 的已排序区域
+     * <pre>
+     * eg:
+     * 2 4 5 10 7 1
+     *     ↓
+     * [2 4 5 10] [7 1]
+     *             ↑
+     *            low
+     * 现在将arr[low]插入到已经排序的区域中
+     * 1.用一个tmp去接收arr[low]
+     * 2.从low-1开始向前遍历，设 i = low - 1
+     *  arr[i]和tmp比较
+     *    if arr[i] > tmp
+     *          把 arr[i] 放入到tmp对应的位置
+     *    if arr[i] < tmp
+     *          把 tmp 放入到i+1的位置
+     * </pre>
      *
      * @param a   数组
      * @param low 未排序区域的左边界
      */
     private static void insertion(int[] a, int low) {
+        // base case
         if (low == a.length) {
             return;
         }
+        // 开始 向 [0 ~ low - 1] 插入 arr[low] 元素
 
-        int t = a[low];
-        int i = low - 1; // 已排序区域指针
-
-        while (i >= 0 && t < a[i]) { // 没有找到插入位置
-            a[i + 1] = a[i]; // 空出插入位置
+        // 报错 当前轮 的 需要插入的数据
+        int tmp = a[low];
+        // 已排序区域的右边界的指针
+        int i = low - 1;
+        while (i >= 0 && tmp < a[i]) { // 没有找到插入位置
+            // 空出插入位置
+            a[i + 1] = a[i];
             i--;
         }
 
         // 找到插入位置
         if (i + 1 != low) {
-            a[i + 1] = t;
+            a[i + 1] = tmp;
         }
 
+        // 结束 向 [0 ~ low - 1] 插入 arr[low] 元素
+
+        // 执行 向 [0 ~ low] 插入 arr[low + 1] 元素
         insertion(a, low + 1);
     }
 
