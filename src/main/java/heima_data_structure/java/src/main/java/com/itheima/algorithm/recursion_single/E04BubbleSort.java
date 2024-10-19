@@ -39,6 +39,7 @@ public class E04BubbleSort {
                 int t = a[i];
                 a[i] = a[i + 1];
                 a[i + 1] = t;
+                // 更新 下一个右边界的值
                 x = i;
             }
         }
