@@ -54,8 +54,9 @@ public class E05InsertionSort {
             a[i + 1] = a[i];
             i--;
         }
+        // while循环出来的时候 说明找到插入位置
 
-        // 找到插入位置
+        // 插入
         if (i + 1 != low) {
             a[i + 1] = tmp;
         }
