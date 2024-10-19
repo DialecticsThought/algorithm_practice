@@ -43,6 +43,7 @@ public class E04BubbleSort {
                 int t = a[i];
                 a[i] = a[i + 1];
                 a[i + 1] = t;
+                // 交换之后 此时 i是分界线, 0 ~ i-1 是未排序区域, i~arr.len-1是已排序区域
                 // 更新 下一个右边界的值
                 x = i;
             }
