@@ -3,7 +3,7 @@ package code_for_great_offer.class01;
 public class Code04_MinSwapStep {
 
 
-	/*
+	/**
 	*TODO
 	*  一个数组中只有两种字符'G'和'B'，
 	* 可以让所有的G都放在左侧，所有的B都放在右侧

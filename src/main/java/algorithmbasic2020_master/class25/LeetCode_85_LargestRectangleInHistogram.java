@@ -5,6 +5,7 @@ import java.util.Stack;
 // 测试链接：https://leetcode.com/problems/largest-rectangle-in-histogram
 
 /**
+ * <pre>
  * eg:[3,2,4,2,5]
  * 用单调栈
  *         □
@@ -13,6 +14,7 @@ import java.util.Stack;
  * □ □ □ □ □
  * □ □ □ □ □
  * 0 1 2 3 4  下标/位置
+ * </pre>
  * 求以0位置的长方形的高（3）向2边拓宽，能拖到多远
  *      对于0位置不能向右拓宽 也不能向左拓宽
  * 此时单调栈 栈底 -> 栈顶， 小 -> 大： 0->3
