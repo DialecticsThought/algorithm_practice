@@ -20,11 +20,24 @@ public class E02HanoiTower {
 
     /**
      * <h3>移动圆盘</h3>
+     * <pre>
+     *  n个盘子 从 左 中 右  的左 移动到右
+     *  分成3步
+     *  让n-1个盘子 从左边 移动到中间
+     *  第n个盘子 从左边移动到右边
+     *  让n-1个盘子 从中间移动到 右边
      *
+     *  让n-1个盘子 从左边 移动到中间 可以再分
+     *  让n-2个盘子 从左边 移动到中间
+     *  第n-1个盘子 从左边移动到右边
+     *  让n-2个盘子 从中间移动到 右边
+     *  ....
+     * </pre>
+     * a,b,c这3个LinkedList 作为3个柱子
      * @param n 圆盘个数
-     * @param a 由
-     * @param b 借
-     * @param c 至
+     * @param a 来源 ,初始所有盘子放的地方
+     * @param b 中间 ,他是一个中间的柱子,目的是为了把n-1个盘子暂时放在这个柱子上
+     * @param c 目标 ,最终要把所有盘子要放入的地方
      */
     static void move(int n, LinkedList<Integer> a,
                      LinkedList<Integer> b,
@@ -32,10 +45,10 @@ public class E02HanoiTower {
         if (n == 0) {
             return;
         }
-        move(n - 1, a, c, b);   // 把 n-1 个盘子由a,借c,移至b
-        c.addLast(a.removeLast()); // 把最后的盘子由 a 移至 c
-//        print();
-        move(n - 1, b, a, c);   // 把 n-1 个盘子由b,借a,移至c
+        // 下一轮中
+        move(n - 1, a, c, b);   // 把 n-1 个盘子从 a 移至 b , c是中间
+        c.addLast(a.removeLast()); // 把 第 n 个的盘子由 a 移至 c
+        move(n - 1, b, a, c);   // 把 n-1 个盘子从 b 移至 c , a是中间
     }
 
     // T(n) = 2T(n-1) + c,  O(2^64)
