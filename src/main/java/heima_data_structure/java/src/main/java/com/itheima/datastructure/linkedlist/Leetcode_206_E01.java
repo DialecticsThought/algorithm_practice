@@ -199,17 +199,49 @@ public class Leetcode_206_E01 {
         return n1;
     }
 
-    // 方法5 - 不断把 o1 头插到 n1
+    /**
+     * 方法5 - 不断把 o1 头插到 n1
+     * <pre>
+     *  n1 指向 null，代表新链表一开始没有元素，o1 指向原链表的首节点
+     *       n1      o1
+     *       ↓       ↓
+     *       null    1 -> 2 -> 3 -> 4 -> null
+     *  开始循环，o2 指向原链表次节点
+     *       n1      o1   o2
+     *       ↓       ↓    ↓
+     *       null    1 -> 2 -> 3 -> 4 -> null
+     *  搬移
+     *       o1   n1      o2
+     *       ↓     ↓      ↓
+     *       1 -> null    2 -> 3 -> 4 -> null
+     *  指针复位
+     *       n1            o1
+     *       ↓             ↓
+     *       1 -> null    2 -> 3 -> 4 -> null
+     *  重复 2~4 步
+     *      ......
+     *  当 o1 = null 时退出循环
+     * </pre>
+     *
+     * @param o1
+     * @return
+     */
     public ListNode reverseList(ListNode o1) {
         if (o1 == null || o1.next == null) {
             return o1;
         }
+        //n1 初始化为 null，这个变量将用于保存反转后的链表头节点
         ListNode n1 = null;
+        // 当 o1 不为空时，进入循环，表示仍然有节点需要处理
         while (o1 != null) {
-            ListNode o2 = o1.next; // 2.
-            o1.next = n1; // 3.
-            n1 = o1;      // 4.
-            o1 = o2;      // 4.
+            // o2 保存当前节点 o1 的下一个节点。这一步是为了在反转 o1 时，能够继续访问链表的其余部分
+            ListNode o2 = o1.next;
+            //将当前节点 o1 的 next 指向 n1，这实际上是反转指针的操作。比如，如果当前链表是 1 -> 2 -> 3，在这一步后，1 的 next 将指向 null（因为 n1 是 null），变为 1 -> null
+            o1.next = n1;
+            // 将 n1 更新为当前节点 o1，这一步是为了记录反转后的链表头。随着循环的进行，n1 会逐渐指向反转后的链表的最上层节点
+            n1 = o1;
+            // 将 o1 更新为 o2，也就是之前保存的下一个节点，以继续处理链表的下一个部分
+            o1 = o2;
         }
         return n1;
     }
