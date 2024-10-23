@@ -42,6 +42,7 @@ public class E02HanoiTower {
     static void move(int n, LinkedList<Integer> a,
                      LinkedList<Integer> b,
                      LinkedList<Integer> c) {
+        // base case 没有盘子
         if (n == 0) {
             return;
         }
