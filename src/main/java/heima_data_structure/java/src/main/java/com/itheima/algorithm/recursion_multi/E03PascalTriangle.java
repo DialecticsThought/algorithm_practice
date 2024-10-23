@@ -51,17 +51,11 @@ public class E03PascalTriangle {
 
     public static void print(int n) {
         for (int i = 0; i < n; i++) {
-//            printSpace(n, i);
             for (int j = 0; j <= i; j++) {
                 System.out.printf("%-4d", element(i, j));
             }
             System.out.println();
         }
-    }
-
-    public static void main(String[] args) {
-//        System.out.println(element(4, 2));
-        print2(6);
     }
 
     /**
@@ -73,10 +67,11 @@ public class E03PascalTriangle {
      * @return 该坐标元素值
      */
     private static int element1(int[][] triangle, int i, int j) {
+        // 查缓存
         if (triangle[i][j] > 0) {
             return triangle[i][j];
         }
-
+        // base case
         if (j == 0 || i == j) {
             triangle[i][j] = 1;
             return 1;
@@ -86,10 +81,15 @@ public class E03PascalTriangle {
     }
 
     public static void print1(int n) {
+        // 创建一个二维数组的缓存
+        // 先指定行的个数
         int[][] triangle = new int[n][];
-        for (int i = 0; i < n; i++) { // 行
+        for (int i = 0; i < n; i++) { // 遍历所有行
+            // 行与列的关系
+            // 第 0 行 有 1 列
+            // 第 1 行 有 2 列
+            // ....
             triangle[i] = new int[i + 1];
-//            printSpace(n, i);
             for (int j = 0; j <= i; j++) {
                 System.out.printf("%-4d", element1(triangle, i, j));
             }
@@ -121,7 +121,6 @@ public class E03PascalTriangle {
         int[] row = new int[n];
         for (int i = 0; i < n; i++) { // 行
             createRow(row, i);
-//            printSpace(n, i);
             for (int j = 0; j <= i; j++) {
                 System.out.printf("%-4d", row[j]);
             }
@@ -129,4 +128,8 @@ public class E03PascalTriangle {
         }
     }
 
+    public static void main(String[] args) {
+//        System.out.println(element(4, 2));
+        print2(6);
+    }
 }
