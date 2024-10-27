@@ -40,35 +40,35 @@ import java.util.concurrent.Flow;
  *
  *  时序图（基于文字）
  *
- *  订阅者                发布者                Subscription (令牌)
- *  |                    |                                 |
- *  | 1. subscribe()     |                                 |  // 订阅者向发布者发送订阅请求 => 本质是执行Publisher.subscribe方法
- *  |------------------->|                                 |
- *  |                    |                                 |
- *  |                    | 2.1 创建 Subscription 实例        |  // 发布者生成令牌 => 本质是执行Subscription subscription = new Subscription()
- *  |                    |-------------------------------->|
- *  |                    |                                 |
- *  |                    | 2.2 onSubscribe(Subscription)   |  // 发布者把令牌发送给订阅者 => 本质是执行Subscriber.onSubscribe(subscription)
- *  |<---------------------------------------------------- |
- *  |                    |                                 |
- *  |                    |                                 |
- *  | 3. request(N)      |                                 |  // 订阅者根据令牌向发布者发送请求N个数据 => 本质是执行Subscriber.onSubscribe(subscription)方法里面，subscription.request
- *  |----------------------------------------------------> |
- *  |                    |                                 |
- *  |                    |                                 |
- *  |                    | 4. onNext(data)                 |  // 发送者根据订阅者的请求数量返回M(M<=N)个数据 => 本质是执行subscription.request方法里面，执行Subscriber.onNext
- *  |<---------------------------------------------------- |
- *  |                    |                                 |
- *  |                    |                                 |
- *  |                    |                                 |
- *  |     （重复步骤3和4，直到数据发送完毕）                    |
- *  |                    |                                 |
- *  |                    |                                 |
- *  |                    |                                 |
- *  |                    | 5. onComplete()                 |
- *  |<---------------------------------------------------- |
- *  |                    |                                 |
- *  |                    |                                 |
+ * Subscriber            Publisher                Subscription (令牌)
+ *  |                          |                                 |
+ *  | 1. subscribe()           |                                 |  // 订阅者向发布者发送订阅请求 => 本质是执行Publisher.subscribe方法
+ *  |---------------------->   |                                 |
+ *  |                          |                                 |
+ *  |                          | 2.1 创建 Subscription 实例       |  // 发布者生成令牌 => 本质是执行Subscription subscription = new Subscription()
+ *  |                          |-------------------------------->|
+ *  |                          |                                 |
+ *  | 2.2 Subscription执行Subscriber.onSubscribe(Subscription)    |  // 发布者把令牌发送给订阅者 => 本质是执行Subscriber.onSubscribe(subscription)
+ *  |<---------------------------------------------------------- |
+ *  |                          |                                 |
+ *  |                          |                                 |
+ *  |           3.Subscriber执行Subscription.request(N)          |  // 订阅者根据令牌向发布者发送请求N个数据 => 本质是执行Subscriber.onSubscribe(subscription)方法里面，subscription.request
+ *  |----------------------------------------------------------> |
+ *  |                          |                                 |
+ *  |                          |                                 |
+ *  |                          | 4. onNext(data)                 |  // 发送者根据订阅者的请求数量返回M(M<=N)个数据 => 本质是执行subscription.request方法里面，执行Subscriber.onNext
+ *  |<---------------------------------------------------------- |
+ *  |                          |                                 |
+ *  |                          |                                 |
+ *  |                          |                                 |
+ *  |     （重复步骤3和4，直到数据发送完毕）                          |
+ *  |                          |                                 |
+ *  |                          |                                 |
+ *  |                          |                                 |
+ *  |                          | 5. onComplete()                 |
+ *  |<---------------------------------------------------------- |
+ *  |                          |                                 |
+ *  |                          |                                 |
  *
  * </pre>
  *  @Description
