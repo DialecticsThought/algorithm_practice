@@ -34,35 +34,47 @@ public class Leetcode_19_E03 {
         return s.next;
     }
 
+    /**
+     * 通过递归调用来计算每个节点的倒数位置，当找到倒数第 n 个节点时，将其从链表中移除
+     *
+     * @param p 参数会变
+     * @param n 参数不会变
+     * @return
+     */
     private int recursion(ListNode p, int n) {
+        // base case 如果当前节点 p 是 null，意味着已经到达链表的末尾
+        // 这是 递归的"归" 的一部分
         if (p == null) {
             return 0;
         }
-        int nth = recursion(p.next, n); // 下一个节点的倒数位置
-        if (nth == n) {
-            // p=3  p.next=4 p.next.next=5
+        // 这行代码是 递归的"递"
+        // 向下递归调用，逐步深入链表的尾部。每次递归调用都会把当前节点 p 传入下一个节点 p.next，直到链表末尾（p == null）
+        // 下一个节点的倒数位置
+        int nth = recursion(p.next, n);
+        // 这是 递归的"归" 的一部分
+        if (nth == n) {// 这里判断是否删除
             p.next = p.next.next;
         }
+        // 逐层返回倒数位置的计数值 nth + 1，一层层向上返回
         return nth + 1;
     }
 
-    /*
-        n=2
-        p1
-        p2
-        s -> 1 -> 2 -> 3 -> 4 -> 5 -> null
-
-             p2
-        s -> 1 -> 2 -> 3 -> 4 -> 5 -> null
-
-                  p2
-        s -> 1 -> 2 -> 3 -> 4 -> 5 -> null
-
-        p1             p2
-        s -> 1 -> 2 -> 3 -> 4 -> 5 -> null
-
-                       p1             p2
-        s -> 1 -> 2 -> 3 -> 4 -> 5 -> null
+    /**
+     * <pre>
+     *        n=2
+     *         p1
+     *         p2
+     *         s -> 1 -> 2 -> 3 -> 4 -> 5 -> null
+     *              p2
+     *         s -> 1 -> 2 -> 3 -> 4 -> 5 -> null
+     *                   p2
+     *         s -> 1 -> 2 -> 3 -> 4 -> 5 -> null
+     *         p1             p2
+     *         s -> 1 -> 2 -> 3 -> 4 -> 5 -> null
+     *
+     *                        p1             p2
+     *         s -> 1 -> 2 -> 3 -> 4 -> 5 -> null
+     * </pre>
      */
     // 方法2
     public ListNode removeNthFromEnd(ListNode head, int n) {
