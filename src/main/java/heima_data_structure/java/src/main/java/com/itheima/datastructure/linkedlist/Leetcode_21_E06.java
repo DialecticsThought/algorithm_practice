@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
 /**
  * 合并两个有序链表
  */
-public class E06Leetcode21 {
+public class Leetcode_21_E06 {
     // 方法1
     public ListNode mergeTwoLists(ListNode p1, ListNode p2) {
         ListNode s = new ListNode(-1, null);
@@ -60,7 +60,7 @@ public class E06Leetcode21 {
         ListNode p2 = new ListNode(2, new ListNode(4, null));
         System.out.println(p1);
         System.out.println(p2);
-        System.out.println(new E06Leetcode21()
+        System.out.println(new Leetcode_21_E06()
                 .mergeTwoLists(p1, p2));
     }
 }

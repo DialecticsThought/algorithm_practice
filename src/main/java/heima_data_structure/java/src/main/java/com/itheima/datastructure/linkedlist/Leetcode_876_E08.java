@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
 /**
  * 查找链表中间节点
  */
-public class E08Leetcode876 {
+public class Leetcode_876_E08 {
 
     /*
                 p1
@@ -33,9 +33,9 @@ public class E08Leetcode876 {
 
     public static void main(String[] args) {
         ListNode head1 = ListNode.of(1, 2, 3, 4, 5);
-        System.out.println(new E08Leetcode876().middleNode(head1));
+        System.out.println(new Leetcode_876_E08().middleNode(head1));
 
         ListNode head2 = ListNode.of(1, 2, 3, 4, 5, 6);
-        System.out.println(new E08Leetcode876().middleNode(head2));
+        System.out.println(new Leetcode_876_E08().middleNode(head2));
     }
 }

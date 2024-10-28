@@ -1,20 +1,28 @@
 package heima_data_structure.java.src.main.java.com.itheima.datastructure.linkedlist;
 
 /**
- * 检测链表是否有环
+ * 检测环的入口
  */
-public class E10Leetcode141 {
-    public boolean hasCycle(ListNode head) {
+public class Leetcode_142_E11 {
+    public ListNode detectCycle(ListNode head) {
         ListNode h = head; // 兔
         ListNode t = head; // 龟
         while (h != null && h.next != null) {
             t = t.next;
             h = h.next.next;
-            if(h == t){
-                return true;
+            if(h == t){ // 第一次相遇
+                // 进入第二阶段
+                t = head;
+                while (true) {
+                    if (t == h) { // 第二次相遇
+                        return t;
+                    }
+                    t = t.next;
+                    h = h.next;
+                }
             }
         }
-        return false;
+        return null;
     }
 
     public static void main(String[] args) {
@@ -32,8 +40,8 @@ public class E10Leetcode141 {
         ListNode n2 = new ListNode(2, n3);
         ListNode n1 = new ListNode(1, n2);
 
-//        n12.next = n8;
+        n12.next = n1;
 
-        System.out.println(new E10Leetcode141().hasCycle(n1));
+        System.out.println(new Leetcode_142_E11().detectCycle(n1).val);
     }
 }

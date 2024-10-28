@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
 /**
  * 判断回文链表
  */
-public class E09Leetcode234 {
+public class Leetcode_234_E09 {
     /*
         步骤1. 找中间点的同时反转前半个链表
         步骤2. 反转后的前半个链表 与 中间点开始的后半个链表 逐一比较
@@ -48,7 +48,7 @@ public class E09Leetcode234 {
     public static void main(String[] args) {
 //        System.out.println(new E09Leetcode234()
 //                .isPalindrome(ListNode.of(1, 2, 2, 1)));
-        System.out.println(new E09Leetcode234()
+        System.out.println(new Leetcode_234_E09()
                 .isPalindrome(ListNode.of(1, 2, 3, 2, 1)));
     }
 

@@ -3,7 +3,7 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
 /**
  * 删除指定节点
  */
-public class Ex1Leetcode237 {
+public class Leetcode_237_Ex1 {
     /**
      * @param node 待删除节点, 题目已说明肯定不是最后一个节点
      */
@@ -19,7 +19,7 @@ public class Ex1Leetcode237 {
         ListNode o2 = new ListNode(2, o3);
         ListNode o1 = new ListNode(1, o2);
         System.out.println(o1);
-        new Ex1Leetcode237().deleteNode(o3);
+        new Leetcode_237_Ex1().deleteNode(o3);
         System.out.println(o1);
     }
 }

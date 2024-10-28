@@ -71,7 +71,8 @@ import java.util.concurrent.Flow;
  *  |                          |                                 |
  *
  * </pre>
- *  @Description
+ *
+ * @Description
  * @Author veritas
  * @Data 2024/10/27 17:09
  */
@@ -157,9 +158,10 @@ public class ReactiveDemo {
     // 测试类
     public class PubSubExample {
         public static void main(String[] args) {
-            SimplePublisher publisher = new SimplePublisher();
+/*            SimplePublisher publisher = new SimplePublisher();
             SimpleSubscriber subscriber = new SimpleSubscriber("Subscriber 1");
 
-            publisher.subscribe(subscriber);  // 向发布者订阅数据
+            publisher.subscribe(subscriber);  // 向发布者订阅数据*/
         }
+    }
 }

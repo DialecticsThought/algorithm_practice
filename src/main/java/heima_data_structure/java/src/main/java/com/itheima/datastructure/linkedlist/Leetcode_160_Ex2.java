@@ -1,6 +1,6 @@
 package heima_data_structure.java.src.main.java.com.itheima.datastructure.linkedlist;
 
-public class Ex2Leetcode160 {
+public class Leetcode_160_Ex2 {
     public ListNode getIntersectionNode(ListNode a, ListNode b) {
         ListNode p1 = a;
         ListNode p2 = b;
@@ -30,6 +30,6 @@ public class Ex2Leetcode160 {
         ListNode a = c;
         ListNode b = c;
 
-        System.out.println(new Ex2Leetcode160().getIntersectionNode(a, b));
+        System.out.println(new Leetcode_160_Ex2().getIntersectionNode(a, b));
     }
 }
