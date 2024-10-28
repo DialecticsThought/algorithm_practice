@@ -29,6 +29,7 @@ public class Leetcode_19_E03 {
     */
     // 方法1
     public ListNode removeNthFromEnd1(ListNode head, int n) {
+        // 哨兵节点 因为 递归 的时候 不能解决头节点的问题
         ListNode s = new ListNode(-1, head);
         recursion(s, n);
         return s.next;
@@ -36,6 +37,30 @@ public class Leetcode_19_E03 {
 
     /**
      * 通过递归调用来计算每个节点的倒数位置，当找到倒数第 n 个节点时，将其从链表中移除
+     * <pre>
+     *     recursion(1 -> 2 -> 3 -> 4 -> 5, 2)
+     *          │
+     *          └── recursion(2 -> 3 -> 4 -> 5, 2)
+     *          │    │
+     *          │    └── recursion(3 -> 4 -> 5, 2)
+     *          │    │    │
+     *          │    │    └── recursion(4 -> 5, 2)
+     *          │    │    │    │
+     *          │    │    │    └── recursion(5, 2)
+     *          │    │    │    │    │
+     *          │    │    │    │    └── recursion(null, 2)
+     *          │    │    │    │    │     └── nth = 0
+     *          │    │    │    │    │           ↑
+     *          │    │    │    │    └── nth = 1
+     *          │    │    │    │         ↑
+     *          │    │    │    └── nth = 2 (删除节点 4)
+     *          │    │    │         ↑
+     *          │    │    └── nth = 3
+     *          │    │         ↑
+     *          │    └── nth = 4
+     *          │         ↑
+     *          └── nth = 5
+     * </pre>
      *
      * @param p 参数会变
      * @param n 参数不会变
