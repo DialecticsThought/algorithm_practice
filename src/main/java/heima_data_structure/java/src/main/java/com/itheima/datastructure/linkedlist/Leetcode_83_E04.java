@@ -5,9 +5,32 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
  */
 public class Leetcode_83_E04 {
 
-    // 方法1
+    /**
+     * 方法1
+     * <pre>
+     *  eg: 1 -> 1 -> 2 -> 3 -> 3 -> null
+     *   初始情况
+     *      p1   p2
+     *      1 -> 1 -> 2 -> 3 -> 3 -> null
+     *   p1.val == p2.val 那么删除 p2，注意 p1 此时保持不变
+     *      p1   p2
+     *      1 -> 2 -> 3 -> 3 -> null
+     *   p1.val != p2.val 那么 p1，p2 向后移动
+     *           p1   p2
+     *      1 -> 2 -> 3 -> 3 -> null
+     *   p1.val != p2.val 那么 p1，p2 向后移动
+     *                p1   p2
+     *      1 -> 2 -> 3 -> 3 -> null
+     *   p1.val == p2.val 那么删除 p2
+     *                  p1   p2
+     *      1 -> 2 -> 3 -> null
+     *   当 p2 == null 退出循环
+     * </pre>
+     * @param head
+     * @return
+     */
     public ListNode deleteDuplicates1(ListNode head) {
-        // 节点数 < 2
+        // base case 节点数 < 2
         if (head == null || head.next == null) {
             return head;
         }
