@@ -161,7 +161,7 @@ public class Leetcode_21_E06 {
      * @param p2
      * @return
      */
-    public ListNode mergeTwoLists2(ListNode p1, ListNode p2) {
+    public ListNode mergeTwoListsWithRecursion(ListNode p1, ListNode p2) {
         // 基准条件：如果 p2 为空，返回 p1（因为 p1 可能还有节点）
         if (p2 == null) {
             return p1; // 归
@@ -174,12 +174,12 @@ public class Leetcode_21_E06 {
         if (p1.val < p2.val) {
             // 如果 p1 的值小于 p2，
             // 将 p1 的 next 指向 下一轮后的得到的链表头节点
-            p1.next = mergeTwoLists2(p1.next, p2); // 递
+            p1.next = mergeTwoListsWithRecursion(p1.next, p2); // 递
             return p1; // 归
         } else {
             // 如果 p2 的值小于或等于 p1，
             // 将 p2 的 next 指向 下一轮合并后的链表头节点
-            p2.next = mergeTwoLists2(p1, p2.next); // 递
+            p2.next = mergeTwoListsWithRecursion(p1, p2.next); // 递
             return p2; // 归
         }
     }
