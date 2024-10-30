@@ -51,7 +51,7 @@ public class Leetcode_82_E05 {
      * @param p
      * @return
      */
-    public ListNode deleteDuplicates1(ListNode p) {
+    public ListNode deleteDuplicatesWithRecursion(ListNode p) {
         // base case：如果当前节点为空，或当前节点是最后一个节点
         // 返回当前节点（链表末尾或链表为空时直接返回）。
         if (p == null || p.next == null) {
@@ -70,38 +70,50 @@ public class Leetcode_82_E05 {
 
             // 递归调用 deleteDuplicates1(x)，x 是第一个与 p.val 不同的节点
             // 开始处理 x 之后的链表
-            return deleteDuplicates1(x); // x 就是与 p 取值不同的节点
+            return deleteDuplicatesWithRecursion(x); // x 就是与 p 取值不同的节点
         } else {
             // 递：递归处理子链表，更新 p.next
 
             // 当前节点与下一个节点值不同，保留当前节点
             // 递归调用 deleteDuplicates1(p.next)，处理下一个节点
-            p.next = deleteDuplicates1(p.next);
+            p.next = deleteDuplicatesWithRecursion(p.next);
             // 归：当前节点 p 是唯一的，返回它以构建最终的链表
             return p;
         }
     }
 
-    /*
-        p1 p2 p3
-        s, 1, 1, 1, 2, 3, null
-
-        p1 p2    p3
-        s, 1, 1, 1, 2, 3, null
-
-        p1 p2       p3
-        s, 1, 1, 1, 2, 3, null
-
-        p1 p3
-        s, 2, 3, null
-
-        p1 p2 p3
-        s, 2, 3, null
-
-           p1 p2 p3
-        s, 2, 3, null
+    /**
+     * <pre>
+     *  方法2：
+     *  p1:是用来指向被删除节点的前一个节点
+     *  p2：初始指向第1个真实节点
+     *  p3：初始指向第2个真实节点
+     *  通过循环 p2 与 p3 比较
+     *      如果 p2 与 p3 指向节点的值 相同，
+     *          p2不动，p3就不断地往右移动，直到移动到一个和p2的值不同的节点
+     *          这个时候，再让p1的next指针指向p3，相当于原有p2 ~ p3之间的数值被删除了
+     *      如果 p2 与 p3 指向节点的值 不相同，
+     *          p1 , p2 , p3 不断地向右移动
+     *              如果p3移动到null了，说明来到了链表结尾，就要结束
+     *    p1   p2  p3
+     *    s -> 1 -> 1 -> 1 -> 2 -> 3 -> null
+     *
+     *    p1   p2   p3
+     *    s -> 1 -> 1 -> 1 -> 2 -> 3 -> null
+     *
+     *    p1   p2             p3
+     *    s -> 1 -> 1 -> 1 -> 2 -> 3 -> null
+     *
+     *    p1  p3
+     *    s -> 2 -> 3 -> null
+     *
+     *    p1   p2  p3
+     *    s -> 2 -> 3 -> null
+     *
+     *         p1   p2   p3
+     *    s -> 2 -> 3 -> null
+     * </pre>
      */
-    // 方法2
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null || head.next == null) {
             return head;
@@ -123,6 +135,50 @@ public class Leetcode_82_E05 {
         }
         return s.next;
     }
+
+
+
+    public ListNode deleteDuplicates1(ListNode head) {
+        // 如果链表为空或只有一个节点，直接返回 head
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // 创建一个哑节点 s，值为 -1，指向 head
+        ListNode s = new ListNode(-1, head);
+        ListNode p1 = s;
+
+        // 外部赋值 p2 和 p3
+        ListNode p2 = p1.next;
+        ListNode p3 = (p2 != null) ? p2.next : null;
+
+        // 循环条件
+        while (p2 != null && p3 != null) {
+            // 检查 p2 和 p3 的值是否相等
+            if (p2.val == p3.val) {
+                // 跳过重复的值
+                while (p3 != null && p3.val == p2.val) {
+                    p3 = p3.next; // 内部循环找到第一个不重复的节点
+                }
+                // p1.next 直接指向 p3，跳过了所有重复节点
+                p1.next = p3;
+            } else {
+                // 如果 p2 和 p3 的值不同，保留 p2
+                p1 = p1.next; // 移动 p1
+            }
+
+            // 更新 p2 和 p3 的指针
+            p2 = p1.next;
+            p3 = (p2 != null) ? p2.next : null;
+        }
+
+        // 返回去重后的链表头节点
+        return s.next;
+    }
+
+
+
+
 
     public static void main(String[] args) {
         ListNode head = ListNode.of(1, 2, 3, 3, 4, 4, 5);
