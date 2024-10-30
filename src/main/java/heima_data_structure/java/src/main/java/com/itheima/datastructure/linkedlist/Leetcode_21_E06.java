@@ -172,12 +172,14 @@ public class Leetcode_21_E06 {
         }
         // 比较 p1 和 p2 的当前节点值
         if (p1.val < p2.val) {
-            // 如果 p1 的值小于 p2，将 p1 的 next 连接到合并后的结果
-            p1.next = mergeTwoLists(p1.next, p2); // 递
+            // 如果 p1 的值小于 p2，
+            // 将 p1 的 next 指向 下一轮后的得到的链表头节点
+            p1.next = mergeTwoLists2(p1.next, p2); // 递
             return p1; // 归
         } else {
-            // 如果 p2 的值小于或等于 p1，将 p2 的 next 连接到合并后的结果
-            p2.next = mergeTwoLists(p1, p2.next); // 递
+            // 如果 p2 的值小于或等于 p1，
+            // 将 p2 的 next 指向 下一轮合并后的链表头节点
+            p2.next = mergeTwoLists2(p1, p2.next); // 递
             return p2; // 归
         }
     }
