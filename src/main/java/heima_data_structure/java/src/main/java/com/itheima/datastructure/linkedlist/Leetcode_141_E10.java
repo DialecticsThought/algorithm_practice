@@ -29,6 +29,78 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
  *                                                 l
  *      从 a 走到 h 需要 走 7 步
  *      从环的入口 h 走 再走到 h也就是环的出口 需要 走 5 步
+ *
+ *      龟(x) 走一步 兔子(y) 走两步
+ *
+ *      x y                                      i -> j
+ *      ↓                                     ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h              k
+ *                                           ↖          ↙
+ *                                                 l
+ *
+ *           x    y                              i -> j
+ *           ↓    ↓                           ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h              k
+ *                                            ↖          ↙
+ *                                                 l
+ *
+ *                x         y                    i -> j
+ *                ↓         ↓                 ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h              k
+ *                                            ↖          ↙
+ *                                                 l
+ *
+ *                     x              y          i -> j
+ *                     ↓              ↓       ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h              k
+ *                                            ↖          ↙
+ *                                                 l
+ *
+ *                          x              y ->  i -> j
+ *                          ↓                 ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h              k
+ *                                            ↖          ↙
+ *                                                 l
+ *
+ *                               x               i -> j
+ *                               ↓            ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h               k  <- y
+ *                                            ↖          ↙
+ *                                                 l
+ *
+ *
+ *                                    x    y     i -> j
+ *                                    ↓    ↓  ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h               k
+ *                                            ↖          ↙
+ *                                                 l
+ *
+ *                                                    y
+ *                                                    ↓
+ *                                         x     i -> j
+ *                                         ↓  ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h               k
+ *                                            ↖          ↙
+ *                                                 l
+ *
+ *                                          x -> i -> j
+ *                                            ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h               k
+ *                                            ↖          ↙
+ *                                                 l  <- y
+ *
+ *
+ *                                          y -> i -> j  <- x
+ *                                            ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h               k
+ *                                            ↖          ↙
+ *                                                  l
+ *
+ *                                               i -> j
+ *                                            ↗          ↘
+ *      a -> b -> c -> d -> e -> f -> g -> h               k <- x y
+ *                                            ↖          ↙
+ *                                                  l
  * </pre>
  */
 public class Leetcode_141_E10 {
