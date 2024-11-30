@@ -1,5 +1,8 @@
 package timewheel;
 
+import timewheel.task.Task;
+import timewheel.task.TaskExecutor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +25,15 @@ public class InnerSlot implements Slot {
     }
 
     @Override
-    public void executeTasks() {
-        List<Task> toExecute = new ArrayList<>(tasks);  // 复制任务列表以避免在执行过程中修改原列表
-        tasks.clear();  // 清空已执行的任务
-        for (Task task : toExecute) {
-            task.execute();  // 执行每个任务
+    public void executeTasks(TaskExecutor executor) {
+        for (Task task : tasks) {
+            executor.execute(task);  // 使用任务执行器来执行任务
         }
+        tasks.clear();  // 清空已执行的任务
+    }
+
+    @Override
+    public boolean hasTasks() {
+        return !tasks.isEmpty();
     }
 }

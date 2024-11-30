@@ -1,4 +1,4 @@
-package timewheel;
+package timewheel.task;
 
 import java.util.concurrent.Callable;
 
@@ -7,20 +7,23 @@ import java.util.concurrent.Callable;
  * @description
  * @date 2024/11/27 09:27
  */
-public class CallableTaskAdapter<V> implements Task {
-    private final Callable<V> callable;
+public class CallableTaskAdapter<INPUT> extends SimpleTask {
+    private Callable<INPUT> callable;
 
-    public CallableTaskAdapter(Callable<V> callable) {
-        this.callable = callable;
+    public CallableTaskAdapter(Callable<INPUT> callable) {
+        this.callable = (Callable<INPUT>) callable;
     }
 
     @Override
-    public void execute() {
+    public INPUT execute() {
         try {
-            V result = callable.call();  // 执行 Callable 任务
+            // 执行 Callable 任务
+            INPUT result = callable.call();
             System.out.println("Callable executed, result: " + result);
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 

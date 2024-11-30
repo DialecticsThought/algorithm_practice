@@ -133,8 +133,8 @@ package heima_data_structure.java.src.main.java.com.itheima.datastructure.linked
  */
 public class Leetcode_141_E10 {
     public boolean hasCycle(ListNode head) {
-        ListNode h = head; // 兔
-        ListNode t = head; // 龟
+        ListNode h = head; // 兔 走一步
+        ListNode t = head; // 龟 走两步
         while (h != null && h.next != null) {
             t = t.next;
             h = h.next.next;
