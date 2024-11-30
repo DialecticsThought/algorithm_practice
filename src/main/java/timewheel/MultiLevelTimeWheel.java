@@ -1,5 +1,6 @@
 package timewheel;
 
+import timewheel.task.SimpleTask;
 import timewheel.task.Task;
 import timewheel.task.TaskExecutor;
 
@@ -31,7 +32,7 @@ public class MultiLevelTimeWheel {
      * @param task
      * @param delayInSeconds
      */
-    public void addTask(Task task, int delayInSeconds) {
+    public void addTask(SimpleTask task, int delayInSeconds) {
         TimeWheelLevel currentLevel = rootLevel;
         // 遍历每一层时间轮，直到任务被添加到合适的槽
         while (currentLevel != null) {

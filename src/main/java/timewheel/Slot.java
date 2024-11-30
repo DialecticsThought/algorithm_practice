@@ -1,5 +1,6 @@
 package timewheel;
 
+import timewheel.task.SimpleTask;
 import timewheel.task.Task;
 import timewheel.task.TaskExecutor;
 
@@ -15,7 +16,7 @@ interface Slot {
      *
      * @param task
      */
-    void addTask(Task task);
+    void addTask(SimpleTask task);
     /**
      * 执行任务
      */

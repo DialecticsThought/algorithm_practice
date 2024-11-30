@@ -1,5 +1,6 @@
 package timewheel;
 
+import timewheel.task.SimpleTask;
 import timewheel.task.Task;
 import timewheel.task.TaskExecutor;
 
@@ -16,14 +17,14 @@ public class OuterSlot implements Slot {
     }
 
     @Override
-    public void addTask(Task task) {
+    public void addTask(SimpleTask task) {
         // 计算任务应放入下一层时间轮的哪个槽
         if (nextLevel != null) {
             int slotInterval = nextLevel.getSlotInterval();
             int slotCount = nextLevel.getSlots().size();
 
             // 根据任务的延迟时间，计算目标槽
-            int targetSlotIndex = (nextLevel.getCurrentSlotIndex() + task.getDelay() / slotInterval) % slotCount;
+            int targetSlotIndex = (nextLevel.getCurrentSlotIndex() + task.getDelayInSeconds() / slotInterval) % slotCount;
             nextLevel.getSlot(targetSlotIndex).addTask(task);  // 将任务递归地添加到下一层
         }
     }
