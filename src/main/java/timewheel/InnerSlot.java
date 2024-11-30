@@ -1,5 +1,6 @@
 package timewheel;
 
+import timewheel.task.SimpleTask;
 import timewheel.task.Task;
 import timewheel.task.TaskExecutor;
 
@@ -20,7 +21,7 @@ public class InnerSlot implements Slot {
     }
 
     @Override
-    public void addTask(Task task) {
+    public void addTask(SimpleTask task) {
         tasks.add(task);  // 将任务添加到队列中
     }
 
