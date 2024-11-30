@@ -75,7 +75,7 @@ public class MultiLevelTimeWheel {
             // 如果当前层已完成一圈，推进到下一层
             if (currentLevel.getCurrentSlotIndex() == 0 && currentLevel.getNextLevel() != null) {
                 currentLevel = currentLevel.getNextLevel();
-            } else {
+            } else { // 如果当前层没有完成一圈，不需要递归到下一层
                 break;  // 如果当前层没有完成一圈，则退出
             }
         }
