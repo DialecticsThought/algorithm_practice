@@ -1,3 +1,4 @@
+https://zhuanlan.zhihu.com/p/149287061
 
 https://mp.weixin.qq.com/s/BXfogZuQ0NRYm24zh2NI9w
 
@@ -25,3 +26,8 @@ https://mp.weixin.qq.com/s/BXfogZuQ0NRYm24zh2NI9w
 
 6. 处理根节点特殊情况
     - 如果在调整过程中，根节点的关键字数量变为 0，且根节点只有一个子节点，那么将这个子节点作为新的根节点，B + 树的高度减 1。这是一种特殊情况，因为根节点是树的顶层节点，它的变化会影响树的整体结构
+
+
+
+针对情况4和5同事发生
+<img src="./assets/下载.png">
