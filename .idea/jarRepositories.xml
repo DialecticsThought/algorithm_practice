@@ -3,6 +3,11 @@
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
       <option name="id" value="central" />
+      <option name="name" value="central" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
@@ -20,6 +25,11 @@
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://maven.aliyun.com/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="psiegman-repo" />
+      <option name="name" value="psiegman-repo" />
+      <option name="url" value="https://github.com/psiegman/mvn-repo/raw/master/releases" />
     </remote-repository>
   </component>
 </project>

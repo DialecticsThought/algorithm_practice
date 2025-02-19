@@ -1,9 +1,9 @@
-package algorithmbasic2020_master.class25;
+package leetcode;
 
 import java.util.Stack;
 
 // 测试链接：https://leetcode.com/problems/maximal-rectangle/
-public class Code04_MaximalRectangle {
+public class LeetCode_85_MaximalRectangle {
 
 	public static int maximalRectangle(char[][] map) {
 		if (map == null || map.length == 0 || map[0].length == 0) {

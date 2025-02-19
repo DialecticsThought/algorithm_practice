@@ -1,4 +1,4 @@
-package algorithmbasic2020_master.class16;
+package leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;

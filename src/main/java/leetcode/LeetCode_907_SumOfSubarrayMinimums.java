@@ -1,4 +1,4 @@
-package algorithmbasic2020_master.class26;
+package leetcode;
 
 import java.util.Stack;
 

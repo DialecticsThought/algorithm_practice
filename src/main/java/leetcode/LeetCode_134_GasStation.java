@@ -1,4 +1,4 @@
-package algorithmbasic2020_master.class24;
+package leetcode;
 
 import java.util.LinkedList;
 
@@ -71,7 +71,7 @@ import java.util.LinkedList;
  *  但是由于 totalSum 负数的限制，最终还是无法完成整体旅程，最终答案仍然是 -1。
  * </pre>
  */
-public class Code_134_GasStation {
+public class LeetCode_134_GasStation {
 
     // 这个方法的时间复杂度O(N)，额外空间复杂度O(N)
     public static int canCompleteCircuit(int[] gas, int[] cost) {

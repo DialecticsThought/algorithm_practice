@@ -1,4 +1,4 @@
-package algorithmbasic2020_master.class15;
+package leetcode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Stack;
 // 本题为leetcode原题
 // 测试链接：https://leetcode.com/problems/number-of-islands/
 // 所有方法都可以直接通过
-public class Code02_NumberOfIslands {
+public class LeetCode200_NumberOfIslands {
 
 	public static int numIslands3(char[][] grid) {
 		int islands = 0;

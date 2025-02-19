@@ -1,4 +1,4 @@
-package algorithmbasic2020_master.class25;
+package leetcode;
 
 import java.util.Stack;
 
@@ -36,7 +36,7 @@ import java.util.Stack;
  * 弹出  4 -> 5  最左最近是 3->2 最右最近是 -1
  * 弹出  3->2  最左最近是 -1 最右最近是 4 -> 5
  */
-public class LeetCode_85_LargestRectangleInHistogram {
+public class LeetCode_84_LargestRectangleInHistogram {
 
 	public static int largestRectangleArea1(int[] height) {
 		if (height == null || height.length == 0) {
