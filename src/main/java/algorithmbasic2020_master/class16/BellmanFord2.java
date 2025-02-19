@@ -24,7 +24,7 @@ import java.util.Map;
  * 因为 p 为最短路径，且由最短路径的最优子结构性质，可得 δ(v_0, v) = δ(v_0, v_i) + w(v_i, v)。
  *
  * 图 G（不包含权重为负的环）源节点 v_0 到任意一个节点的最短路径包含边的条数小于等于 n - 1，
- * 所以经过 n - 1 此松弛以后，可得源节点 v_0 到任意一个节点的最短路径。
+ * 所以经过 n - 1 次 松弛以后，可得源节点 v_0 到任意一个节点的最短路径。
  *
  * 推论 如果图G=（V，E) |v| =n, |E|=m, 在经过n-1此松弛收敛，则图G存在权重为负的环
  * </pre>
@@ -33,7 +33,7 @@ import java.util.Map;
  * @Author veritas
  * @Data 2024/8/5 18:26
  */
-public class BellmanFord {
+public class BellmanFord2 {
     /**
      * <pre>
      *                2

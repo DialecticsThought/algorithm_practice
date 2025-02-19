@@ -1,4 +1,7 @@
-package algorithmbasic2020_master.class16;
+package heima_data_structure.java.src.main.java.com.itheima.datastructure.graph;
+
+import algorithmbasic2020_master.class16.Edge;
+import algorithmbasic2020_master.class16.Node;
 
 import java.util.ArrayList;
 
@@ -27,7 +30,7 @@ import java.util.ArrayList;
  * 打印或返回距离矩阵dist，以及用于重建路径的前驱矩阵pred
  * </pre>
  */
-public class FloydWarshall {
+public class FloydWarshall2 {
     /**
      * <pre>
      *                2
