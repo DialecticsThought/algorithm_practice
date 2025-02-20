@@ -87,7 +87,7 @@ import java.util.Arrays;
  *
  * eg2:
  * TODO pattern和origin比较时候，永远看的是origin与pattern相同的字符串的部分
- *      也就是说本质是看pattern
+ *      也就是说本质是看pattern字符串，求lps也就是求 pattern的
  * pattern = a b a b a c a
  * origin = a b a b a b a b c a b a c a c a b a b a c a
  * 初始:
@@ -316,7 +316,8 @@ class Leetcode_28_KMP_StrStr {
 
     /**
      * 最长前后缀数组：只跟模式字符串相关
-     * LPS 数组的每个元素 lps[i] 代表的是字符串的前 i+1 个字符的最长前缀和后缀的长度
+     * LPS 数组的每个元素 lps[j] 代表的是字符串的前 j+1 个字符的最长前缀和后缀的长度 ☆☆☆☆☆☆☆
+     * 或者说前 i 个字符的最长前缀和后缀的长度 因为 i = j + 1 ，用来求后缀， j是用来求前缀
      * 1. 索引：使用了模式字符串前 j 个字符串 - 1
      * 2. 值：最长前后缀的长度（恰好是j要跳转的位置）
      * 方法简述：
@@ -501,21 +502,24 @@ class Leetcode_28_KMP_StrStr {
      * </pre>
      */
     static int[] lps(char[] pattern) {
-//        return new int[]{0, 0, 1, 2, 3, 0, 1};
         int[] lps = new int[pattern.length];
         // 两个指针初始状态
-        int i = 1;
-        int j = 0;
-        while (i < pattern.length) {
+        int pointForSuffix = 1; // 用来查后缀
+        int pointForPrefix = 0; // 用来查前缀
+        while (pointForSuffix < pattern.length) {
             // i 处的元素 和 j 处的元素 比较
-            if (pattern[i] == pattern[j]) {// 遇到相同字符的处理逻辑
-                lps[i] = j + 1;
-                i++;
-                j++;
-            } else if (j == 0) {
-                i++;
-            } else {
-                j = lps[j - 1];
+            if (pattern[pointForSuffix] == pattern[pointForPrefix]) {// 遇到相同字符的处理逻辑
+                lps[pointForSuffix] = pointForPrefix + 1;
+                pointForSuffix++;
+                pointForPrefix++;
+            } else if (pointForPrefix == 0) {//类似kmp的做法
+                // 如果 不匹配
+                // 并且求前缀的指针是0说明 该指针不能向前移动了
+                // 只能移动求后缀的指针
+                pointForSuffix++;
+            } else {//类似kmp
+                // 如果 不匹配 那么 求前缀的指针向前移动
+                pointForPrefix = lps[pointForPrefix - 1];
             }
         }
         return lps;
