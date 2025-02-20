@@ -44,9 +44,19 @@ public class Code01_MergeSort {
         merge(arr, L, mid, R);
     }
 
+    /**
+     * 左子数组区间 [left, mid]
+     * 右子数组区间 [mid + 1, right]
+     * @param nums
+     * @param left
+     * @param mid
+     * @param right
+     */
     public static void merge(int[] nums, int left, int mid, int right) {
         //准备一个辅助数组 大小是 L~R的范围
         int[] tmp = new int[right - left + 1];
+        // 原始 left , mid , right 是给arr数组用的
+        // leftStart , leftEnd , rightStart , rightEnd 是给tmp数组用的
         // 左子数组的起始索引和结束索引
         int leftStart = left - left, leftEnd = mid - left;
         // 右子数组的起始索引和结束索引
@@ -95,9 +105,9 @@ public class Code01_MergeSort {
                 }
                 /*
                  * 归并排序 就是左组 和 右组 合并
-                 * 左组 L...M
+                 * 左组 L ~ M
                  * 左组 的最右侧就是下标L + mergeSize - 1
-                 * 右组 M+1...R
+                 * 右组 M+1 ~ R
                  * R =  N - 1 表示凑不齐的情况
                  * R = M+mergeSize 表示 足够的情况
                  * */
