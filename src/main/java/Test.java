@@ -15,19 +15,18 @@ public class Test {
         int[] lps = new int[arr.length];
         int i = 0;
         int j = 1;
+        lps[i] = 0;
+        i++;
+        j++;
         while (i < arr.length) {
             if (arr[i] == arr[j]) {
-                lps[i] = j;
+                lps[i] = lps[i-1] +1;
                 i++;
                 j++;
-            } else if (j == 0) {
-                i++;
-            } else {
-                j = lps[j - 1];
+            }else{
+
             }
         }
-
-        return lps;
     }
 
     public static void main(String[] args) {

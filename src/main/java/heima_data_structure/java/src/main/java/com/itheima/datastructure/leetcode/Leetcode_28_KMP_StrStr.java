@@ -5,6 +5,87 @@ import java.util.Arrays;
 /**
  * <h3>字符串匹配 - Knuth Morris Pratt 算法</h3>
  * <pre>
+ * TODO 目标 让pattern的指针少回退，利用之前匹配成功的子串 来算出 pattern的指针回退到哪里
+ * 找 origin中有没有pattern的子串
+ * eg1:
+ * 1.
+ * pattern = a a a a b
+ *           j
+ * origin  = a a a a a a a a a a a b
+ *           i
+ * origin[i] = pattern[j]
+ * i++ j++
+ * 2.
+ * pattern = a a a a b
+ *             j
+ * origin  = a a a a a a a a a a a b
+ *             i
+ * origin[i] = pattern[j]
+ * i++ j++
+ * 3.
+ * pattern = a a a a b
+ *               j
+ * origin  = a a a a a a a a a a a b
+ *               i
+ * origin[i] = pattern[j]
+ * i++ j++
+ * 4.
+ * pattern = a a a a b
+ *                 j
+ * origin  = a a a a a a a a a a a b
+ *                 i
+ * origin[i] = pattern[j]
+ * i++ j++
+ * 5.
+ * pattern = a a a a b
+ *                   j
+ * origin  = a a a a a a a a a a a b
+ *                   i
+ * origin[i] != pattern[j]
+ * 此时 j不会回到索引0 根据之前匹配到的公共字符串"a a a a" 的前后缀
+ * 对于 pattern而言 求 "a a a a" 的 前缀 也就是 a a a
+ * 对于 origin 而言 求 "a a a a" 的 后缀 也就是 a a a
+ * 即：
+ * pattern = a a a a b
+ *           _ _ _   j
+ * origin  = a a a a a a a a a a a b
+ *             _ _ _ i
+ * 上面带有下划线的部分不用再重复对比了
+ * 那么就是说 pattern的指针j移动到 第4个a上 然后 j和i继续比对
+ * pattern =   a a a a b
+ *                   j
+ * origin  = a a a a a a a a a a a b
+ *                   i
+ * origin[i] = pattern[j]
+ * i++ j++
+ * 6.
+ * pattern =   a a a a b
+ *                     j
+ * origin  = a a a a a a a a a a a b
+ *                     i
+ * origin[i] != pattern[j]
+ * 此时 j不会回到索引0 根据之前匹配到的公共字符串"a a a a" 的前后缀
+ * 对于 pattern而言 求 "a a a a" 的 前缀 也就是 a a a
+ * 对于 origin 而言 求 "a a a a" 的 后缀 也就是 a a a
+ * 即：
+ * pattern = a a a a b
+ *           _ _ _   j
+ * origin  = a a a a a a a a a a a b
+ *               _ _ _ i
+ * 上面带有下划线的部分不用再重复对比了
+ * 那么就是说 pattern的指针j移动到 第4个a上 然后 j和i继续比对
+ * pattern =     a a a a b
+ *                     j
+ * origin  = a a a a a a a a a a a b
+ *                     i
+ * origin[i] = pattern[j]
+ * i++ j++
+ * 7.
+ * ......
+ *
+ *
+ *
+ * eg2:
  * pattern = a b a b a c a
  * origin = a b a b a b a b c a b a c a c a b a b a c a
  * 初始:
@@ -29,6 +110,7 @@ import java.util.Arrays;
  *     _ _ _ i
  * 公共 字符串 a b a b a 的 最长公共前后缀 a b a
  * 之后找的话,可以加速
+ * 相当于pattern字符串的索引0 与 公共前后缀的第一个字符所在origin字符串的索引 对齐 ☆ ☆ ☆ ☆
  *     a b a b a c a
  *     _ _ _     j
  * a b a b a b a b c a b a c a c a b a b a c a
@@ -47,7 +129,7 @@ import java.util.Arrays;
  *             _ _ i
  * 公共 字符串 a b 的 最长公共前后缀 没有
  * 这种情况下 i和j 从头开始,不能加速
- * 之后找的话
+ * 之后找的话 pattern的索引j从0开始
  *                 a b a b a c a
  *                 j
  * a b a b a b a b c a b a c a c a b a b a c a
@@ -60,19 +142,19 @@ import java.util.Arrays;
  * a b a b a b a b c a b a c a c a b a b a c a
  *                   i
  * origin[i] = pattern[j]
- * j++ and i+j
+ * j++ and i++
  *                   a b a b a c a
  *                     j
  * a b a b a b a b c a b a c a c a b a b a c a
  *                     i
  * origin[i] = pattern[j]
- * j++ and i+j
+ * j++ and i++
  *                   a b a b a c a
  *                       j
  * a b a b a b a b c a b a c a c a b a b a c a
  *                       i
  * origin[i] = pattern[j]
- * j++ and i+j
+ * j++ and i++
  *                   a b a b a c a
  *                         j
  * a b a b a b a b c a b a c a c a b a b a c a
@@ -114,7 +196,7 @@ import java.util.Arrays;
  * 求公共字符串的前后缀只和pattern有关
  * pattern
  */
-public class Leetcode_28_KMP_StrStr {
+class Leetcode_28_KMP_StrStr {
     static int strStr(String str1, String str2) {
         char[] origin = str1.toCharArray();     // 原始
         char[] pattern = str2.toCharArray();    // 模式
@@ -208,6 +290,7 @@ public class Leetcode_28_KMP_StrStr {
 
     /**
      * 最长前后缀数组：只跟模式字符串相关
+     * LPS 数组的每个元素 lps[i] 代表的是字符串的前 i+1 个字符的最长前缀和后缀的长度
      * 1. 索引：使用了模式字符串前 j 个字符串 - 1
      * 2. 值：最长前后缀的长度（恰好是j要跳转的位置）
      * 方法简述：
@@ -261,43 +344,47 @@ public class Leetcode_28_KMP_StrStr {
      * 现在的套路:
      * TODO 复制一份相同的str数组，对比写出lps
      * TODO 上面的字符串代表前缀 下面的字符串代表后缀
-     * TODO 查看后缀是 1~i  前缀是 0~j
+     * TODO 查看后缀是 1~i ,i是因为后缀不会包含第0个字符  前缀是 0~j ,j是因为前缀不会包含第str.length-1个字符
      * 初始情况:
      * i=1 j=0
-     * 1.一开始 特例 ： 就一个字符 没有 前后缀
-     *    a a a a b
-     *    j
-     *  a a a a b
-     *    i
-     * 2.前缀: ""  后缀: ""  根据定义 没有公共前后缀  记录 lps[0]=0
-     *    a a a a b
-     *    j
-     *  a a a a b
-     *    i
-     * 3.前缀: a  后缀: a  ,有上面的图中可以看出 "a a" 有共同的前后缀 a 记录 lps[1]=1 j++ i++
-     *    a a a a b
-     *      j
-     *  a a a a b
-     *      i
-     * 4.前缀: a a  后缀: a a  ,有上面的图中可以看出 "a a a" 有共同的前后缀 a a 记录 lps[2]=2  j++ i++
-     *    a a a a b
-     *        j
-     *  a a a a b
-     *        i
-     * 5.前缀: a a a 后缀: a a a 有上面的图中可以看出 "a a a a"有共同的前后缀 a a a 记录 lps[3]=3  j++ i++
-     *    a a a a b
+     * 1.
+     * 一开始 特例 ： 就一个字符 没有 前后缀
+     * 求前缀:   a a a a b
      *          j
-     *  a a a a b
+     * 求后缀: a a a a b
      *          i
-     *  前缀: a a a a 后缀: a a a b  不相同
-     *  j向前
-     *  并且直接跳过一些不需要对比的字符
+     * 前缀: ""  后缀: ""  根据定义 没有公共前后缀  记录 lps[0]=0
+     * 2. 求 "a a"的 前后缀  填写 lps[1]
+     * 求前缀:   a a a a b
+     *          j
+     * 求后缀: a a a a b
+     *          i
+     * 前缀: a  后缀: a  ,有上面的图中可以看出 "a a" 有共同的前后缀 a 记录 lps[1]=1 j++ i++
+     * 3. 求 "a a a"的 前后缀  填写 lps[2]
+     * 求前缀:   a a a a b
+     *            j
+     * 求后缀: a a a a b
+     *            i
+     * 前缀: a a  后缀: a a  ,有上面的图中可以看出 "a a a" 有共同的前后缀 a a 记录 lps[2]=2  j++ i++
+     * 4. 求 "a a a a"的 前后缀  填写 lps[3]
+     * 求前缀:   a a a a b
+     *              j
+     * 求后缀: a a a a b
+     *              i
+     * 前缀: a a a 后缀: a a a 有上面的图中可以看出 "a a a a"有共同的前后缀 a a a 记录 lps[3]=3  j++ i++
+     * 5. 求 "a a a a b"的 前后缀  填写 lps[4]
+     * 求前缀:      a a a a b
+     *                   j
+     * 求后缀:      a a a a b
+     *                     i
+     * 前缀: a a a a 后缀: a a a b  不相同
+     *  j向前 并且 直接跳过一些不需要对比的字符
+     *  因为 前缀 和 后缀 的公共字符串是 a a a  ，求 共字符串 a a a 的公共前后缀 ,已经求过了 是 a a ， 查看  lps[2]=2
      *  也就是
      *    a a a a b
      *    _ _   j
      *  a a a a b
      *      _ _ i
-     *  因为 前缀 和 后缀 的公共部分是 a a a  ，求a a a 的公共前后缀 ,已经求过了 是 a a ， 查看  lps[2]=2
      *  那么 j = 2 i不动
      *  然后得到：
      *      a a a a b
@@ -307,12 +394,12 @@ public class Leetcode_28_KMP_StrStr {
      *  前缀: a a a  后缀: a a b 不相同
      *  j向前
      *  并且直接跳过一写不需要对比的字符
+     *  因为 前缀 和 后缀 的公共部分是 a a ，求a a 的公共前后缀 ,已经求过了 是 a 查看  lps[1]=1
      *  也就是
      *      a a a a b
      *      _   j
      *  a a a a b
      *        _ i
-     *  因为 前缀 和 后缀 的公共部分是 a a ，求a a 的公共前后缀 ,已经求过了 是 a 查看  lps[1]=1
      *  那么  j = 1 i不动
      *  得到：
      *        a a a a b
@@ -332,18 +419,18 @@ public class Leetcode_28_KMP_StrStr {
      *
      * <pre>
      * 遇到了相同字符的case:
-     *   a a a c a a a a a c
-     *   j
-     * a a a c a a a a a c
-     *   i
+     * 求前缀:    a a a c a a a a a c
+     *           j
+     * 求后缀:  a a a c a a a a a c
+     *           i
      * 遇到了相同字符 也就是 [i]==[j]  意味着找到了共同的前后缀 把共同前后缀的长度记录到数组中
      * 当前 i=1 那么把共同前后缀的长度 1 记录到lps[i]中
      * 公共前后缀的长度 和 j 的关系 ==> 公共前后缀的长度 = j + 1
      * 最后 i++ j++
-     *   a a a c a a a a a c
-     *     j
-     * a a a c a a a a a c
-     *     i
+     * 求前缀:    a a a c a a a a a c
+     *             j
+     * 求后缀:  a a a c a a a a a c
+     *             i
      * 遇到了相同字符 也就是 [i]==[j]  意味着找到了共同的前后缀 把共同前后缀的长度记录到数组中
      * 当前 i=2 那么把共同前后缀的长度 2 记录到lps[i]中
      * 公共前后缀的长度 和 j 的关系 ==> 公共前后缀的长度 = j + 1
@@ -369,12 +456,12 @@ public class Leetcode_28_KMP_StrStr {
      * 需要让 j 掉头回去 向前找
      * 但是 之前共同的字符 不需要重新对比一遍
      * 这里比对的是
+     * 找 "a a a" 的最长前缀  "a a"
      *         a a a c a a a a a c
      *         _ _   j
-     *      找 "a a a" 的最长前缀  "a a"
+     * 找 "a a a" 的最长后缀  "a a"
      * a a a c a a a a a c
      *           _ _ i
-     *      找 "a a a" 的最长后缀  "a a"
      * 因为计算过 所以 没有必要重新比对
      * 直接 j调回去 再重新和i比较即可
      * 也就是
@@ -383,7 +470,7 @@ public class Leetcode_28_KMP_StrStr {
      * a a a c a a a a a c
      *               i
      * 这里用到的是 当使用了 前3个字符 这里是 "a a a"的时候 应该跳过的字符个数 直接看 lps[2]即可
-     * lps[2] 中的 索引 2 是因为 j 原来 = 3 , j -- = 2
+     * lps[2] 中的 索引 2 是因为 j 原来 = 3 , j - 1 = 2
      * lps[2]= 2 说明 j需要下次跳到 2 索引
      * </pre>
      */
