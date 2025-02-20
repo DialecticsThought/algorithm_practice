@@ -86,6 +86,8 @@ import java.util.Arrays;
  *
  *
  * eg2:
+ * TODO pattern和origin比较时候，永远看的是origin与pattern相同的字符串的部分
+ *      也就是说本质是看pattern
  * pattern = a b a b a c a
  * origin = a b a b a b a b c a b a c a c a b a b a c a
  * 初始:
@@ -110,13 +112,35 @@ import java.util.Arrays;
  *     _ _ _ i
  * 公共 字符串 a b a b a 的 最长公共前后缀 a b a
  * 之后找的话,可以加速
- * 相当于pattern字符串的索引0 与 公共前后缀的第一个字符所在origin字符串的索引 对齐 ☆ ☆ ☆ ☆
+ * 相当于 pattern索引在 从头开始 遍历 "a b a" 之后来到的位置 这里是 b
+ *     a b a b a c a
+ *           j
+ * a b a b a b a b c a b a c a c a b a b a c a
+ *           i
+ * pattern[i] = origin[j]
+ * i++,j++
+ *
+ *     a b a b a c a
+ *             j
+ * a b a b a b a b c a b a c a c a b a b a c a
+ *             i
+ * pattern[i] = origin[j]
+ * i++,j++
+ *
  *     a b a b a c a
  *     _ _ _     j
  * a b a b a b a b c a b a c a c a b a b a c a
  *         _ _ _ i
  * 公共 字符串 a b a b a 的 最长公共前后缀 a b a
  * 之后找的话,可以加速
+ * 相当于 pattern索引在 从头开始 遍历 "a b a" 之后来到的位置 这里是 b
+ *         a b a b a c a
+ *               j
+ * a b a b a b a b c a b a c a c a b a b a c a
+ *               i
+ * pattern[i] = origin[j]
+ * i++,j++
+ *
  *         a b a b a c a
  *         _ _     j
  * a b a b a b a b c a b a c a c a b a b a c a
@@ -129,14 +153,14 @@ import java.util.Arrays;
  *             _ _ i
  * 公共 字符串 a b 的 最长公共前后缀 没有
  * 这种情况下 i和j 从头开始,不能加速
- * 之后找的话 pattern的索引j从0开始
+ * 之后找的话 pattern的索引j从0开始，origin的索引i不动  ☆ ☆ ☆ ☆ ☆ ☆
  *                 a b a b a c a
  *                 j
  * a b a b a b a b c a b a c a c a b a b a c a
  *                 i
  * origin[i] != pattern[j]
  * 没有公共字符串
- * 直接i++
+ * 直接origin的索引i++ , pattern的索引j不动
  *                   a b a b a c a
  *                   j
  * a b a b a b a b c a b a c a c a b a b a c a
@@ -162,30 +186,32 @@ import java.util.Arrays;
  * origin[i] != pattern[j]
  * 公共 字符串 a b a 的 最长公共前后缀 a
  * 之后找的话
+ * 相当于 pattern索引在 从头开始 遍历 "a " 之后来到的位置 这里是 b
  *                       a b a b a c a
  *                         j
  * a b a b a b a b c a b a c a c a b a b a c a
  *                         i
  * origin[i] != pattern[j]
  * 公共 字符串 a 的 最长公共前后缀 无
- * i++
+ * 之后找的话 pattern的索引j从0开始，origin的索引i不动  ☆ ☆ ☆ ☆ ☆ ☆
  *                         a b a b a c a
  *                         j
  * a b a b a b a b c a b a c a c a b a b a c a
  *                         i
  * 没有公共字符串
+ * 直接origin的索引i++ , pattern的索引j不动
  *                           a b a b a c a
  *                           j
  * a b a b a b a b c a b a c a c a b a b a c a
  *                           i
  * origin[i] = pattern[j]
- * j++ and i+j
+ * j++ and i++
  *                             a b a b a c a
  *                             j
  * a b a b a b a b c a b a c a c a b a b a c a
  *                             i
  * 公共 字符串 a 的 最长公共前后缀 无
- * 直接i++
+ * 直接origin的索引i++ , pattern的索引j不动
  *                               a b a b a c a
  *                               j
  * a b a b a b a b c a b a c a c a b a b a c a
