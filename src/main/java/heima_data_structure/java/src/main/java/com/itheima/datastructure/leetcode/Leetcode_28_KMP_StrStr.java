@@ -407,6 +407,7 @@ class Leetcode_28_KMP_StrStr {
      * 前缀: a a a a 后缀: a a a b  不相同
      *  j向前 并且 直接跳过一些不需要对比的字符
      *  因为 前缀 和 后缀 的公共字符串是 a a a  ，求 共字符串 a a a 的公共前后缀 ,已经求过了 是 a a ， 查看  lps[2]=2
+     *  TODO 类似于递归的思想：本来求的是"a a a a b"的前后缀，现在求a a a a的前后缀 不是求 "a a a b"的前后缀
      *  也就是
      *    a a a a b
      *    _ _   j
@@ -519,6 +520,7 @@ class Leetcode_28_KMP_StrStr {
                 pointForSuffix++;
             } else {//类似kmp
                 // 如果 不匹配 那么 求前缀的指针向前移动
+                // 相当于利用 0~pointForPrefix-1这个字符串的公共前后缀
                 pointForPrefix = lps[pointForPrefix - 1];
             }
         }
