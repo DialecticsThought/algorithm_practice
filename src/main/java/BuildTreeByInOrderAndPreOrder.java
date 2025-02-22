@@ -67,22 +67,4 @@ public class BuildTreeByInOrderAndPreOrder {
         }
     }
 
-
-    public int binarySearch(int[] nums, int target, int l, int r) {
-        if (r < l) {
-            return -1;
-        }
-        int mid = (l + r) / 2;
-        // 如果找到了
-        if (nums[mid] == target) {
-            return mid;
-        }
-        if (nums[mid] > target) {
-            return binarySearch(nums, target, mid + 1, r);
-        }
-        if (nums[mid] < target) {
-            return binarySearch(nums, target, l, mid - 1);
-        }
-        return -1;
-    }
 }
