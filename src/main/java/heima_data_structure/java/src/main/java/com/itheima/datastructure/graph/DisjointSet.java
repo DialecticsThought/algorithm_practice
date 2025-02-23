@@ -23,21 +23,29 @@ public class DisjointSet {
         }
     }
 
-    // find 是找到老大 - 优化1：路径压缩
-    /*
-        find(2) 0
-          find(1) 0
-           find(0)
+    /**
+     *  find 是找到老大 - 优化1：路径压缩
+     *  本质就是找到树的根节点
+     *  根节点的特征: 节点x的对应的数组s中存的就是节点x自己
+     *  如果x不是根节点,节点x的对应的数组s中存的就是节点x的父节点
      */
     public int find(int x) { // x = 2
+        // base case
         if (x == s[x]) {
             return x;
         }
         return s[x] = find(s[x]); // 0    s[2]=0
     }
 
-    // union 是让两个集合“相交”，即选出新老大，x、y 是原老大索引
+    /**
+     * union 是让两个集合“相交”，即选出新老大，
+     * x所在的集合 和 y所在的集合 合并在一起
+     * 本质: x所在的集合的根节点 对应的索引 位置 存放着  x所在的集合的根节点的索引 ，也可以反着来
+     * @param x
+     * @param y
+     */
     public void union(int x, int y) {
+        //也可以 s[x] = y
         s[y] = x;
     }
 

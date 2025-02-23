@@ -59,6 +59,7 @@ public class MergeSortTopDown {
         // 3. 合并
         // 执行 这个方法 说明  split(a1, left, m, a2) 和 split(a1, m + 1, right, a2) 都返回到了这一层
         // 说明 [left ~ m] [m+1 ~ right] 这两个区间有序了 现在要让[left ~ m] [m+1 ~ right]合并成[left ~ right]
+        // 这也是分治的"治" 因为 对于left ~ right 之间 的元素处理好了 向上返回 对于上一层 而言 这一层就是"治"
         merge(a1, left, m, m + 1, right, a2);
         System.arraycopy(a2, left, a1, left, right - left + 1);
         System.out.println(left + " " + right);
