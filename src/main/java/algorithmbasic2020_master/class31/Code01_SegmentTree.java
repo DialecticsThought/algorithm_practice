@@ -1,7 +1,7 @@
 package algorithmbasic2020_master.class31;
 
 /**
- * TODO  构造线段树
+ *   构造线段树
  * ARR = [1,3,5,7,9,11] 每一个节点求出start，end，mid
  * <pre>
  *        [0-5] =>  这个节点start=0，end=5  mid = (0+5)/2=2
@@ -184,26 +184,26 @@ public class Code01_SegmentTree {
         public SegmentTree(int[] origin) {
             n = origin.length;  // 设置原始数组的大小
             MAXN = origin.length + 1;
-            //TODO arr[0] 不用 从1开始使用
+            // arr[0] 不用 从1开始使用
             arr = new int[MAXN];
             for (int i = 1; i < MAXN; i++) {
                 arr[i] = origin[i - 1];
             }
-            //TODO MAXN << 2向左移动2位 就是 *4
+            // MAXN * 2向左移动2位 就是 *4
 
-            //TODO  用来支持脑补概念中，某一个范围的累加和信息
-            sum = new int[MAXN << 2];
-            //TODO  用来支持脑补概念中，某一个范围沒有往下傳遞的纍加任務
-            lazy = new int[MAXN << 2];
-            //TODO  用来支持脑补概念中，某一个范围有没有更新操作的任务
-            change = new int[MAXN << 2];
-            //TODO  用来支持脑补概念中，某一个范围更新任务，更新成了什么
-            update = new boolean[MAXN << 2];
+            //  用来支持脑补概念中，某一个范围的累加和信息
+            sum = new int[MAXN * 2];
+            //  用来支持脑补概念中，某一个范围沒有往下傳遞的纍加任務
+            lazy = new int[MAXN * 2];
+            //  用来支持脑补概念中，某一个范围有没有更新操作的任务
+            change = new int[MAXN * 2];
+            //  用来支持脑补概念中，某一个范围更新任务，更新成了什么
+            update = new boolean[MAXN * 2];
         }
 
-        private void pushUp(int rt) {//TODO 更新当前节点的累加和
-            //TODO 把左节点2*i和右孩子2*i+1累加起来
-            //sum[rt] = sum[rt << 1] + sum[rt << 1 | 1];
+        private void pushUp(int rt) {// 更新当前节点的累加和
+            // 把左节点2*i和右孩子2*i+1累加起来
+            //sum[rt] = sum[rt * 1] + sum[rt * 1 | 1];
             sum[rt] = sum[rt * 2] + sum[rt * 2 + 1];
         }
 
@@ -223,25 +223,22 @@ public class Code01_SegmentTree {
             int mid = (l + r) / 2;
             System.out.println("正在将节点的: " + rt + " (范围: [" + l + ", " + r + "])" + " 懒标记（即未被处理的更新或累加操作）传递给其子节点: ");
             printNodeState(rt, l, r);
-
-            //TODO 针对更新操作
-            if (update[rt]) {//TODO 对于 change[rt]有更新的任务
+            // 针对更新操作
+            if (update[rt]) {// 对于 change[rt]有更新的任务
                 System.out.println("更新标记已经被成功传递并应用到节点: " + rt + " (范围: [" + l + ", " + r + "]) 的子节点上，" +
                         "左子节点范围: [" + l + ", " + mid + "], 右子节点范围: [" + (mid + 1) + ", " + r + "]");
-                //TODO change[rt]的左孩子 也有更新的任务
-                update[rt << 1] = true;
-                //TODO change[rt]的右孩子 也有更新的任务
-                update[rt << 1 | 1] = true;
-                //TODO change[rt]的左孩子 所表示的那段范围的数 更新为change[rt] 表示任务下发
-                change[rt << 1] = change[rt];
-                //TODO change[rt]的右孩子 所表示的那段范围的数 更新为change[rt] 表示任务下发
-                change[rt << 1 | 1] = change[rt];
-                //TODO 左和右孩子之前的所有拦下的累加任务都失效
-                lazy[rt << 1] = 0;
-                lazy[rt << 1 | 1] = 0;
-                //TODO 因为修改了一定范围的数 那么左和右孩子之前的累加和也要被修改
-                //sum[rt << 1] = change[rt] * l;
-                //sum[rt << 1 | 1] = change[rt] * r;
+                // change[rt]的左孩子 也有更新的任务
+                update[rt * 2] = true;
+                // change[rt]的右孩子 也有更新的任务
+                update[rt * 2 + 1] = true;
+                // change[rt]的左孩子 所表示的那段范围的数 更新为change[rt] 表示任务下发
+                change[rt * 2] = change[rt];
+                // change[rt]的右孩子 所表示的那段范围的数 更新为change[rt] 表示任务下发
+                change[rt * 2 + 1] = change[rt];
+                // 左和右孩子之前的所有拦下的累加任务都失效
+                lazy[rt * 2] = 0;
+                lazy[rt * 2 + 1] = 0;
+                // 因为修改了一定范围的数 那么左和右孩子之前的累加和也要被修改
                 sum[rt * 2] = change[rt] * ln;
                 sum[rt * 2 + 1] = change[rt] * rn;
                 update[rt] = false;
@@ -250,12 +247,12 @@ public class Code01_SegmentTree {
                 printNodeState(rt * 2, l, mid);  // 左子节点
                 printNodeState(rt * 2 + 1, mid + 1, r);  // 右子节点
             }
-            if (lazy[rt] != 0) {//TODO 针对添加操作
+            if (lazy[rt] != 0) {// 针对添加操作
                 System.out.println("节点：" + rt + " (范围: [" + l + ", " + r + "]) 懒标记的累加操作已被传递并应用到子节点上，" +
                         "左子节点范围: [" + l + ", " + mid + "], 右子节点范围: [" + (mid + 1) + ", " + r + "]");
-                lazy[rt << 1] += lazy[rt];//TODO 左孩子的之前懒信息+当前节点的的懒信息
+                lazy[rt * 1] += lazy[rt];// 左孩子的之前懒信息+当前节点的的懒信息
                 sum[rt * 2] += lazy[rt] * ln;  //左侧孩子的累加和
-                lazy[rt << 1 | 1] += lazy[rt]; //TODO 右孩子的之前懒信息+当前节点的的懒信息
+                lazy[rt * 1 + 1] += lazy[rt]; // 右孩子的之前懒信息+当前节点的的懒信息
                 sum[rt * 2 + 1] += lazy[rt] * rn; //右侧孩子的累加和
                 lazy[rt] = 0; //当前节点的的懒信息清空
 
@@ -269,21 +266,21 @@ public class Code01_SegmentTree {
         }
 
         /**
-         * TODO
+         *
          * 在初始化阶段，先把sum数组，填好
          * 在arr[l~r]范围上，去build建立数组，1~N，这个数组的第一个位置（树的根节点） 就是代表[l~r]范围
          * rt : 这个范围在sum中的下标
          */
         public void build(int l, int r, int rt) {
-            if (l == r) {//TODO 说明是叶子结点 不用向子节点派发任务
-                sum[rt] = arr[l];//TODO 叶子节点的值等于原始数组的值
+            if (l == r) {// 说明是叶子结点 不用向子节点派发任务
+                sum[rt] = arr[l];// 叶子节点的值等于原始数组的值
                 return;
             }
-            int mid = (l + r) >> 1;
+            int mid = (l + r) / 2;
             //左边的树
-            build(l, mid, rt << 1);
+            build(l, mid, rt * 2);
             //右边的树
-            build(mid + 1, r, rt << 1 | 1);
+            build(mid + 1, r, rt * 2 | 1);
             // 向上更新当前节点的区间和
             pushUp(rt);
         }
@@ -308,25 +305,25 @@ public class Code01_SegmentTree {
          * @param rt 在递归过程中，rt 用于标识当前正在处理的节点，便于操作线段树数组
          */
         public void update(int L, int R, int C, int l, int r, int rt) {
-            //TODO 如果 change[rt]表示l~r范围
+            // 如果 change[rt]表示l~r范围
             // 任务如果把此时的范围全包了！
             if (L <= l && r <= R) {  // 如果当前区间完全在[L, R]范围内
-                update[rt] = true;//TODO 标志位 设置成true 表示change[rt] 对应的范围的所有数都更新成C
+                update[rt] = true;// 标志位 设置成true 表示change[rt] 对应的范围的所有数都更新成C
                 change[rt] = C; // 设置更新值
-                sum[rt] = C * (r - l + 1);//TODO 这里不是累加 而是设置成一个num = 个数 * C
-                lazy[rt] = 0;//TODO 之前揽住的所有累加的任务 全部清空
+                sum[rt] = C * (r - l + 1);// 这里不是累加 而是设置成一个num = 个数 * C
+                lazy[rt] = 0;// 之前揽住的所有累加的任务 全部清空
                 printNodeState(rt, l, r);
                 return;
             }
             // 当前任务躲不掉，无法懒更新，要往下发
-            int mid = (l + r) >> 1;  // 计算中点
-            //TODO 以前的任务下发给子节点
+            int mid = (l + r) /2 ;  // 计算中点
+            // 以前的任务下发给子节点
             pushDown(rt, l, r, mid - l + 1, r - mid); // 向下传递懒惰标记
             if (L <= mid) {   // 如果左子区间与[L, R]有重叠
-                update(L, R, C, l, mid, rt << 1);  // 递归处理左子区间
+                update(L, R, C, l, mid, rt * 2);  // 递归处理左子区间
             }
             if (R > mid) {  // 如果右子区间与[L, R]有重叠
-                update(L, R, C, mid + 1, r, rt << 1 | 1);  // 递归处理右子区间
+                update(L, R, C, mid + 1, r, rt * 2 | 1);  // 递归处理右子区间
             }
             pushUp(rt);  // 向上更新当前节点的区间和
         }
@@ -360,30 +357,30 @@ public class Code01_SegmentTree {
          */
         public void add(int L, int R, int C, int l, int r, int rt) {
             /**
-             *TODO
+             *
              * eg: 3~874 范围上加5  也就是 L=3 R=874 C=5
              * 当前来到的格子是表示范围1~1000 假设格子是sum[1]
              * 会下发任务给左右子节点 1~500,2 表示sum[2]表示1~500范围  501~1000,3 表示sum[3]表示501~1000范围
              * 当来到sum[i]节点表达的是251~500范围 那么就不会下发任务 因为任务全部包揽了
              * */
-            //TODO 这个情况， 任务如果把此时的范围全包了！
+            // 这个情况， 任务如果把此时的范围全包了！
             if (L <= l && r <= R) {// 如果当前区间完全在[L, R]范围内
-                sum[rt] += C * (r - l + 1); //TODO 更新当前节点的区间和
-                lazy[rt] += C; //TODO 更新 懒更新的信息  之前揽住的累加的任务 和当前拦住的累加的任务
+                sum[rt] += C * (r - l + 1); // 更新当前节点的区间和
+                lazy[rt] += C; // 更新 懒更新的信息  之前揽住的累加的任务 和当前拦住的累加的任务
                 return;
             }
-            //TODO 来到这里说明 任务没有把你全包！
+            // 来到这里说明 任务没有把你全包！
             int mid = (l + r) / 2;//mid = (l+r) >>1
-            pushDown(rt, l, r, mid - l + 1, r - mid);//TODO 之前的揽住的任务 先下发 用来承接新任务
-            //TODO 到这里老的任务 下发完毕 开始新的任务
+            pushDown(rt, l, r, mid - l + 1, r - mid);// 之前的揽住的任务 先下发 用来承接新任务
+            // 到这里老的任务 下发完毕 开始新的任务
             // L~R范围
-            if (L <= mid) {//TODO  如果左子区间与[L, R]有重叠 判断是否要把新的任务发给左孩子
+            if (L <= mid) {//  如果左子区间与[L, R]有重叠 判断是否要把新的任务发给左孩子
                 add(L, R, C, l, mid, (rt * 2)); // 递归处理左子区间
             }
-            if (R > mid) {//TODO 如果右子区间与[L, R]有重叠 判断是否要把新的任务发给右孩子
+            if (R > mid) {// 如果右子区间与[L, R]有重叠 判断是否要把新的任务发给右孩子
                 add(L, R, C, mid + 1, r, (rt * 2 + 1)); // 递归处理右子区间
             }
-            pushUp(rt);//TODO 向上更新当前节点的区间和
+            pushUp(rt);// 向上更新当前节点的区间和
         }
 
         /**
@@ -402,10 +399,10 @@ public class Code01_SegmentTree {
             pushDown(rt, l, r, mid - l + 1, r - mid);     // 向下传递懒惰标记
             long ans = 0;
             if (L <= mid) {                         // 如果左子区间与[L, R]有重叠
-                ans += query(L, R, l, mid, rt << 1); // 递归查询左子区间
+                ans += query(L, R, l, mid, rt * 2); // 递归查询左子区间
             }
             if (R > mid) {                          // 如果右子区间与[L, R]有重叠
-                ans += query(L, R, mid + 1, r, rt << 1 | 1); // 递归查询右子区间
+                ans += query(L, R, mid + 1, r, rt * 2 | 1); // 递归查询右子区间
             }
             return ans;                             // 返回查询结果
         }

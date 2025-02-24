@@ -11,21 +11,28 @@ import java.util.regex.Pattern;
  * @Data 2024/10/8 12:09
  */
 public class Test {
-    public static int[] lps(char[] arr) {
-        int[] lps = new int[arr.length];
-        int i = 0;
-        int j = 1;
-        lps[i] = 0;
-        i++;
-        j++;
-        while (i < arr.length) {
-            if (arr[i] == arr[j]) {
-                lps[i] = lps[i-1] +1;
-                i++;
-                j++;
-            }else{
 
-            }
+    public void process(int[] nums,int left,int right){
+        if(right< left){
+            return;
+        }
+        int mid = (left+right)/2;
+        process(nums,left,mid);
+        process(nums,mid+1,right);
+
+        mergeSort(nums,left,mid,right);
+    }
+
+    public void mergeSort(int[] nums,int left,int mid,int right){
+        int[] temp = new int[right-left+1];
+
+        int leftStart = left -left;
+        int rightStart = right + 1 - mid;
+        int leftEnd = mid -left;
+        int rightEnd = right - left;
+
+        for(int k =left ;k <=right ;k++){
+
         }
     }
 

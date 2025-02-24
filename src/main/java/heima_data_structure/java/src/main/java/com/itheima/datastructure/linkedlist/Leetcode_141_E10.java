@@ -1,7 +1,8 @@
 package heima_data_structure.java.src.main.java.com.itheima.datastructure.linkedlist;
 
 /**
- * 检测链表是否有环
+ * 检测链表是否
+ * 有环
  *
  * <pre>
  *   如果链表上存在环，那么在环上以不同速度前进的两个指针必定会在某个时刻相遇。算法分为两个阶段
