@@ -508,8 +508,8 @@ class Leetcode_28_KMP_StrStr {
     static int[] lps(char[] pattern) {
         int[] lps = new int[pattern.length];
         // 两个指针初始状态
-        int pointForSuffix = 1; // 用来查后缀
-        int pointForPrefix = 0; // 用来查前缀
+        int pointForSuffix = 1; // 用来查后缀  就是例子中的i
+        int pointForPrefix = 0; // 用来查前缀  就是例子中的j
         while (pointForSuffix < pattern.length) {
             // i 处的元素 和 j 处的元素 比较
             if (pattern[pointForSuffix] == pattern[pointForPrefix]) {// 遇到相同字符的处理逻辑
