@@ -5,24 +5,24 @@ import java.util.Arrays;
 /**
  * 希尔排序 插入排序就是gap = 1 的shell排序
  * [ 9, 3, 7, 2, 5, 8, 1, 4]
- *   0  1  2  3  4  5  6  7
+ * 0  1  2  3  4  5  6  7
  * 一开始 gap=4
  * 那么索引 [0,4] [1,5] [2,6] [3,7] 各个分成一组
  * 排序完
  * [ 5, 3, 1, 2, 9, 8, 7, 4]
- *   0  1  2  3  4  5  6  7
- *
+ * 0  1  2  3  4  5  6  7
+ * <p>
  * 此时 gap= gap / 2 = 2
  * 那么索引 [0,2,4,6] [1,3,5,7]各个分成一组
  * 排序完
  * [ 1, 2, 5, 3, 7, 4, 9, 8]
- *   0  1  2  3  4  5  6  7
- *
+ * 0  1  2  3  4  5  6  7
+ * <p>
  * 此时 gap= gap / 2 = 1
  * 那么索引 [0  1  2  3  4  5  6  7]各个分成一组
  * 排序完
  * [ 1, 2, 3, 4, 5, 7, 8, 9]
- *   0  1  2  3  4  5  6  7
+ * 0  1  2  3  4  5  6  7
  */
 public class ShellSort {
     public static void sort(int[] a) {
@@ -41,7 +41,7 @@ public class ShellSort {
              * 此时 gap= gap / 2 = 2 , low = gap =2
              * 对于 1 而言 这个单独的数字就是已排序的区间的右边界
              * 对于 5 而言 就是未排序区域的左边界
-             第一步：low = 2
+             * 第一步：low = 2
              tmp = a[2] = 1
              i = low - gap = 2 - 2 = 0，也就是我们要开始从索引 0 开始比较。
              比较 tmp (1) 和 a[0] (5)，发现 1 < 5，所以将 5 移动到索引 2：
@@ -85,11 +85,12 @@ public class ShellSort {
              更新 i = 3，继续比较 4 和 a[3] (3)，4 > 3，跳出 while 循环。
              将 4 插入到索引 4：
              [ 1, 2, 5, 3, 4, 7, 9, 8 ]
+
              */
             for (int low = gap; low < a.length; low++) {
                 // 未排序区域的左边界 起到缓存的作用
                 int tmp = a[low];
-                // 一开始 是已排序的区间的右边界的索引
+                // 一开始 i是已排序的区间的右边界的索引
                 // 这是一个辅助变量，用来指向该元素在已排序部分的“前一个位置”。 因为比较的数字相差gap
                 // 然后我们会比较该元素与“前一个位置”的元素，直到找到正确的插入位置
                 // 而且也表示 元素 tmp 最终应该插入的位置。
@@ -97,11 +98,12 @@ public class ShellSort {
                 // 自右向左找插入位置，如果比待插入元素(也就是tmp)大，则不断右移，空出插入位置
                 // i是插入排序中用来找到元素最终位置的变量。
                 // 在 while 循环中，i 会逐步往左移动，直到找到一个合适的插入位置
+                // TODO 跳出循环的条件是i >= 0 && tmp < a[i] ，也就是说 此时 <= 0 或者 tmp > a[i] 那么 tmp就要放在 i+gap上
                 while (i >= 0 && tmp < a[i]) {
                     // 这里交换是因为上面变量tmp缓存了
                     a[i + gap] = a[i];
                     // 交换完 当前 更新 下一个需要比对的位置
-                    i =i - gap;
+                    i = i - gap;
                 }
                 // 找到插入位置
                 // low - gap是元素 tmp 最开始的位置
@@ -115,6 +117,7 @@ public class ShellSort {
                  *
                  * 如果 i != low - gap：
                  * 这意味着在 while 循环中，i 移动了，元素 tmp 的位置发生了变化。
+                 * 一开始 i是已排序的区间的右边界的索引,i 移动了之后
                  * 也就是说，tmp 的正确位置在其他位置，而不是原始位置，所以我们需要将 tmp 插入到新的位置，
                  * 即 i + gap
                  */
@@ -129,15 +132,15 @@ public class ShellSort {
         int val;
         ListNode next;
 
-        ListNode(int val,ListNode next) {
+        ListNode(int val, ListNode next) {
             this.val = val;
             this.next = next;
         }
 
-        public ListNode reverse (ListNode head){
+        public ListNode reverse(ListNode head) {
             // p是反转链表的头指针
             ListNode p = null;
-            while(head != null){
+            while (head != null) {
                 // 当前节点是head
                 // 得到当前节点的下一个节点
                 ListNode currentNext = head.next;

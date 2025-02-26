@@ -16,7 +16,27 @@ import java.util.Arrays;
  * </ol>
  */
 public class QuickSortLomuto {
-
+    /**
+     * <pre>
+     * [5  3  7  2  9  8  1  4]
+     *  0  1  2  3  4  5  6  7
+     *  ↑                    ↑
+     * left                right
+     * 以 4为 基准点 也就是以 right指针指向的元素作为基准点
+     * 把 < 4排在 左边 , > 4 排在 右边
+     * 得到
+     * [3  2  1  4  9  8  7  5]
+     *  0  1  2  3  4  5  6  7
+     *  ↑                    ↑
+     * left                right
+     * 现在对  < 4 , > 4 这2个区域 分别 再做上述操作
+     *  [3  2  1  4  9  8  7  5]
+     *   0  1  2  3  4  5  6  7
+     *   ↑     ↑     ↑        ↑
+     * left right   left    right
+     * </pre>
+     * @param a
+     */
     public static void sort(int[] a) {
         quick(a, 0, a.length - 1);
     }
@@ -30,10 +50,85 @@ public class QuickSortLomuto {
         quick(a, p + 1, right);
     }
 
+    /**
+     * <pre>
+     *   4  3  7  2  9  8  1  5
+     *   0  1  2  3  4  5  6  7
+     *   ↑                    ↑
+     * left                  right
+     *   i
+     *   j
+     *   i = j
+     *   i++ j++
+     *   4  3  7  2  9  8  1  5
+     *   0  1  2  3  4  5  6  7
+     *   ↑  ↑                 ↑
+     * left i                right
+     *      j
+     *   a[j] < pv but i = j
+     *   i++, j++
+     *
+     *   4  3  7  2  9  8  1  5
+     *   0  1  2  3  4  5  6  7
+     *   ↑     ↑              ↑
+     * left    i             right
+     *         j
+     *   a[j] > pv
+     *   j++
+     *
+     *   4  3  7  2  9  8  1  5
+     *   0  1  2  3  4  5  6  7
+     *   ↑     ↑  ↑           ↑
+     * left    i  j          right
+     *   a[j] < pv
+     *   swap(a, i, j)
+     *   i++ , j++
+     *
+     *   4  3  2  7  9  8  1  5
+     *   0  1  2  3  4  5  6  7
+     *   ↑        ↑  ↑        ↑
+     * left       i  j      right
+     *   a[j] > pv
+     *   j++
+     *
+     *   4  3  2  7  9  8  1  5
+     *   0  1  2  3  4  5  6  7
+     *   ↑        ↑     ↑     ↑
+     * left       i     j   right
+     *   a[j] > pv
+     *   j++
+     *
+     *   4  3  2  7  9  8  1  5
+     *   0  1  2  3  4  5  6  7
+     *   ↑        ↑        ↑  ↑
+     * left       i        j right
+     *   a[j] < pv
+     *   swap(a, i, j)
+     *   i++ , j++
+     *
+     *   4  3  2  1  9  8  7  5
+     *   0  1  2  3  4  5  6  7
+     *   ↑           ↑        ↑
+     * left          i       right
+     *                        j
+     *   swap(a, i, right);
+     *
+     *   4  3  2  1  5  8  7  9
+     *   0  1  2  3  4  5  6  7
+     *   ↑           ↑        ↑
+     * left          i       right
+     *                        j
+     * 结束
+     * </pre>
+     * @param a
+     * @param left
+     * @param right
+     * @return
+     */
     private static int partition(int[] a, int left, int right) {
         int pv = a[right]; // 基准点元素值
-        int i = left;
-        int j = left;
+        int i = left;    // 从左往右 找 > pv的元素
+        int j = left;     // 从左往右 找 < pv的元素
         while (j < right) {
             if (a[j] < pv) { // j 找到比基准点小的了, 没找到大的
                 if (i != j) {
@@ -59,4 +154,5 @@ public class QuickSortLomuto {
         sort(a);
         System.out.println(Arrays.toString(a));
     }
+
 }
