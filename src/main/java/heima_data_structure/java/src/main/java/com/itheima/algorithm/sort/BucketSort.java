@@ -15,17 +15,19 @@ public class BucketSort {
         System.out.println(Arrays.toString(ages));
     }
 
-    /*
-        0
-        1   18
-        2   20 25 28
-        3   31
-        4
-        5
-        6   66 67
-        7
-        8
-        9
+    /**
+     * 下面 每一行 就是一个桶
+     * 遍历原始数组 ages 依次放入 桶中 根据元素的十位 决定
+     * 0
+     * 1   18
+     * 2   20 25 28
+     * 3   31
+     * 4
+     * 5
+     * 6   66 67
+     * 7
+     * 8
+     * 9
      */
     public static void sort(int[] ages) {
         // 1. 准备桶
