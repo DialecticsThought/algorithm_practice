@@ -1,5 +1,3 @@
-package algorithmbasic2020_master.class32;
-
 /**
  * TODO
  * https://www.bilibili.com/video/BV1rE411a7x9/
@@ -75,7 +73,7 @@ package algorithmbasic2020_master.class32;
  *                           c[4]                           xxxx
  *                ↙          ↓                    ↙           ↓
  *        c[2]              xxxx            c[6]           xxxx
- *      ↙   ↓            ↙   ↓            ↙   ↓           ↙   ↓
+ *    ↙     ↓          ↙     ↓          ↙     ↓         ↙     ↓
  * c[1]    xxxx     c[3]    xxxx    c[5]    xxxx    c[7]    xxxx
  * </pre>
  * 当在A[1]加上值val，即更新A[1]时，需要向上更新C[1],C[2],C[4],C[8]，
@@ -87,6 +85,7 @@ package algorithmbasic2020_master.class32;
  * lowbit(2) = 2(010) + lowbit(2) = 4(100)     C[4]+=val；
  * lowbit(4) = 4(100) + lowbit(4) = 8(1000)    C[8]+=val；
  * 由于c[1] c[2] c[4] c[8] 都包含有A[1]，所以在更新A[1]时实际上就是更新每一个包含A[1]的节点。
+ * <p>
  * 总结
  * 树状数组的重点就是利用二进制的变化，动态地更新树状数组。
  * <p>
@@ -97,35 +96,67 @@ package algorithmbasic2020_master.class32;
  * 如果是更新A[i]的值，则每一次对C[i] 中的 i 向上更新，即每次i+=lowbit(i),这样就能C[i] 以及C[i] 的所有父节点都加上val。
  * <p>
  * 反之求区间和也是和更新节点值差不多，只不过每次 i-=lowbit(i)。
+ *
+ * <pre>
+ * eg:
+ * 对应的树状数组
+ *
+ *                                                                      t[8](1000)   这一层的节点所覆盖的长度是(1000)B = (8)D
+ *                                                      ↙              ／   /  |
+ *                                                 ↙                ／     /   |
+ *                                             ↙                  ／      /    |
+ *                                 t[4](0100)                   ／       /     |     这一层的节点所覆盖的长度是(100)B = (4)D
+ *                           ↙     /    |                     ／        /      |
+ *                       ↙        /     |                   ／         /       |
+ *            t[2](0010)         /      |             t[6](0110)      /        |     这一层的节点所覆盖的长度是(10)B = (2)D
+ *    /           |             /       |           /       |        /         |
+ * t[1](0001)     |     t[3](0011)      |    t[5](0101)     |    t[7](0111)    |     这一层的节点所覆盖的长度是(1)B = (2)D
+ *  |             |           |         |         |         |        |         |
+ * a[1]         a[2]        a[3]       a[4]      a[5]      a[6]      a[7]     a[8]
+ *
+ * 每一个节点t[x] 保存以x为根的子树中的叶子结点值的和
+ * 对于树状数组的每一层 的节点 的 二进制表示 最低位 是相同的
+ * 每一个节点t[x]的长度 = lowbit(x)
+ * 每一个节点t[x]的父节点 = t[x+lowbit(x)]
+ * 整棵树的深度 log2n+1
+ *
+ * 执行add(x,k)操作
+ * eg:add(3,5)
+ * 需要从叶子结点开始一层层最终找到根节点
+ * 也就是t[3] -> t[4] -> [8]
+ *
+ * 执行ask(x)操作
+ * eg:ask(7) = t[7] + t[6] + [4]
+ * 查询这个点的前缀和 需要从这个点向左上找到上一个节点 (通过 - lowbit)，并且加上其节点的值
+ * 对节点7而言，那么左上一个节点6(7的lowbit是1，那么7-1=6)
+ * 对节点6而言，那么左上一个节点4(6的lowbit是10，那么6-2=4)
+ * </pre>
  */
-public class Code01_IndexTree {
+public class IndexTree {
+    private int[] tree;
+    private int N;
 
-    public static class IndexTree {
+    public IndexTree(int size) {
+        N = size;
+        tree = new int[N + 1];
+    }
 
-        private int[] tree;
-        private int N;
-
-        public IndexTree(int size) {
-            N = size;
-            tree = new int[N + 1];
+    public int sum(int index) {
+        int ret = 0;
+        while (index > 0) {
+            ret += tree[index];
+            index -= index & -index;
         }
+        return ret;
+    }
 
-        public int sum(int index) {
-            int ret = 0;
-            while (index > 0) {
-                ret += tree[index];
-                index -= index & -index;
-            }
-            return ret;
-        }
-
-        public void add(int index, int d) {
-            while (index <= N) {
-                tree[index] += d;
-                index += index & -index;
-            }
+    public void add(int index, int d) {
+        while (index <= N) {
+            tree[index] += d;
+            index += index & -index;
         }
     }
+
 
     public static class Right {
         private int[] nums;
@@ -148,6 +179,19 @@ public class Code01_IndexTree {
             nums[index] += d;
         }
 
+        /**
+         * 求 非负整数n在二进制表示下的最低位1 及其 后面的0 构成的数值
+         * lowbit(44) = lowbit( (101100)2 ) = (100)2 = 4
+         * 先对 1 0 1 1 0 0 全部取反 得到 0 1 0 0 1 1
+         * 再 + 1 得到 0 1 0 1 0 0 在计算机中 用的是补码 直接 ~n 即可
+         * 最后按位与运算
+         * 1 0 1 1 0 0
+         * & 0 1 0 1 0 0
+         * 0 0 0 1 0 0
+         *
+         * @param i
+         * @return
+         */
         public int lowbit(int i) {
             return i & -i;//或者是return i-(i&(i-1));表示求数组下标二进制的非0最低位所表示的值
         }

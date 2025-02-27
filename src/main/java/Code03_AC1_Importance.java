@@ -1,5 +1,3 @@
-package algorithmbasic2020_master.class32;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
