@@ -361,7 +361,7 @@ public class Dijkstra2 {
         public int in;//入度
         public int out;//出度
         public ArrayList<Node> nexts;//直接邻居
-        public ArrayList<heima_data_structure.java.src.main.java.com.itheima.datastructure.graph.Edge> edges;//从该节点出发的边 会存在这个集合里面
+        public ArrayList<Edge> edges;//从该节点出发的边 会存在这个集合里面
 
         public Node(int value) {
             this.value = value;

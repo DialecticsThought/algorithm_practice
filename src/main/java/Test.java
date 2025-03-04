@@ -12,29 +12,7 @@ import java.util.regex.Pattern;
  */
 public class Test {
 
-    public void process(int[] nums,int left,int right){
-        if(right< left){
-            return;
-        }
-        int mid = (left+right)/2;
-        process(nums,left,mid);
-        process(nums,mid+1,right);
 
-        mergeSort(nums,left,mid,right);
-    }
-
-    public void mergeSort(int[] nums,int left,int mid,int right){
-        int[] temp = new int[right-left+1];
-
-        int leftStart = left -left;
-        int rightStart = right + 1 - mid;
-        int leftEnd = mid -left;
-        int rightEnd = right - left;
-
-        for(int k =left ;k <=right ;k++){
-
-        }
-    }
 
     public static void main(String[] args) {
         // 文件夹路径
