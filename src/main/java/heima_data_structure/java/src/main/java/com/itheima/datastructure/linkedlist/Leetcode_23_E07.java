@@ -103,6 +103,38 @@ public class Leetcode_23_E07 {
         }
     }
 
+    /**
+     *
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        // 创建哑节点和一个指针 current 指向哑节点
+        ListNode dummy = new ListNode(0, null);
+        ListNode current = dummy;
+        // 当两个链表都不为空时，逐个比较并连接较小的节点
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                current.next = l1;
+
+                l1 = l1.next;
+            } else {
+                current.next = l2;
+
+                l2 = l2.next;
+            }
+        }
+        // 当其中一个链表遍历完，将另一个链表直接连接到 current 后面
+        if (l1 != null) {
+            current.next = l1;
+        }
+        if (l2 != null) {
+            current.next = l2;
+        }
+        return dummy.next;
+    }
+
 
     /**
      * <h3>Divide and Conquer 分而治之（分、治、合）</h3>

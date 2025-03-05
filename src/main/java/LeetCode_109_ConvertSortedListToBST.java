@@ -55,6 +55,7 @@ public class LeetCode_109_ConvertSortedListToBST {
             return new TreeNode(head.val);
         }
         // 使用快慢指针找到中间节点，并断开链表
+        //TODO prev是 指向 slow指针的前一个节点
         ListNode prev = null; // 用来 指向链表中间节点的前一个节点 目的是用来断开左半部分链表
         ListNode slow = head; // 用来 指向链表中间节点，即当前子树的根
         ListNode fast = head;
@@ -64,8 +65,8 @@ public class LeetCode_109_ConvertSortedListToBST {
          */
         while (fast != null && fast.next != null) {
             prev = slow;      // 记录慢指针当前的位置
-            fast = fast.next.next; // 慢指针前进一步
-            slow = slow.next; // 快指针走两步
+            fast = fast.next.next; // 快指针走两步
+            slow = slow.next;// 慢指针前进一步
         }
         // 执行到这 说明 上面的while循环结束了
 

@@ -40,8 +40,8 @@ public class LeetCode_103_ZigZagLevelTraversal {
         queue1.offer(root);
 
         while (!queue1.isEmpty()) {
+            // 遍历当前层的数量
             int size = queue1.size();
-
             //用来保存的当前层遍历的结果
             List<Integer> level = new LinkedList<>();
             // 遍历当前层
