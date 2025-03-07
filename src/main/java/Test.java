@@ -13,6 +13,36 @@ import java.util.regex.Pattern;
 public class Test {
 
 
+    public static void radixSort(String[] list, int length) {
+        ArrayList<String>[] buckets = new ArrayList[256];
+
+        for (int i = 0; i < 256; i++) {
+            buckets[i] = new ArrayList<>();
+        }
+
+        for (int i = length - 1; i >= 0; i--) {
+
+            for (String string : list) {
+
+                char c = string.charAt(i);
+
+                buckets[c].add(string);
+            }
+
+            int k = 0;
+
+            for (ArrayList<String> bucket : buckets) {
+
+                for (String str : bucket) {
+                    list[k] = str;
+                    k++;
+                }
+
+                bucket.clear();
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         // 文件夹路径
