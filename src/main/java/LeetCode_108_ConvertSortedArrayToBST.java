@@ -23,7 +23,6 @@ public class LeetCode_108_ConvertSortedArrayToBST {
             this.right = right;
         }
     }
-
     public TreeNode sortedArrayToBST(int[] nums, int left, int right) {
         // base case
         if (left > right) {

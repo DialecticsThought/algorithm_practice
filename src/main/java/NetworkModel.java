@@ -10,10 +10,8 @@ import java.util.Map;
  * @Data 2024/10/21 17:27
  */
 public class NetworkModel {
-
     class client {
         Socket socket;
-
         public client(String host, Integer port) {
             try {
                 this.socket = new Socket(host, port);
@@ -21,8 +19,6 @@ public class NetworkModel {
                 throw new RuntimeException(e);
             }
         }
-
-
         public void sendText(String text) {
             try {
                 OutputStream outputStream = socket.getOutputStream();
@@ -56,7 +52,6 @@ public class NetworkModel {
                 throw new RuntimeException(e);
             }
         }
-
         public void sendFile(String filePath) {
             try {
                 File file = new File(filePath);
@@ -78,7 +73,6 @@ public class NetworkModel {
                 throw new RuntimeException(e);
             }
         }
-
         public void receiveFile(String filePath) {
             try {
                 File file = new File(filePath);
@@ -101,7 +95,6 @@ public class NetworkModel {
             }
         }
 
-
         public void close() {
             try {
                 socket.close();
@@ -110,7 +103,6 @@ public class NetworkModel {
             }
         }
     }
-
     class Server {
         ServerSocket serverSocket;
         // 存储每个客户端的Socket和标记
@@ -123,7 +115,6 @@ public class NetworkModel {
                 throw new RuntimeException(e);
             }
         }
-
         /**
          * TCP 连接的独立性：
          *      每次 Socket 连接建立时，TCP 会生成一个唯一的连接标识，基于 四元组：客户端 IP 地址、客户端端口号、服务器 IP 地址、服务器端口号。
@@ -134,9 +125,7 @@ public class NetworkModel {
          * 不会遇到同一个 Socket：
          *      在服务器端，accept() 每次返回的 Socket 都是一个新的实例，即使来自同一个客户端，也不会返回之前已经使用过的 Socket。
          */
-        public void accept() {
-
-        }
+        public void accept() {}
 
         public void close() {
             try {

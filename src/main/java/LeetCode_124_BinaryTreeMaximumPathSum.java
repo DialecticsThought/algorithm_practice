@@ -10,27 +10,21 @@ public class LeetCode_124_BinaryTreeMaximumPathSum {
         int val;
         TreeNode left;
         TreeNode right;
-
         TreeNode() {
         }
-
         TreeNode(int val) {
             this.val = val;
         }
-
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
             this.left = left;
             this.right = right;
         }
     }
-
     public int maxPathSum(TreeNode root) {
         int[] max = new int[1];
         max[0] = Integer.MIN_VALUE;
-
         maxGain(root,max);
-
         return max[0];
     }
 

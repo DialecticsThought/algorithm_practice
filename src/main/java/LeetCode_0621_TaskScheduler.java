@@ -1,4 +1,3 @@
-package code_for_great_offer.class38;
 /*
 *TODO
 * 给你一个用字符数组tasks 表示的 CPU 需要执行的任务列表。其中每个字母表示一种不同种类的任务。

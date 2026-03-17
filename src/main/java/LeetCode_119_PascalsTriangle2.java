@@ -49,7 +49,6 @@ public class LeetCode_119_PascalsTriangle2 {
         }
         return res;
     }
-
     // 返回指定行的值（注意：rowIndex 是从 0 开始计数的）
     public List<Integer> getRow(int rowIndex) {
         // 生成 rowIndex + 1 行的杨辉三角

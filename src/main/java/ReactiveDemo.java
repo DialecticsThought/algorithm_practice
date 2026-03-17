@@ -77,12 +77,10 @@ import java.util.concurrent.Flow;
  * @Data 2024/10/27 17:09
  */
 public class ReactiveDemo {
-
     // 实现一个简单的发布者类
     class SimplePublisher implements Flow.Publisher<String> {
         private List<Flow.Subscriber<? super String>> subscribers = new ArrayList<>();
         private List<String> data = List.of("Data 1", "Data 2", "Data 3", "Data 4"); // 模拟数据
-
         @Override
         public void subscribe(Flow.Subscriber<? super String> subscriber) {
             SimpleSubscription subscription = new SimpleSubscription(subscriber, data);
@@ -90,7 +88,6 @@ public class ReactiveDemo {
             subscriber.onSubscribe(subscription); // 调用订阅者的 onSubscribe 方法传递 Subscription
         }
     }
-
     // 实现 Subscription 类
     class SimpleSubscription implements Flow.Subscription {
         private final Flow.Subscriber<? super String> subscriber;
@@ -101,7 +98,6 @@ public class ReactiveDemo {
             this.subscriber = subscriber;
             this.data = data;
         }
-
         @Override
         public void request(long n) {
             int count = 0;
@@ -114,7 +110,6 @@ public class ReactiveDemo {
                 subscriber.onComplete(); // 所有数据发送完毕，通知订阅者
             }
         }
-
         @Override
         public void cancel() {
             System.out.println("Subscription canceled.");
@@ -129,25 +124,21 @@ public class ReactiveDemo {
         public SimpleSubscriber(String name) {
             this.name = name;
         }
-
         @Override
         public void onSubscribe(Flow.Subscription subscription) {
             this.subscription = subscription;
             System.out.println(name + " subscribed.");
             subscription.request(2); // 请求 2 个数据
         }
-
         @Override
         public void onNext(String item) {
             System.out.println(name + " received: " + item);
             subscription.request(1); // 请求下一个数据
         }
-
         @Override
         public void onError(Throwable throwable) {
             System.out.println(name + " encountered an error: " + throwable.getMessage());
         }
-
         @Override
         public void onComplete() {
             System.out.println(name + " received all data.");
@@ -160,7 +151,6 @@ public class ReactiveDemo {
         public static void main(String[] args) {
 /*            SimplePublisher publisher = new SimplePublisher();
             SimpleSubscriber subscriber = new SimpleSubscriber("Subscriber 1");
-
             publisher.subscribe(subscriber);  // 向发布者订阅数据*/
         }
     }

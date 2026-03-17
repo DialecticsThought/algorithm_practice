@@ -11,8 +11,6 @@ public class LeetCode_403 {
         public Node child;
     }
 
-    ;
-
     public Node flatten(Node head) {
         return dfs(head);
     }
@@ -22,7 +20,6 @@ public class LeetCode_403 {
         Node last = null;
         // 记录 当前节点的下一个
         Node cur = node;
-
         while (cur != null) {
             // TODO 提前记录
             Node curNext = cur.next;
@@ -31,7 +28,6 @@ public class LeetCode_403 {
                 // 返回  遍历 子链表得到的最后一个节点
                 Node childLast = dfs(cur.child);
                 // TODO  上面的代码执行完 说明 要处理当前这一层链表了
-
                 // TODO 重要 需要恢复
                 curNext = cur.next;
                 // 当前节点 和 当前节点子节点 关联在一起

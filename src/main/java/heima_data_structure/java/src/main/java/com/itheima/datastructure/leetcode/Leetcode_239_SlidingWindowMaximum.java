@@ -1,8 +1,6 @@
 package heima_data_structure.java.src.main.java.com.itheima.datastructure.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * <h3>滑动窗口最大值 - 单调队列</h3>
@@ -84,6 +82,43 @@ public class Leetcode_239_SlidingWindowMaximum {
         }
         return list.stream().mapToInt(Integer::intValue)
                 .toArray();
+    }
+
+    /**
+     * https://www.bilibili.com/video/BV1jzzjBuE64
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int[] func(int[] nums,int k){
+        if(nums==null|| nums.length==0||k<0){
+            return new int[0];
+        }
+        int len = nums.length;
+        // 双端队列
+        Deque<Integer> deque=new ArrayDeque<>();
+        // 维护一个答案数组
+        int[] ans = new int[len - k + 1];
+
+        for(int i=0;i<len;i++){
+            // 遍历来到新的位置 把已经滑出窗口的下标元素丢掉
+            int leftBound = i-k+1;
+            // 窗口左边界 > 队列队首的元素
+            if(!deque.isEmpty()&&deque.peekFirst()<leftBound){
+                deque.removeFirst();
+            }
+            // 队列里的元素是单调递减的，如果当前遍历的元素 大于队列里最后的元素，不断删除，直到队列里的元素 > 当前遍历的元素
+            while(!deque.isEmpty()&&nums[deque.peekLast()]>nums[i]){
+                deque.removeLast();
+            }
+            // 当前元素进入队列
+            deque.addLast(i);
+            // 当窗口形成(i>=k-1) 队首就是最大值
+            if(i>=k-1){
+                ans[leftBound] = nums[deque.peekFirst()];
+            }
+        }
+        return ans;
     }
 
     public static void main(String[] args) {

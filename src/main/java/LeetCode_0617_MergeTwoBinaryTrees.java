@@ -1,5 +1,3 @@
-package code_for_great_offer.class38;
-
 public class LeetCode_0617_MergeTwoBinaryTrees {
 
 	public static class TreeNode {

@@ -25,7 +25,6 @@ public class LeetCode_226_InvertBinaryTree {
         }
     }
 
-
     /**
      * <pre>
      *        4

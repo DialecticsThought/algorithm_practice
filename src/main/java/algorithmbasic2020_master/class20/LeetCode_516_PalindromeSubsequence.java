@@ -2,7 +2,6 @@ package algorithmbasic2020_master.class20;
 
 /**
  * 测试链接：https://leetcode.cn/problems/longest-palindromic-subsequence/
- *
  */
 public class LeetCode_516_PalindromeSubsequence {
 
@@ -13,6 +12,39 @@ public class LeetCode_516_PalindromeSubsequence {
         char[] str = s.toCharArray();
         return f(str, 0, str.length - 1);
     }
+
+    /**
+     * 最长回文子序列
+     *
+     * @param arr
+     * @param left
+     * @param right
+     * @return
+     */
+    public static int lps(char[] arr, int left, int right) {
+        // 回文判断的边界 已经两边的指针指向相同的部分
+        if (left == right) {
+            return 1;
+        }
+        if (left > right) {
+            return 0;
+        }
+        // 把这两个字符都选进回文子序列（它们将成为回文的左右两端）
+        if (arr[left] == arr[right]) {
+            //于是问题缩小到中间：
+            //贡献 2
+            //递归到 f(l+1, r-1)
+            return 2 + lps(arr, left + 1, right + 1);
+        }
+        // 这两个字符不可能同时作为同一条回文的两端（回文要求两端相等），所以至少要“放弃”一个端点
+        // 放弃左边的字符，看[left + 1, right]
+        int case1 = lps(arr, left + 1, right);
+        // 放弃右边的字符，看[left , right-1]
+        int case2 = lps(arr, left, right - 1);
+
+        return Math.max(case1, case2);
+    }
+
 
     //TODO str[L..R]最长回文子序列长度返回
     public static int f(char[] str, int L, int R) {
@@ -47,11 +79,11 @@ public class LeetCode_516_PalindromeSubsequence {
         for (int L = N - 3; L >= 0; L--) {
             for (int R = L + 2; R < N; R++) {
                 //TODO 先比较 某个格子的左侧格子 和 下面格子  也就是比较 可能性3和2
-				dp[L][R] = Math.max(dp[L][R - 1], dp[L + 1][R]);
-				//TODO 如果有可能性4 就 比较左下的格子
-				if (str[L] == str[R]) {
-					dp[L][R] = Math.max(dp[L][R], 2 + dp[L + 1][R - 1]);
-				}
+                dp[L][R] = Math.max(dp[L][R - 1], dp[L + 1][R]);
+                //TODO 如果有可能性4 就 比较左下的格子
+                if (str[L] == str[R]) {
+                    dp[L][R] = Math.max(dp[L][R], 2 + dp[L + 1][R - 1]);
+                }
                /* int p1 = dp[L + 1][R - 1];
                 int p2 = dp[L][R - 1];
                 int p3 = dp[L + 1][R];

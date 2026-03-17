@@ -13,14 +13,11 @@ public class LeetCode_116_PopulatingNextRightPointers {
         public Node left;
         public Node right;
         public Node next;
-
         public Node() {
         }
-
         public Node(int _val) {
             val = _val;
         }
-
         public Node(int _val, Node _left, Node _right, Node _next) {
             val = _val;
             left = _left;
@@ -28,6 +25,7 @@ public class LeetCode_116_PopulatingNextRightPointers {
             next = _next;
         }
     }
+
     public Node connect(Node root) {
         if (root == null) {
             return null;

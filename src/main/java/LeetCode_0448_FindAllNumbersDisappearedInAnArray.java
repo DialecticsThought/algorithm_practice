@@ -1,5 +1,3 @@
-package code_for_great_offer.class38;
-
 import java.util.ArrayList;
 import java.util.List;
 /*

@@ -22,7 +22,6 @@ public class LeetCode_110_IsBalancedBinaryTree {
             this.right = right;
         }
     }
-
     /**
      * @param root
      * @return
@@ -30,7 +29,6 @@ public class LeetCode_110_IsBalancedBinaryTree {
     public boolean isBalanced(TreeNode root) {
         return getBalanced(root) != -1;
     }
-
     /**
      * 利用求树的高度的方法 改良得到 求平衡树
      * @param root

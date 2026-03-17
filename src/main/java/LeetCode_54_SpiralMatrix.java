@@ -50,4 +50,63 @@ public class LeetCode_54_SpiralMatrix {
         }
         return order;
     }
+
+    /**
+     * <pre>
+     *       1 →  2 →  3 →  4
+     *       ↑              ↓
+     *      12   13 → 14    5
+     *       ↑    ↓    ↑    ↓
+     *      11   16 ← 15    6
+     *       ↑              ↓
+     *      10 ←  9 ←  8 ←  7
+     * </pre>
+     * @param matrix
+     * @return
+     */
+    public List<Integer> spiralOrder2(int[][] matrix) {
+        List<Integer> order = new ArrayList<Integer>();
+        // 上 右 下 左
+        // 先找到初始边界
+        int top = 0;
+        int bottom = matrix.length - 1;
+        int left = 0;
+        int right = matrix[0].length - 1;
+        // 边界条件 上边<=下边，左边<=右边
+        while (top <= bottom && left <= right) {
+            // 先对某行 从左到右遍历
+            for (int i = left; i <= right; i++) {
+                // 当前行是top
+                order.add(matrix[top][i]);
+            }
+            // 再对某一个列 从上到下遍历
+            // 从 top+1 开始，避免重复右上角
+            for (int i = top + 1; i <= bottom; i++) {
+                // 当前列是right
+                order.add(matrix[i][right]);
+            }
+            // 再从右到左
+            // top < bottom 的条件下才有底边
+            if (top < bottom) {
+                for (int i = right - 1; i >= left + 1; i--) {
+                    // 当前行是top
+                    order.add(matrix[bottom][i]);
+                }
+            }
+            // 再从下到上
+            // left < right 的条件下才有底边
+            if (left < right) {
+                for (int i = bottom - 1; i >= top + 1; i--) {
+                    // 当前行是top
+                    order.add(matrix[bottom][i]);
+                }
+            }
+            // 收缩边界，进入下一圈
+            top++;
+            bottom--;
+            left++;
+            right--;
+        }
+        return order;
+    }
 }

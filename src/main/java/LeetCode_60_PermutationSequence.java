@@ -15,7 +15,6 @@ public class LeetCode_60_PermutationSequence {
 
         return result.get(k-1);
     }
-
     /**
      * @param n       一共几个数
      * @param counter 当前遍历了几个数了
@@ -45,13 +44,11 @@ public class LeetCode_60_PermutationSequence {
             }
         }
     }
-
     public class Solution {
         // 全局计数器，用于记录当前生成排列的数量
         private int count = 0;
         // 用于保存第 k 个排列结果，一旦找到，就不再继续递归
         private String kthPermutation = null;
-
         public String getPermutation(int n, int k) {
             boolean[] visited = new boolean[n];  // 标记数字 1~n 是否已经使用
             StringBuilder path = new StringBuilder();

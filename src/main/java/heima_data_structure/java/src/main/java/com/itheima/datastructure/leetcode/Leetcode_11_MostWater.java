@@ -7,24 +7,25 @@ public class Leetcode_11_MostWater {
     /**
      * 初始
      * [1, 8, 6, 2, 5, 4, 8, 3, 7]
-     *  i                       j
-     *  先固定 i
-     *  一开始 容量是 1*8  因为j-i=8
-     *  j--
-     *  容量是 1*7  因为j-i=7
-     *  ...
-     *  发现距离变短的情况下，改动了最高的1挡板 容量一定减少
-     *  所以 不需要这么尝试
+     * i                       j
+     * 先固定 i
+     * 一开始 容量是 1*8  因为j-i=8
+     * j--
+     * 容量是 1*7  因为j-i=7
+     * ...
+     * 发现距离变短的情况下，改动了最高的1挡板 容量一定减少
+     * 所以 不需要这么尝试
+     * <p>
+     * 回到初始
+     * [1, 8, 6, 2, 5, 4, 8, 3, 7]
+     * i                       j
+     * 一开始 容量是 1*8  因为j-i=8
+     * 发现 arr[i]<arr[j]
+     * i++
+     * 容量是 7*7  因为j-i=7  7=math.min(arr[i],arr[j])
+     * .....
+     * 两侧挡板都应该往中间缩减距离 ，每一次调整的都是最小的那一个挡板  ☆☆☆☆☆☆☆☆☆☆
      *
-     *  回到初始
-     *  [1, 8, 6, 2, 5, 4, 8, 3, 7]
-     *   i                       j
-     *  一开始 容量是 1*8  因为j-i=8
-     *  发现 arr[i]<arr[j]
-     *  i++
-     *  容量是 7*7  因为j-i=7  7=math.min(arr[i],arr[j])
-     *  .....
-     *  两侧挡板都应该往中间缩减距离 ，每一次调整的都是最小的那一个挡板  ☆☆☆☆☆☆☆☆☆☆
      * @param height
      * @return
      */
@@ -50,6 +51,32 @@ public class Leetcode_11_MostWater {
             }
         }
         return max;
+    }
+
+    /**
+     * 左右指针从两端出发
+     * 面积 = 较小的高度 * 指针距离
+     * 每次移动只移动较矮的那一侧
+     * 过程中记录最大面积
+     * @param arr
+     * @return
+     */
+    public static int func(int[] arr) {
+        int left = 0;
+        int right = arr.length - 1;
+        int maxArea = 0;
+
+        while (left < right) {
+            int area = (right - left) * Math.min(arr[right], arr[left]);
+            maxArea = Math.max(maxArea, area);
+            // 移动“更短”的那一侧
+            if (arr[left] < arr[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return maxArea;
     }
 
     public static void main(String[] args) {

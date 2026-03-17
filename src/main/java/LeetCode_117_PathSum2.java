@@ -25,14 +25,12 @@ public class LeetCode_117_PathSum2 {
             this.right = right;
         }
     }
-
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
         pathSum(root, targetSum, result, path);
         return result;
     }
-
     public void pathSum(TreeNode treeNode, int targetSum,
                         List<List<Integer>> result, List<Integer> integers) {
         // basce case
@@ -58,7 +56,6 @@ public class LeetCode_117_PathSum2 {
         pathSum(treeNode.left, targetSum, result, integers);
         // 来到 自己的右孩子
         pathSum(treeNode.right, targetSum, result, integers);
-
         // 回溯恢复现场 让上层节点去遍历其他路径
         integers.remove(integers.size() - 1);
     }
