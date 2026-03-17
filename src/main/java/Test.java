@@ -1,6 +1,11 @@
+
+
+import heima_data_structure.java.src.main.java.com.itheima.datastructure.linkedlist.ListNode;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,95 +18,54 @@ import java.util.regex.Pattern;
 public class Test {
 
 
-    public static void radixSort(String[] list, int length) {
-        ArrayList<String>[] buckets = new ArrayList[256];
+    public static class ListNode {
+        public int val;
+        public ListNode next;
 
-        for (int i = 0; i < 256; i++) {
-            buckets[i] = new ArrayList<>();
-        }
-
-        for (int i = length - 1; i >= 0; i--) {
-
-            for (String string : list) {
-
-                char c = string.charAt(i);
-
-                buckets[c].add(string);
-            }
-
-            int k = 0;
-
-            for (ArrayList<String> bucket : buckets) {
-
-                for (String str : bucket) {
-                    list[k] = str;
-                    k++;
-                }
-
-                bucket.clear();
-            }
+        public ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
         }
     }
 
 
-    public static void main(String[] args) {
-        // 文件夹路径
-        String folderPath = "K:\\iCloud 照片1"; // 替换为实际的文件夹路径
-        File folder = new File(folderPath);
-
-        // 检查文件夹是否存在
-        if (!folder.exists() || !folder.isDirectory()) {
-            System.out.println("文件夹不存在或不是文件夹");
-            return;
-        }
-
-        // 获取所有 HEIC 文件
-        File[] files = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".heic"));
-
-        System.out.println(files.length);
-
-        if (files == null || files.length == 0) {
-            System.out.println("文件夹中没有 HEIC 文件");
-            return;
-        }
-
-        // 提取文件名中的数字，并进行排序
-        List<ImageFile> imageFiles = new ArrayList<>();
-        Pattern pattern = Pattern.compile("IMG_(\\d+)\\.HEIC", Pattern.CASE_INSENSITIVE);
-        for (File file : files) {
-            Matcher matcher = pattern.matcher(file.getName());
-            if (matcher.matches()) {
-                int number = Integer.parseInt(matcher.group(1));
-                imageFiles.add(new ImageFile(file.getName(), number));
+    public ListNode mergeTwoLists(ListNode p1, ListNode p2) {
+        ListNode dummy = new ListNode(0, null);
+        ListNode current = dummy;
+        while (p1 != null && p2 != null) {
+            if (p1.val <= p2.val) {
+                current.next = p1;
+                p1 = p1.next;
+            } else {
+                current.next = p2;
+                p2 = p2.next;
             }
+            current = current.next;
         }
-
-        // 按数字升序排序
-        imageFiles.sort(Comparator.comparingInt(img -> img.number));
-
-        // 遍历文件列表，检查数字是否连续
-        for (int i = 0; i < imageFiles.size() - 1; i++) {
-            ImageFile current = imageFiles.get(i);
-            ImageFile next = imageFiles.get(i + 1);
-
-            if (next.number != current.number + 1) {
-
-                System.out.println("发现不连续的文件： " + current.name + " 和 " + next.name + ", 相差:" + (next.number - current.number));
-            }
+        if (p1 != null) {
+            current.next = p1;
         }
-
-        System.out.println("检查完成");
+        if (p2 != null) {
+            current.next = p2;
+        }
+        return dummy.next;
     }
 
-    // 辅助类：存储文件名和数字
-    static class ImageFile {
-        String name;
-        int number;
+    public ListNode split(ListNode[] lists, int i, int j) {
 
-        public ImageFile(String name, int number) {
-            this.name = name;
-            this.number = number;
+        if (i == j) {
+            return lists[i];
         }
+        int m = (i + j) / 2;
+        ListNode left = split(lists, i, m);
+        ListNode right = split(lists, m + 1, j);
+        return mergeTwoLists(left, right);
     }
 
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists.length == 0) {
+            return null;
+        }
+        return split(lists, 0, lists.length - 1);
+    }
 }
