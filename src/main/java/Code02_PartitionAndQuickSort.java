@@ -1,7 +1,3 @@
-package algorithmbasic2020_master.class05;
-
-import java.util.HashMap;
-
 public class Code02_PartitionAndQuickSort {
 
     public static void swap(int[] arr, int i, int j) {
@@ -141,6 +137,7 @@ public class Code02_PartitionAndQuickSort {
                 swap(arr, less + 1, index);
                 //  扩大 < 区 的边界 因为上一步 已经将 arr[index] 放入 < 区 的下一个位置
                 less = less + 1;
+                // 为什么这里需要执行的原因: 交换前 arr[less+1] arr[index]都小于arr[more]
                 index = index + 1;
             } else { // 当前元素大于基准值，交换并移动more
                 // 遇到这种情况 扩大 > 区 的边界

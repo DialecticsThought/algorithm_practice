@@ -1,5 +1,3 @@
-package algorithmbasic2020_master.class06;
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -273,6 +271,11 @@ public class Code02_Heap {
             return heapSize == limit;
         }
 
+        /**
+         * 插入时，新元素先放到最后，所以问题从下面开始，往上修。
+         *
+         * @param value
+         */
         public void push(int value) {
             if (heapSize == limit) {
                 throw new RuntimeException("heap is full");
@@ -280,10 +283,13 @@ public class Code02_Heap {
             //一开始新来的节点放在heapSize位置
             heap[heapSize] = value;
             // value  heapSize
-            heapInsert(heap, heapSize++);
+            heapInsert(heap, heapSize);
+            heapSize++;
         }
 
         /**
+         * 弹出堆顶时，最后一个元素先顶到最上面，所以问题从上面开始，往下修
+         * <p>
          * 用户此时，让你返回最大值，并且在大根堆中，把最大值删掉
          * 剩下的数，依然保持大根堆组织
          * eg: [9,8,7,6,3] 返回9这个头节点
@@ -292,10 +298,8 @@ public class Code02_Heap {
          */
         public int pop() {
             int ans = heap[0];
-            /*
-             * --heapSize 先减1 再赋值
-             * */
-            swap(heap, 0, --heapSize);
+            swap(heap, 0, heapSize);
+            heapSize--;
             heapify(heap, 0, heapSize);
             return ans;
         }
@@ -303,7 +307,7 @@ public class Code02_Heap {
         /**
          * 新加进来的数，现在停在了index位置，请依次往上移动，
          * 移动到0位置，或者干不掉自己的父亲了，停！
-         * */
+         */
         private void heapInsert(int[] arr, int index) {
             /*
              *

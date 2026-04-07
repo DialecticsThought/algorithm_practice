@@ -1,6 +1,5 @@
 
 
-import heima_data_structure.java.src.main.java.com.itheima.datastructure.linkedlist.ListNode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,54 +17,75 @@ import java.util.regex.Pattern;
 public class Test {
 
 
-    public static class ListNode {
-        public int val;
-        public ListNode next;
+    public void heapSort(int[] arr) {
+        heapify(arr, arr.length);
+        for (int right = arr.length - 1; right > 0; right--) {
+            swap(arr, 0, right);
+            down(arr, 0, right);
+        }
+    }
 
-        public ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
+    public void heapify(int[] arr, int size) {
+        for (int i = (size / 2) - 1; i >= 0; i--) {
+            down(arr, i, size);
         }
     }
 
 
-    public ListNode mergeTwoLists(ListNode p1, ListNode p2) {
-        ListNode dummy = new ListNode(0, null);
-        ListNode current = dummy;
-        while (p1 != null && p2 != null) {
-            if (p1.val <= p2.val) {
-                current.next = p1;
-                p1 = p1.next;
-            } else {
-                current.next = p2;
-                p2 = p2.next;
+    public void down(int[] arr, int parent, int heapSize) {
+        for (; ; ) {
+            int left = parent * 2 + 1;
+            int right = left + 1;
+            int max = parent;
+            if (left < heapSize && arr[left] > arr[max]) {
+                max = left;
             }
-            current = current.next;
+            if (right < heapSize && arr[right] > arr[max]) {
+                max = right;
+            }
+            if (max == parent) {
+                break;
+            }
+            swap(arr, left, max);
+
+            parent = max;
         }
-        if (p1 != null) {
-            current.next = p1;
-        }
-        if (p2 != null) {
-            current.next = p2;
-        }
-        return dummy.next;
     }
 
-    public ListNode split(ListNode[] lists, int i, int j) {
 
-        if (i == j) {
-            return lists[i];
+    public static int[] nethertLandsFlag(int[] arr, int L, int R) {
+        if (L > R) {
+            return new int[]{-1, -1};
         }
-        int m = (i + j) / 2;
-        ListNode left = split(lists, i, m);
-        ListNode right = split(lists, m + 1, j);
-        return mergeTwoLists(left, right);
+        if (L == R) {
+            return new int[]{L, R};
+        }
+        int less = L - 1;
+        int more = R;
+        int index = L;
+
+        while (index < more) {
+            if (arr[index] == arr[R]) {
+                index = index + 1;
+            }
+            if (arr[index] < arr[R]) {
+                swap(arr, index, less + 1);
+                less = less + 1;
+                index = index + 1;
+            }
+            if (arr[index] > arr[R]) {
+                more = more - 1;
+                swap(arr, index, more - 1);
+            }
+        }
+
+        swap(arr, more, R);
+        return new int[]{less + 1, more};
     }
 
-    public ListNode mergeKLists(ListNode[] lists) {
-        if (lists.length == 0) {
-            return null;
-        }
-        return split(lists, 0, lists.length - 1);
+    public static void swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 }

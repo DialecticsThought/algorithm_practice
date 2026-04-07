@@ -1,5 +1,3 @@
-package algorithmbasic2020_master.class06;
-
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
