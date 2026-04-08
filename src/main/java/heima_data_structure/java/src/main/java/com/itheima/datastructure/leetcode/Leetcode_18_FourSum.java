@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * <h3>4数之和</h3>
  */
-public class Leetcode_18_Sum {
+public class Leetcode_18_FourSum {
     /**
      * <pre>
      * [-2 -1 0 0 1 2]

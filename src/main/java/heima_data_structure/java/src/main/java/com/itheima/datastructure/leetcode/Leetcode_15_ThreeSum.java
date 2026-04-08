@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * <h3>3数之和</h3>
  */
-public class Leetcode_15_Sum {
+public class Leetcode_15_ThreeSum {
     /**
      * 套路：先固定一个数  然后再用两数之和的套路 = 这数的相反数
      * <pre>

@@ -82,7 +82,13 @@ public class LeetCode_50_QuickPow {
         }
     }
 
-
+    /**
+     * 快速求出x^n都多少
+     *
+     * @param x 底数
+     * @param n 指数
+     * @return
+     */
     static double myPowPositive(double x, long n) {
         if (n == 0) {
             return 1.0;
@@ -91,6 +97,12 @@ public class LeetCode_50_QuickPow {
         if (n == 1) {
             return x;
         }
+        // 可以理解为 x ^ n = x ^[n/2] * x ^[n/2] 或者 x ^ n = x * x ^[n/2] * x ^[n/2]
+        // 也就是说 想要知道 x ^ n  需要 先递归算出 x ^[n/2]
+        // eg:
+        // n = 10，算 x^5
+        // n = 9，算 x^4
+        // n = 8，算 x^4
         double y = myPowPositive(x, n / 2);
         /**
          * <pre>
@@ -113,8 +125,10 @@ public class LeetCode_50_QuickPow {
          *  </pre>
          */
         if ((n & 1) == 0) { // 幂n 是 偶数
+            // x ^ n = x ^[n/2] * x ^[n/2]
             return y * y;
         } else { // 幂n 是 奇数
+            // x ^ n = x * x ^[n/2] * x ^[n/2]
             return x * y * y;
         }
     }
