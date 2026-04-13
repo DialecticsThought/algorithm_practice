@@ -35,6 +35,7 @@ public class QuickSortLomuto {
      *   ↑     ↑     ↑        ↑
      * left right   left    right
      * </pre>
+     *
      * @param a
      */
     public static void sort(int[] a) {
@@ -120,27 +121,64 @@ public class QuickSortLomuto {
      *                        j
      * 结束
      * </pre>
+     *
      * @param a
      * @param left
      * @param right
      * @return
      */
     private static int partition(int[] a, int left, int right) {
-        int pv = a[right]; // 基准点元素值
-        int i = left;    // 从左往右 找 > pv的元素
-        int j = left;     // 从左往右 找 < pv的元素
+        // 假设返回值是 p，那么执行完后一定满足：
+        // a[p] == pv
+        // a[left ... p-1] < pv
+        // a[p+1 ... right] >= pv
+        // [ 比 pv 小的区域 ][ pv ][ 大于等于 pv 的区域 ]
+        // 基准点元素值
+        int pv = a[right];
+        // 从左往右 找 > pv的元素
+        int i = left;
+        // 从左往右 找 < pv的元素
+        int j = left;
         while (j < right) {
-            if (a[j] < pv) { // j 找到比基准点小的了, 没找到大的
+            // 如果当前 j 指向的元素比基准值小，那它应该去左边“小于区”
+            // 但是现在它在 j 这个位置，不一定在正确的位置。
+            // j 找到比基准点小的了, 没找到大的
+            if (a[j] < pv) {
+                // 而 i 恰好指向 下一个属于“小于区”的空位
+                // 如果 i != j，说明这个“小元素”现在还 不在它该在的位置
+                //  要交换，把它放过去
+                // 如果 i == j，说明这个“小元素”本来就在它该在的位置
+                //  不需要交换  避免 swap(a, j, j); 也就是“自己和自己交换”
                 if (i != j) {
                     swap(a, i, j);
                 }
                 i++;
             }
+            // 如果 a[j] >= pv，那它本来就该留在右边那一侧
+            // 所以不需要交换
             j++;
         }
         swap(a, i, right);
         return i;
     }
+
+    public int func(int[] nums, int left, int right) {
+        int pv = nums[right];
+        int i = left;
+        int j = left;
+        while (j < right) {
+            if (nums[j] < pv) {
+                if (i != j) {
+                    swap(nums,i,j);
+                }
+                i++;
+            }
+            j++;
+        }
+        swap(nums, j, right);
+        return j;
+    }
+
 
     private static void swap(int[] a, int i, int j) {
         int t = a[i];

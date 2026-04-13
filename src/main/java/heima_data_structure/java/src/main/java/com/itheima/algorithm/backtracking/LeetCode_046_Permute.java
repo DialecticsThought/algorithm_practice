@@ -17,38 +17,39 @@ public class LeetCode_046_Permute {
     /**
      * [1,2,3] 求全排列
      * 递归调用顺序:
-     *
+     * <p>
      * 1. dfs([], [F, F, F])
-     *    |
-     *    |-- 2. dfs([1], [T, F, F])
-     *        |
-     *        |-- 3. dfs([2, 1], [T, T, F])
-     *            |
-     *            |-- 4. dfs([3, 2, 1], [T, T, T]) => 添加排列 [1, 2, 3]
-     *        |
-     *        |-- 5. dfs([3, 1], [T, F, T])
-     *            |
-     *            |-- 6. dfs([2, 3, 1], [T, T, T]) => 添加排列 [1, 3, 2]
-     *    |
-     *    |-- 7. dfs([2], [F, T, F])
-     *        |
-     *        |-- 8. dfs([1, 2], [T, T, F])
-     *            |
-     *            |-- 9. dfs([3, 1, 2], [T, T, T]) => 添加排列 [2, 1, 3]
-     *        |
-     *        |--10. dfs([3, 2], [F, T, T])
-     *            |
-     *            |--11. dfs([1, 3, 2], [T, T, T]) => 添加排列 [2, 3, 1]
-     *    |
-     *    |--12. dfs([3], [F, F, T])
-     *        |
-     *        |--13. dfs([1, 3], [T, F, T])
-     *            |
-     *            |--14. dfs([2, 1, 3], [T, T, T]) => 添加排列 [3, 1, 2]
-     *        |
-     *        |--15. dfs([2, 3], [F, T, T])
-     *            |
-     *            |--16. dfs([1, 2, 3], [T, T, T]) => 添加排列 [3, 2, 1]
+     * |
+     * |-- 2. dfs([1], [T, F, F])
+     * |
+     * |-- 3. dfs([2, 1], [T, T, F])
+     * |
+     * |-- 4. dfs([3, 2, 1], [T, T, T]) => 添加排列 [1, 2, 3]
+     * |
+     * |-- 5. dfs([3, 1], [T, F, T])
+     * |
+     * |-- 6. dfs([2, 3, 1], [T, T, T]) => 添加排列 [1, 3, 2]
+     * |
+     * |-- 7. dfs([2], [F, T, F])
+     * |
+     * |-- 8. dfs([1, 2], [T, T, F])
+     * |
+     * |-- 9. dfs([3, 1, 2], [T, T, T]) => 添加排列 [2, 1, 3]
+     * |
+     * |--10. dfs([3, 2], [F, T, T])
+     * |
+     * |--11. dfs([1, 3, 2], [T, T, T]) => 添加排列 [2, 3, 1]
+     * |
+     * |--12. dfs([3], [F, F, T])
+     * |
+     * |--13. dfs([1, 3], [T, F, T])
+     * |
+     * |--14. dfs([2, 1, 3], [T, T, T]) => 添加排列 [3, 1, 2]
+     * |
+     * |--15. dfs([2, 3], [F, T, T])
+     * |
+     * |--16. dfs([1, 2, 3], [T, T, T]) => 添加排列 [3, 2, 1]
+     *
      * @param nums
      * @param visited
      * @param stack
@@ -71,6 +72,25 @@ public class LeetCode_046_Permute {
                 // 回溯
                 visited[i] = false;
                 stack.pop();
+            }
+        }
+    }
+
+
+    public void func(int[] nums, boolean[] visited, LinkedList<Integer> stack, List<List<Integer>> result) {
+        if (stack.size() == nums.length) {
+            ArrayList<Integer> integers = new ArrayList<>(stack);
+            result.add(integers);
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (!visited[i]) {
+                stack.push(nums[i]);
+                visited[i] = true;
+                func(nums, visited, stack, result);
+                stack.pop();
+                visited[i] = false;
             }
         }
     }
